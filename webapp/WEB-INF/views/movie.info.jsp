@@ -20,8 +20,11 @@
             </div>
         </div>
         <div class="container articles">
+      		
+      		
             <div class="title">사용자 후기</div>
-                ajax로 구현할 부분
+            <!-- ajax로 구현할 부분 -->    
+            
         </div>
 
 

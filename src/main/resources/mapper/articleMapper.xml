@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="test" >
-
+<mapper namespace="article" >
+	<select id ="selectArticleList" resultMap ="ArticleMap" 
+					parameterType = "pkg.article.ArticleVO" statementType = "CALLABLE">
+		{
+			call PKG_FINAL_ARTICLE.PROC_SEL_ARTICLE(
+				#{articleId, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Admin.maps.MenuMap}
+			)
+		}
+	</select>
+	
+	<resultMap type="ArticleMap" id="pkg.article.ArticleVO">
+		<result property ="articleId" column="ARTICLEID"/>
+		<result property ="articleAuthor" column="ARTICLEAUTHOR"/>
+		<result property ="articleContent" column="ARTICLECONTENT"/>
+		<result property ="articleRegdate" column="ARTICLEREGDATE"/>
+		<result property ="articleStar" column="ARTICLESTAR"/>
+		<result property ="articleMovieid" column="ARTICLEMOVIEID"/>		
+	</resultMap>
+	
 </mapper>
