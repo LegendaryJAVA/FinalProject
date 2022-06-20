@@ -31,14 +31,17 @@ public class MovieController {
         List<MovieVO> list = movieService.searchMovieList(keyword);
         
         //테스트용
-        //리스트로 보내서 반복문으로 받아서 처리?
-        MovieVO test = list.get(0);
-        model.addAttribute("docId",test.getDocId());
-        model.addAttribute("title",test.getTitle());
-        model.addAttribute("titleEng",test.getTitleEng());
-        model.addAttribute("genre",test.getGenre());
-        model.addAttribute("runtime",test.getRuntime());
-        
+        String strHTML = "";
+        for(MovieVO vo : list){
+            strHTML += "<div>";
+            strHTML += "<div>제목&nbsp;&nbsp;<a href=\"movie.info?docid="+vo.getDocId()+"\">"+vo.getTitle()+"</a></div>";
+            strHTML += "<div>영어제목&nbsp;&nbsp;"+vo.getTitleEng()+"</div>";
+            strHTML += "<div>장르&nbsp;&nbsp;"+vo.getGenre()+"</div>";
+            strHTML += "<div>상영시간&nbsp;&nbsp;"+vo.getRuntime()+"</div>";
+            strHTML += "</div>";
+        }
+    
+        model.addAttribute("searchResult",strHTML);
         
         return "movie.search";
     }
