@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test" >
+
+    <select id="getData" resultType="pkg.test.TestVO">
+    SELECT * FROM (
+        SELECT 'IDX01' IDX, 'FOO' NAME, '01' SEQ FROM DUAL UNION ALL
+        SELECT 'IDX02' IDX, 'BAR' NAME, '02' SEQ FROM DUAL UNION ALL
+        SELECT 'IDX03' IDX, 'BUZ' NAME, '03' SEQ FROM DUAL    
+        ) TESTTABLE WHERE IDX LIKE '%' || #{idx} || '%'
+    </select>
+
+    <resultMap id="testMap" type="pkg.test.TestVO">
+        <result property="idx" column="IDX" />
+        <result property="name" column="NAME" />
+        <result property="seq" column="SEQ" />
+    </resultMap>
+
+    <select id="getDataAsProcedure" resultMap="testMap" parameterType="pkg.test.TestVO" statementType="CALLABLE">
+        { CALL PKG_TEST.YOUR_PROCEDURE_NAME
+            ( 
+                #{ idx, jdbcType=VARCHAR, mode=IN },
+                #{ result, jdbcType=CURSOR, javaType=ResultSet, resultMap=boardMap, mode=OUT }
+            ) 
+        }
+    </select>
+</mapper>
