@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="header">
-        install?????2313dasdas
+        install?????2313dasdasooooooooooooooooooooo?
         <div class="logo">%logo%</div>
         <div class="menu-wrapper">
             <div class="menu">메뉴1</div>
