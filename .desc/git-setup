@@ -29,7 +29,7 @@
         # 그 내용이 불필요할 때는 COMMIT을 병합할 수 있음
         $ git rebase -i
     5-3. PUSH
-        # git push origin main
+        # git push origin main 
         # origin 저장소, main 브랜치에 소스를 올려보내겠다는 의미 
         # 성공했다면 GITHUB 가서 확인할 수 있음
 
