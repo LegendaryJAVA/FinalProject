@@ -1,7 +1,9 @@
 package pkg.movie;
 
 public class MovieVO {
-    private String docId, title, titleEng, titleEtc, nation, company, plot, runtime, genre, posters, keywords;
+    private String docId, title, titleEng,
+            titleEtc, nation, company, plot, runtime,
+            genre, posters, keywords;
     // movie 테이블 속성 외에도 [평균 평점]을 article에서, [출연진]을 movieCast에서 구해와햐함
     public String getCompany() {
         return company;

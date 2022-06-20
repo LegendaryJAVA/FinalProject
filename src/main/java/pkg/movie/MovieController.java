@@ -3,23 +3,43 @@ package pkg.movie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pkg.movieCast.MovieCastService;
 
+import java.util.List;
+
 @Controller
 public class MovieController { 
 
     MovieService movieService;
-    MovieCastService movieCastService; 
+    MovieCastService movieCastService;
+    @Autowired
+    public MovieController(MovieService movieService, MovieCastService movieCastService){
+        this.movieService = movieService;
+        this.movieCastService = movieCastService;
+    }
  
     // 검색 결과를 보여주는 페이지
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("keyword", keyword);
-        model.addAttribute("result", keyword);
+        
+        List<MovieVO> list = movieService.searchMovieList(keyword);
+        
+        //테스트용
+        //리스트로 보내서 반복문으로 받아서 처리?
+        MovieVO test = list.get(0);
+        model.addAttribute("docId",test.getDocId());
+        model.addAttribute("title",test.getTitle());
+        model.addAttribute("titleEng",test.getTitleEng());
+        model.addAttribute("genre",test.getGenre());
+        model.addAttribute("runtime",test.getRuntime());
+        
+        
         return "movie.search";
     }
  
@@ -28,19 +48,17 @@ public class MovieController {
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         if(docid == null || docid.length() == 0) return "errorPage";
-
-        MovieVO movie = new MovieVO();
-        movie.setTitle("영화제목");
-        movie.setGenre("genre");
-        movie.setCompany("company");
-        movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
-
         model.addAttribute("docid", docid);
-        model.addAttribute("movieTitle", movie.getTitle());
-        model.addAttribute("movieGenre", movie.getGenre());
-        model.addAttribute("movieCompany", movie.getCompany());
-        model.addAttribute("moviePlot", movie.getPlot());
-
+    
+        List<MovieVO> list = movieService.getMovieInfo(docid);
+        MovieVO resultVO = list.get(0);
+        //model.addAttribute("resultVO",resultVO);
+        model.addAttribute("movieName",resultVO.getTitle());
+        model.addAttribute("movieTitle",resultVO.getTitle());
+        model.addAttribute("movieGenre",resultVO.getGenre());
+        model.addAttribute("moviePlot",resultVO.getPlot());
+        
+        
         return "movie.info";
     }
     

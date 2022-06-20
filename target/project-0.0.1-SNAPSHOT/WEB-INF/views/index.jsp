@@ -3,11 +3,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@ include file="../comp/script.jsp" %>
 <title>index.jsp</title>
-</head>
+</head> 
 <body>
-    가장 먼저 사용자가 보게 될 화면
+    <%@ include file="../comp/header.jsp" %>
+    <div class="container-section">
+        <div class="container">
+            <div class="carousel">
+                <div class="title">캐러셀 샘플</div>
+                <div>
+                    <div>
+                        <div class="posters"></div>
+                        <div class="desc">
+                            <div class="movie-title"></div>
+                            <div class=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel">
+                <div class="title">캐러셀 샘플</div>
+
+            </div>
+            <div class="carousel">
+                <div class="title">캐러셀 샘플</div>
+
+            </div>
+        </div>
+    </div>
+    <%@ include file="../comp/footer.jsp" %>
 </body>
 
+
+<style>
+    .carousel {
+        height: 300px;
+    }
+    .carousel .title {
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+</style>
 </html>

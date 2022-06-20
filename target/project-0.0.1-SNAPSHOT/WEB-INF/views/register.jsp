@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../comp/script.jspf" %>
+<%@ include file="../comp/script.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>index.jsp</title>
 </head>

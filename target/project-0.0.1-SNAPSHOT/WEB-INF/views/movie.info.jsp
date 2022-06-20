@@ -3,13 +3,56 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>index.jsp</title>
-</head>
+<%@ include file="../comp/script.jsp" %>
+<title>${movieName}의 영화정보</title>
+</head> 
 <body>
-    영화에 대한 정보를 나타낼 화면
+    <%@ include file="../comp/header.jsp" %>
+    <div class="container-section">
+        <div class="container movie-info">          
+            <div class="title">${ movieTitle }</div>
+            <div class="desc-wrapper">
+                <div class="posters"> <img src=""/> </div>
+                <div class="desc">
+                    <div>${ movieGenre }</div>
+                    <div>${ moviePlot }</div>
+                </div>
+            </div>
+        </div>
+        <div class="container articles">
+            <div class="title">사용자 후기</div>
+                ajax로 구현할 부분
+        </div>
 
-    영화 정보 아래 후기 및 댓글 영역 있음
+
+    </div>
+    <%@ include file="../comp/footer.jsp" %>
 </body>
 
+<style>
+    .movie-info.container > .title {
+        font-weight: 600;
+        font-size: 20px;
+    }
+    .movie-info > .desc-wrapper {
+        display: flex;
+    }
+    .desc-wrapper > div {
+        margin : 10px 15px 0 0;
+    }
+    .desc-wrapper > .posters {
+        background: #d9d9d9;
+        height: 450px;
+        border-radius: 5px;
+        width: 300px;
+    }
+    .articles.container {
+        margin-top : 50px;
+    }
+    .articles.container > .title {
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+</style>
 </html>
