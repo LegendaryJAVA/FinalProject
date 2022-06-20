@@ -24,6 +24,10 @@
     5-2. 스테이지 커밋
         $ git commit -m "커밋할 때 달아둘 설명" (수정한 파일에만 적용됨)
         # 스테이지에 올린 파일들을 확정하겠다는 의미
+        # 커밋은 덮어씌우기가 아니라 할 때마다 계속 기록되는 형태
+        # PUSH할 때 저장소는 최신으로 반영되나, 그 전 COMMIT 기록들도 같이 올라감
+        # 그 내용이 불필요할 때는 COMMIT을 병합할 수 있음
+        $ git rebase -i
     5-3. PUSH
         # git push origin main
         # origin 저장소, main 브랜치에 소스를 올려보내겠다는 의미 
@@ -34,6 +38,6 @@
     # mybranch라는 이름의 브랜치를 생성
     $ git checkout mybranch  
     # mybranch라는 이름의 브랜치로 전환
-    # 이후 위 5번과 같이 staging, commit, push 하면 된다
+    # 이후 위 5번과 같이 staging, commit, push 하면 된다 
     $ git add . > git commit > git push origin mybranch
         
