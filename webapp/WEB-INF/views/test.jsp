@@ -55,7 +55,7 @@
                 document.querySelector(".error").innerHTML = JSON.stringify(err);
             }
         })
-        requestString = `{\n url : "\${url}",\n contentType : "\${contentType}",\n dataType : "\${dataType}",\n data : JSON.stringify(\${data}),\n type : "\${type}",\n success : %callback%,\n error : %failCallback%\n}`;
+        requestString = `$.ajax({\n url : "\${url}",\n contentType : "\${contentType}",\n dataType : "\${dataType}",\n data : JSON.stringify(\${data}),\n type : "\${type}",\n success : function(res){\n \n },\n error : function(err){\n \n }\n})`;
     document.querySelector("textarea.ajax-convert").value = requestString;
     })
 
@@ -85,9 +85,6 @@
     textarea.ajax-convert {
         width: 400px;
         height: 100%;
-    }
-    body > div > input {
-
     }
     .error {
         flex-direction: column;

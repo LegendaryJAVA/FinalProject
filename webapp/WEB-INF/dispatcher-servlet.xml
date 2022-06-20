@@ -3,6 +3,15 @@
    <context:annotation-config />
    <context:component-scan base-package="pkg.*" />
    <mvc:annotation-driven />
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/**" />
+         <mvc:exclude-mapping path="/resource/**" />
+         <mvc:exclude-mapping path="/login" />
+         <mvc:exclude-mapping path="/logout" />
+         <bean id="nsq" class="pkg.$.Interceptor" />
+      </mvc:interceptor> 
+   </mvc:interceptors>
    <mvc:resources location="/resource/" mapping="/resource/**" />
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/views/" />
