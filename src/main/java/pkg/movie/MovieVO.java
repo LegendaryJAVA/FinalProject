@@ -1,12 +1,20 @@
 package pkg.movie;
 
 public class MovieVO {
-    private String docId, title, titleEng, titleEtc, nation, company, plot, runtime, genre, posters, keywords;
-    // movie 테이블 속성 외에도 [평균 평점]을 article에서, [출연진]을 movieCast에서 구해와햐함
+    private String docId, title, titleEng, titleEtc, nation, company, prodyear, plot, runtime, genre, posters, keywords;
+    // movie �뀒�씠釉� �냽�꽦 �쇅�뿉�룄 [�룊洹� �룊�젏]�쓣 article�뿉�꽌, [異쒖뿰吏�]�쓣 movieCast�뿉�꽌 援ы빐���뼆�븿
+   
+    
     public String getCompany() {
         return company;
     }
-    public void setCompany(String company) {
+    public String getProdyear() {
+		return prodyear;
+	}
+	public void setProdyear(String prodyear) {
+		this.prodyear = prodyear;
+	}
+	public void setCompany(String company) {
         this.company = company;
     }
     public String getDocId() {

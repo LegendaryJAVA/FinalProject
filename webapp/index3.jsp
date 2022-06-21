@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="resource/js/sampleData.js"></script>
 <script src="resource/js/sample.index.js"></script>
+
 <link href="resource/css/sample.css" rel="stylesheet" />
 <title>index.jsp</title>
 </head>
@@ -21,10 +22,12 @@
         <div class="inquery"> <input placeholder="검색" /> </div>
         <div class="user-profile">%userProfile%</div>
     </div>
+    
     <div class="container">
 
     </div>
     <div class="footer">
+    
 
     </div>
 </body>
