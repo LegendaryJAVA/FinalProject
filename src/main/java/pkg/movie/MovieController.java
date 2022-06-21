@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pkg.movieCast.MovieCastService;
+import pkg.reply.ReplyService;
+import pkg.reply.ReplyVO;
 
 import java.util.List;
 
@@ -17,10 +19,12 @@ public class MovieController {
 
     MovieService movieService;
     MovieCastService movieCastService;
+    ReplyService replyService;
     @Autowired
-    public MovieController(MovieService movieService, MovieCastService movieCastService){
+    public MovieController(MovieService movieService, MovieCastService movieCastService, ReplyService replyService){
         this.movieService = movieService;
         this.movieCastService = movieCastService;
+        this.replyService = replyService;
     }
  
     // 검색 결과를 보여주는 페이지
@@ -49,7 +53,7 @@ public class MovieController {
     //  영화 정보를 보여주는 페이지
     @RequestMapping("movie.info")
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+        
         if(docid == null || docid.length() == 0) return "errorPage";
         model.addAttribute("docid", docid);
     
@@ -60,6 +64,9 @@ public class MovieController {
         model.addAttribute("movieTitle",resultVO.getTitle());
         model.addAttribute("movieGenre",resultVO.getGenre());
         model.addAttribute("moviePlot",resultVO.getPlot());
+        
+        //+해당영화게시물
+        //+그 게시물의 댓글
         
         return "movie.info";
     }

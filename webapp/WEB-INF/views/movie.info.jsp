@@ -24,7 +24,7 @@
                 ajax로 구현할 부분
             <div>
                 <div>댓글</div>
-                <div></div>
+                <div>${replyList}</div>
             </div>
         </div>
 

@@ -6,6 +6,8 @@
         {call PKG_MOVIE.PROC_SEARCH_MOVIE(
             #{keyword, jdbcType=VARCHAR, mode=IN}
             ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+            ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+            ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
             )}
     </select>
 
@@ -20,6 +22,7 @@
         <result property="genre" column="GENRE"></result>
         <result property="posters" column="POSTERS"></result>
         <result property="keywords" column="KEYWORDS"></result>
+        <result property="releaseDate" column="RELEASEDATE"></result>
     </resultMap>
 
     <!-- 나중에 세부페이지에 들어갈 정보 더 생기면 resultMap 수정 -->

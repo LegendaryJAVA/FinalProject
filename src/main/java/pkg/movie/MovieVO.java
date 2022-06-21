@@ -3,7 +3,7 @@ package pkg.movie;
 public class MovieVO {
     private String docId, title, titleEng,
             titleEtc, nation, company, plot, runtime,
-            genre, posters, keywords;
+            genre, posters, keywords, releaseDate;
     // movie 테이블 속성 외에도 [평균 평점]을 article에서, [출연진]을 movieCast에서 구해와햐함
     public String getCompany() {
         return company;
@@ -70,5 +70,13 @@ public class MovieVO {
     }
     public void setTitleEtc(String titleEtc) {
         this.titleEtc = titleEtc;
+    }
+    
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+    
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }
