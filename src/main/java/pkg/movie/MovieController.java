@@ -61,7 +61,6 @@ public class MovieController {
         model.addAttribute("movieGenre",resultVO.getGenre());
         model.addAttribute("moviePlot",resultVO.getPlot());
         
-        
         return "movie.info";
     }
     

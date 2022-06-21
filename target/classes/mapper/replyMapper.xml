@@ -3,4 +3,20 @@
 
 <mapper namespace="reply" >
 
+
+    <select id="selectReplyList" resultMap="replyMap" parameterType="pkg.reply.ReplyVO" statementType="CALLABLE">
+        {call PKG_MOVIE.PROC_SEARCH_MOVIE(
+            #{keyword, jdbcType=VARCHAR, mode=IN}
+            ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=replyMap}
+            )}
+    </select>
+
+    <resultMap id="replyMap" type="pkg.reply.ReplyVO">
+        <result property="replyId" column="replyid"></result>
+        <result property="replyAuthor" column="replyauthor"></result>
+        <result property="replyContent" column="replycontent"></result>
+        <result property="replyRegdate" column="replyregdate"></result>
+        <result property="replyArticleId" column="replyarticleid"></result>
+    </resultMap>
+
 </mapper>
