@@ -20,6 +20,11 @@ public class PageController {
 		
 		return "test";
 	}
+	@RequestMapping("apicrawl") 
+	public String apicrawlpage (Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		return "apicrawl";
+	}
 	@RequestMapping("update")
 	public String updateSQL () {
 

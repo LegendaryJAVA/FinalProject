@@ -1,6 +1,6 @@
 package pkg.test;
 
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,5 +22,10 @@ public class TestController_JSON {
     public String test (@RequestBody Map<String, Object> params) {
         // testService.function(params);
         return new Gson().toJson(params);
+    } 
+    @PostMapping("testoc") 
+    public String testOracleCloud (@RequestBody Map<String, Object> params) {
+        List<TestVO> vos = testService.getData("1");
+        return new Gson().toJson(vos);
     } 
 }
