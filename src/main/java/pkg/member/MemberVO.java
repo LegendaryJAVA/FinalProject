@@ -3,7 +3,8 @@ package pkg.member;
 public class MemberVO {
 	private String mid;
 	private String mpass;
-	private String birth;
+	private String mprofile;
+	private String mbirth;
 	private String mnickname;
 	private String mgender;
 	private String msigndate;
@@ -23,11 +24,17 @@ public class MemberVO {
 	public void setMpass(String mpass) {
 		this.mpass = mpass;
 	}
-	public String getBirth() {
-		return birth;
+	public String getMprofile() {
+		return mprofile;
 	}
-	public void setBirth(String birth) {
-		this.birth = birth;
+	public void setMprofile(String mprofile) {
+		this.mprofile = mprofile;
+	}
+	public String getMbirth() {
+		return mbirth;
+	}
+	public void setMbirth(String mbirth) {
+		this.mbirth = mbirth;
 	}
 	public String getMnickname() {
 		return mnickname;
@@ -47,7 +54,6 @@ public class MemberVO {
 	public void setMsigndate(String msigndate) {
 		this.msigndate = msigndate;
 	}
-	
 	public String getMhob1() {
 		return mhob1;
 	}
@@ -67,7 +73,6 @@ public class MemberVO {
 		this.mhob3 = mhob3;
 	}
 
-	
 	
 
 	

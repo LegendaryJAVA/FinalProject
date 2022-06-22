@@ -17,7 +17,7 @@
         	<div> <a href="login">login</a></div>
         	<%} else{%>	
         	<div> <a href="logout">logout</a></div>
-			<div> <a href="myinform">내정보</a></div>
+			<div> <a href="myform">내정보</a></div>
         <%} %>
         	
             <div class="user-profile"><div>😯</div></div>

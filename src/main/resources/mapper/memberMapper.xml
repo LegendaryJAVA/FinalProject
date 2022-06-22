@@ -37,7 +37,8 @@
 			call PKG_MEMBER.PROC_MEMBER_INS (
 				#{mid, jdbcType = VARCHAR, mode = IN}
 				,#{mpass, jdbcType = VARCHAR, mode = IN}
-				,#{mnickname, jdbcType = VARCHAR, mode = IN}
+				,#{mprofile, jdbcType = VARCHAR, mode = IN}
+				,#{mnickname, jdbcType = VARCHAR, mode = IN}				
 				,#{mbirth, jdbcType = VARCHAR, mode = IN}
 				,#{mgender, jdbcType = VARCHAR, mode = IN}
 				,#{mhob1, jdbcType = VARCHAR, mode = IN}

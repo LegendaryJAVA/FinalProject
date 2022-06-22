@@ -24,7 +24,12 @@
 	<div id="msg3">
 	</div>
 	<div class="">
+		
 		<input type="button" value ="확인" onclick="chkFunc()"/>
+	</div>
+	<div>
+		<div>프로필</div>
+		<div><input type="text" id="profile"/></div>
 	</div>
 	<div>
 		<div class="">닉네임 : </div>
@@ -204,6 +209,7 @@
 					
 				mid : $("#ida").val(),
 				mpass : $("#a").val(),
+				mprofile : $("#profile").val(),
 				mnickname : $("#nicka").val(),
 				mbirth	:$("input#year").val() +"/"+ $("select#month").val() +"/" + $("input#date").val(),
 				mgender : $("select#gender").val(),
@@ -232,6 +238,11 @@
 				alert("비밀번호가 틀렸습니다.");
 				return;
 			}
+			if($("#profile").val() ==""){
+				alert("프로필을 설정해주세요");
+				return;
+			}
+				
 			
 			if(alldata.mnickname == ""){
 				alert("닉네임을 입력하세요.");

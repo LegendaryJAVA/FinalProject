@@ -14,8 +14,6 @@ public class MemberController {
    
     @RequestMapping("login")
     public String login (Model model, HttpServletRequest request, HttpServletResponse response) {
-    	String prevPage = "test";
-    	System.out.println("call login");
     	return "login";
     }
     @RequestMapping("logout")
@@ -30,6 +28,12 @@ public class MemberController {
 
         return "register";
     }
+    @RequestMapping("myform")
+    public String myform() {
+    	
+    	return "userProfile";
+    }
+    
  
     public String resign () {
         
