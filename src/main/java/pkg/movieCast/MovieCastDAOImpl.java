@@ -27,7 +27,7 @@ public class MovieCastDAOImpl implements MovieCastDAO{
 		
 		params.get("");
 		
-		Map<String, Object> map = new HashMap<String, Object>();		
+		//Map<String, Object> map = new HashMap<String, Object>();		
 		sqlSession.selectList("", map);
 		
 		
