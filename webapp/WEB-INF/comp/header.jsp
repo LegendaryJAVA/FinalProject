@@ -13,17 +13,8 @@
         </div>
         
         <div class="user-profile-wrapper">
-            
-            <%
-                String loginToken = (String)request.getSession().getAttribute("isLogined");
-                boolean a = loginToken == null ? false : true;
-                if (a == true) {
-                    %><div class="user-profile"><div>😯</div></div> <%
-                } else {
-                    %><div class="login">로그인</div><%
-                }
-            %>
-            
+        	<div class=""> <a href="/login" >login</a> </div>
+            <div class="user-profile"><div>😯</div></div>
         </div>
     </div>
 </div>
