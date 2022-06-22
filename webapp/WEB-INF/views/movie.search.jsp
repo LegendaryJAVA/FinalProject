@@ -18,6 +18,7 @@
         <div class="container">          
             <div class="title">${ keyword }에 대한 검색 결과</div>
             <div> ${ result } </div>
+            <div>  <%=str%> </div>
             <div> <a href="movie.info?docid=${docID}">테스트 링크</a></div>
         </div>
     </div>

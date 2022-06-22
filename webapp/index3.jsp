@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
+="UTF-8"
+>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="resource/js/sampleData.js"></script>
 <script src="resource/js/sample.index.js"></script>
@@ -11,6 +13,8 @@
 <title>index.jsp</title>
 </head>
 <body>
+
+
     <div class="header">
         install?????2313dasdasooooooooooooooooooooo?
         <div class="logo">%logo%</div>
@@ -22,6 +26,7 @@
         <div class="inquery"> <input placeholder="검색" /> </div>
         <div class="user-profile">%userProfile%</div>
     </div>
+    
     
     <div class="container">
 
