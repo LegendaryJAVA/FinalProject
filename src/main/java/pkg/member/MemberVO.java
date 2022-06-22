@@ -12,6 +12,10 @@ public class MemberVO {
 	private String mhob2;
 	private String mhob3;
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 	public String getMid() {
 		return mid;
 	}
@@ -72,7 +76,10 @@ public class MemberVO {
 	public void setMhob3(String mhob3) {
 		this.mhob3 = mhob3;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 	
 
 	

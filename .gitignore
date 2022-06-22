@@ -37,7 +37,8 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
-target 
+target
+.target
 
 # Tern plugin
 .tern-project
@@ -240,7 +241,8 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-### VisualStudioCode ###
+### VisualStudioCode ### 
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

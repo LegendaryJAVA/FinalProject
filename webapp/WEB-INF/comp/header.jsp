@@ -17,7 +17,11 @@
         	<div> <a href="login">login</a></div>
         	<%} else{%>	
         	<div> <a href="logout">logout</a></div>
+<<<<<<< HEAD
 			<div> <a href="myform">내정보</a></div>
+=======
+			<div> <a href="myinform">내정보</a></div>
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
         <%} %>
         	
             <div class="user-profile"><div>😯</div></div>

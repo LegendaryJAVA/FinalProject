@@ -14,6 +14,11 @@ public class MemberController {
    
     @RequestMapping("login")
     public String login (Model model, HttpServletRequest request, HttpServletResponse response) {
+<<<<<<< HEAD
+=======
+    	String prevPage = "test";
+    	System.out.println("call login");
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
     	return "login";
     }
     @RequestMapping("logout")
@@ -28,12 +33,15 @@ public class MemberController {
 
         return "register";
     }
+<<<<<<< HEAD
     @RequestMapping("myform")
     public String myform() {
     	
     	return "userProfile";
     }
     
+=======
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
  
     public String resign () {
         

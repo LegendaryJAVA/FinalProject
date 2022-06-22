@@ -24,11 +24,18 @@
 	<div id="msg3">
 	</div>
 	<div class="">
+<<<<<<< HEAD
 		
 		<input type="button" value ="확인" onclick="chkFunc()"/>
 	</div>
 	<div>
 		<div>프로필</div>
+=======
+		<input type="button" value ="확인" onclick="chkFunc()"/>
+	</div>
+	<div>
+		<div>프로필  </div>
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 		<div><input type="text" id="profile"/></div>
 	</div>
 	<div>
@@ -239,10 +246,16 @@
 				return;
 			}
 			if($("#profile").val() ==""){
+<<<<<<< HEAD
 				alert("프로필을 설정해주세요");
 				return;
 			}
 				
+=======
+				alert("프로필을 입력하세요.");
+				return;
+			}
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 			
 			if(alldata.mnickname == ""){
 				alert("닉네임을 입력하세요.");

@@ -24,7 +24,10 @@ public class MemberJSonController {
 	@PostMapping("loginchk")
 	public String loginchk(@RequestBody Map<String, Object> map, HttpSession session) {
 		System.out.println(memberService.loginchk(map));
+<<<<<<< HEAD
 		System.out.println("loginchk");
+=======
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 		if(!(memberService.loginchk(map).equals("FAIL"))) {
 			session.setAttribute("mid", memberService.loginchk(map));
 			JsonObject obj = new JsonObject();	

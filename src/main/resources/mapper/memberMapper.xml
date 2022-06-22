@@ -38,9 +38,15 @@
 				#{mid, jdbcType = VARCHAR, mode = IN}
 				,#{mpass, jdbcType = VARCHAR, mode = IN}
 				,#{mprofile, jdbcType = VARCHAR, mode = IN}
+<<<<<<< HEAD
 				,#{mnickname, jdbcType = VARCHAR, mode = IN}				
 				,#{mbirth, jdbcType = VARCHAR, mode = IN}
 				,#{mgender, jdbcType = VARCHAR, mode = IN}
+=======
+				,#{mnickname, jdbcType = VARCHAR, mode = IN}
+				,#{mbirth, jdbcType = VARCHAR, mode = IN}
+				,#{mgender, jdbcType = VARCHAR, mode = IN}			
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
 				,#{mhob1, jdbcType = VARCHAR, mode = IN}
 				,#{mhob2, jdbcType = VARCHAR, mode = IN}
 				,#{mhob3, jdbcType = VARCHAR, mode = IN}

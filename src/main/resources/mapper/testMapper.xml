@@ -10,7 +10,7 @@
         SELECT 'IDX03' IDX, 'BUZ' NAME, '03' SEQ FROM DUAL    
         ) TESTTABLE WHERE IDX LIKE '%' || #{idx} || '%'
     </select>
-
+ 
     <resultMap id="testMap" type="pkg.test.TestVO">
         <result property="idx" column="IDX" />
         <result property="name" column="NAME" />
