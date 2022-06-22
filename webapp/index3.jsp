@@ -16,7 +16,7 @@
         <div class="menu-wrapper">
             <div class="menu">메뉴1</div>
             <div class="menu">메뉴2</div>
-            <div class="menu">메뉴3213343123123</div> 
+            <div class="menu">메뉴32133123123</div> 
         </div>
         <div class="inquery"> <input placeholder="검색" /> </div>
         <div class="user-profile">%userProfile%</div>
