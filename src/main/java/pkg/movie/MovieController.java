@@ -1,6 +1,9 @@
 package pkg.movie;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 //import pkg.movieCast.MovieCastService;
 
@@ -19,7 +24,11 @@ public class MovieController {
 	
 	//@Autowired
     //MovieCastService movieCastService; 
- 
+	@Autowired
+	MovieDAO movieDAO;
+	
+	
+	
     // 寃��깋 寃곌낵瑜� 蹂댁뿬二쇰뒗 �럹�씠吏�
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -40,15 +49,14 @@ public class MovieController {
     		strHTML += "<div>" + vo.getTitleEtc() + "</div>";
     		strHTML += "<div>" + vo.getGenre() + "</div>";
     		strHTML += "</div>";
-    		docID += vo.getDocId();
+    		//docID = vo.getDocId();
     	}
     	
     	
     	
-    	
+    	 model.addAttribute("docID", docID);
         model.addAttribute("keyword", keyword);
         model.addAttribute("result", strHTML);
-        model.addAttribute("menuList", menuList);
         return "movie.search";
     }
  
@@ -62,15 +70,61 @@ public class MovieController {
         movie.setTitle("�쁺�솕�젣紐�");
         movie.setGenre("genre");
         movie.setCompany("company");
-        movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
+       // movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
 
         model.addAttribute("docid", docid);
         model.addAttribute("movieTitle", movie.getTitle());
         model.addAttribute("movieGenre", movie.getGenre());
         model.addAttribute("movieCompany", movie.getCompany());
-        model.addAttribute("moviePlot", movie.getPlot());
+        //model.addAttribute("moviePlot", movie.getPlot());
 
         return "movie.info";
     }
     
+    @RequestMapping("test2")
+    public String asasdsq() {
+    	
+    	
+    	
+    	
+    	return "test2";
+    }
+    
+    
+    
+    @ResponseBody
+    @RequestMapping("insertMovie")
+    public String KMDB에서_영화API_갸져와서_INSERT하기(@RequestBody Map<String, Object> params) {
+    	
+    	Map<String,List<String>> chkResultMap = movieDAO.getMovieAPI(params);
+ 
+    	
+    	List<String> resultList = chkResultMap.get("result");
+    	
+    	for(String list : resultList) {
+    		System.out.println("컨트롤러에서 에러에 대한 값받기  ==> "  +   list); 
+    		System.out.println("---------------------------");
+    	}
+    	
+    	return "오케이!";
+    }
+    
+    /*
+    @ResponseBody
+    @RequestMapping("insertMovie")
+    public String 영화API갸져오기(@RequestBody Map<String,List<MovieVO2>> params) {
+    	
+    	 	//{"saveList":[{"docId":"민수","title":"민수","titleEng":"민수"}]}
+    	List<MovieVO2> vo2 = (List<MovieVO2>)params.get("saveList");
+    	
+    	for(MovieVO2 vo: vo2) {
+    		System.out.println(vo.getDocId());
+    		System.out.println(vo.getTitle());
+    		System.out.println(vo.getTitleEng());
+    	}
+    	
+    	
+    	return "오케이!";
+    }
+    */
 }
