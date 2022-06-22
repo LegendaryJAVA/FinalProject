@@ -13,6 +13,13 @@
         </div>
         
         <div class="user-profile-wrapper">
+          <%if(session.getAttribute("mid")==null) {%> 
+        	<div> <a href="login">login</a></div>
+        	<%} else{%>	
+        	<div> <a href="logout">logout</a></div>
+			<div> <a href="myinform">내정보</a></div>
+        <%} %>
+        	
             <div class="user-profile"><div>😯</div></div>
         </div>
     </div>
