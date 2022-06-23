@@ -40,7 +40,7 @@
 									eachRowData.docId = "민수";
 									eachRowData.title = "홍철";
 									eachRowData.titleEng = str3;
-									eachRowData.thisisErrorTest = "고등어";
+									eachRowData.thisisErrorTest = "";
 									//eachRowData.menuLvl = "민수";
 									//eachRowData.parentID = "민수";
 									//eachRowData.hidVal = "민수";						
