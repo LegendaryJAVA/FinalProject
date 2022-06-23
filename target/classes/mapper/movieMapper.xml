@@ -20,6 +20,8 @@
         <result property="genre" column="GENRE"></result>
         <result property="posters" column="POSTERS"></result>
         <result property="keywords" column="KEYWORDS"></result>
+        <result property="releaseDate" column="RELEASEDATE"></result>
+        <result property="prodYear" column="PRODYEAR"></result>
     </resultMap>
 
     <!-- 나중에 세부페이지에 들어갈 정보 더 생기면 resultMap 수정 -->
