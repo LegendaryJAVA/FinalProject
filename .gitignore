@@ -15,7 +15,7 @@ local.properties
 .loadpath
 .recommenders
 
-# classpath
+
 .classpath
 
 # External tool builders

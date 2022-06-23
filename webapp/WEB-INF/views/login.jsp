@@ -7,37 +7,54 @@
 <title>index.jsp</title>
 </head>
 <body>
-   로그인에 사용될 화면
-   
-   		<div>
+	
+   	<div>
 			<div class='login'>로그인 : </div>
-			<div class='login'><input type="text" class="mid" name="mid"/></div>
+			<div class='login'><input type="text" class="mid" name="mid" maxlength="12"/></div>
 		</div>
 	
 		<div style="clear:both;">
 			<div class='login'>패스워드 :</div>
-			<div class='login'><input type="text" class="mpass" name="mpass"/></div>
+			<div class='login'><input type="password" class="mpass" name="mpass" maxlength="12"/></div>
 		</div>
 
     <div style="clear:both;">
         <div><input type="button" value="로그인" id="btnLogin"/></div>
         <div><input type="button" value="회원가입" onclick="gaipFunc()"/></div>  
+        <div><input type="button" value="무조건로그인" onclick="Yaho()"/></div>
     </div>
     
     <script>
+    	
     
   		$("input#btnLogin").click(function(){
+  			
   			$.ajax({
-  				url: "test",
+  				url: "loginchk",
   				data: JSON.stringify({
-  						mid : $("input.mid").val(),
-  						mpass: $("input.mpass").val()
+  						memberid : $("input.mid").val(),
+  						memberpass: $("input.mpass").val()
   				}),
   				type : "post", //post or get
 				async : true, //true or false
 				dataType : "json",
 				contentType : "application/json",
-  				
+  				success : function(result){
+  					var str = document.referrer;
+  		  	    	
+  					if(result.result=='SUC'){
+  						alert("로그인에 성공하셨습니다.");
+  						location.href=str;
+  						
+  					}
+  					else{
+  						alert("로그인에 실패하셨습니다.");
+  					}
+  					
+  				},
+  				error: function(error){
+  					console.log(error);
+  				}
   				
   			})
   			
@@ -45,12 +62,16 @@
   		
     	
     	var gaipFunc = function(){
-    		location.href="signup.jsp";
+    		location.href="register";
     	}
+  		var Yaho = function(){
+  			<%session.setAttribute("mid", "admin");%>
+  			
+  			location.href=document.referrer;
+  			
+  		}
+  	</script>
     
-   
-   </script>
-   
 </body>
 
 </html>
