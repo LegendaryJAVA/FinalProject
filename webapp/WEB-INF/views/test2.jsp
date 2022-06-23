@@ -256,7 +256,9 @@
 								$.ajax(
 										
 											{
-												url : "insertMovie",											
+												   
+											   // MovieAPI    //    DirectorAPI  // ActorAPI
+												url : "ActorAPI",											
 												//data : //JSON.stringify(sendJsonDatas),
 												data :  JSON.stringify({"Data": [
 												      {
@@ -3210,9 +3212,12 @@
 												dataType : "json",
 												contentType : "application/json",
 												success : function(datas){
+													console.log(datas);
+												
 													alert("성공!");			
 												},
-												error : function(){
+												error : function(err){
+													console.log(err);
 													alert("실패");
 												}				
 											}	 // ajax {}

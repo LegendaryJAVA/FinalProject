@@ -5,7 +5,11 @@ import java.util.Map;
 
 public interface MovieCastDAO {
 
+	 //Director API ��������.
+	Map<String, Object> InsertDirectorAPI(Map<String, Object> params);
 	
-	 Map<String, List<String>> getDirectorAPI(Map<String, Object> params);
+	
+	//Actor API ��������.
+	Map<String, Object> InsertActorAPI(Map<String, Object> params);
 	
 }

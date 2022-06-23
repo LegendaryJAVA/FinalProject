@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 //import pkg.movieCast.MovieCastService;
 
 @Controller
@@ -93,38 +95,22 @@ public class MovieController {
     
     
     @ResponseBody
-    @RequestMapping("insertMovie")
+    @RequestMapping("MovieAPI")
     public String KMDB에서_영화API_갸져와서_INSERT하기(@RequestBody Map<String, Object> params) {
     	
-    	Map<String,List<String>> chkResultMap = movieDAO.getMovieAPI(params);
+    	Map<String, Object> chkResultMap = movieDAO.getMovieAPI(params);
  
-    	
-    	List<String> resultList = chkResultMap.get("result");
-    	
-    	for(String list : resultList) {
-    		System.out.println("컨트롤러에서 에러에 대한 값받기  ==> "  +   list); 
-    		System.out.println("---------------------------");
+    	List<Map<String, String>> resultList = (List<Map<String, String>>)chkResultMap.get("result");
+    	System.out.println("MovieAPI 리턴");
+    	for(Map<String, String> element : resultList) {
+        	System.out.println("-----------");
+    		System.out.println("sqlCode : "+ element.get("sqlCode"));
+    		System.out.println("sqlErrm : "+ element.get("sqlErrm"));
+    		System.out.println("ErrMsg : "+ element.get("ErrMsg"));
+    		
     	}
     	
-    	return "오케이!";
+    	return new Gson().toJson(resultList);
     }
-    
-    /*
-    @ResponseBody
-    @RequestMapping("insertMovie")
-    public String 영화API갸져오기(@RequestBody Map<String,List<MovieVO2>> params) {
-    	
-    	 	//{"saveList":[{"docId":"민수","title":"민수","titleEng":"민수"}]}
-    	List<MovieVO2> vo2 = (List<MovieVO2>)params.get("saveList");
-    	
-    	for(MovieVO2 vo: vo2) {
-    		System.out.println(vo.getDocId());
-    		System.out.println(vo.getTitle());
-    		System.out.println(vo.getTitleEng());
-    	}
-    	
-    	
-    	return "오케이!";
-    }
-    */
+  
 }

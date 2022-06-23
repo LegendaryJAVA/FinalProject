@@ -6,9 +6,8 @@ import java.util.Map;
 public interface MovieDAO {
 
 	
-	
 	 List<MovieVO> getMovieList(String keyword);
 	 
-	 Map<String, List<String>> getMovieAPI(Map<String, Object> params);
+	 Map<String, Object> getMovieAPI(Map<String, Object> params);
 	
 }

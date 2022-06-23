@@ -36,23 +36,23 @@ public class MovieDAOImpl implements MovieDAO{
 			
 		}
 	
-	
-	public Map<String, List<String>> getMovieAPI(Map<String, Object> params){				
+	@Override
+	public Map<String, Object> getMovieAPI(Map<String, Object> params){				
  			
-			List<Object> API = (List<Object>)params.get("Data");        //¼ø¼öÇÑ API  ÀüÃ¼ µ¥ÀÌÅÍ {Data = [{}]} 
-            Map<String, Object> API2 = (Map<String,Object>)API.get(0);		  
- 			List<Object> API3 = (List<Object>)API2.get("Result");	    // API³»  Result°´Ã¼ ¾È¿¡ ÀÖ´Â µ¥ÀÌÅÍ °¡Á®¿À±â.(ÀüÃ¼ µ¥ÀÌÅÍ)
+			List<Object> API = (List<Object>)params.get("Data");         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ APIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  = ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {Data = [{}]}ï¿½ï¿½  Mapï¿½ï¿½ï¿½ï¿½ getï¿½Ï±ï¿½.
+            Map<String, Object> API2 = (Map<String,Object>)API.get(0);   //Resultï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½è¿­ 0ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Result ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½Ö´ï¿½.
+ 			List<Object> API3 = (List<Object>)API2.get("Result");	    // APIï¿½ï¿½  Resultï¿½ï¿½Ã¼ ï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.(ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
             Map<String, Object> map = new HashMap<String, Object>();
             
-            Map<String, List<String>> restoreMap = new HashMap<String,List<String>>();
-            List<String> restoreList = new ArrayList<String>();
+            Map<String, Object> restoreMap = new HashMap<String, Object>();
+            List<Map<String, String>> restoreList = new ArrayList<Map<String, String>>();
             
             
             
             
             
             for(int i = 0; i<API3.size(); i++) {
-	            Map<String, Object> realData = (Map<String, Object>)API3.get(i);   		//  ÀüÃ¼ µ¥ÀÌÅÍ¿¡¼­ 1°³¾¿ °¡Á®¿Â´Ù.
+	            Map<String, Object> realData = (Map<String, Object>)API3.get(i);   		//  ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 	                
 	            /*
 	            System.out.println("DOCID  -----------------" +  realData.get("DOCID"));
@@ -81,7 +81,7 @@ public class MovieDAOImpl implements MovieDAO{
 	            map.put("runtime", realData.get("runtime"));     
 	            map.put("genre", realData.get("genre"));
 	            	            
-	            //plots´Â ÀÏ´Ü ¹è¿­.
+	            //plotsï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½è¿­.
 	            Map<String,Object> plotsMap = (Map<String,Object>)realData.get("plots");
 	         	List<Object> plotsList = (List<Object>)plotsMap.get("plot");
 	         	Map<String,Object> realplotsMap = (Map<String,Object>)plotsList.get(0);
@@ -92,21 +92,25 @@ public class MovieDAOImpl implements MovieDAO{
 	            map.put("keywords", realData.get("keywords"));
 	            map.put("company", realData.get("company"));
             
-	            sqlSession.selectList("movie.TESTMovieList", map);    
-	      
+	            sqlSession.selectList("movie.MovieAPI", map);    
+	            
 	           	           
-	           
+       
+	            
+	            Map<String, String> resultMap = new HashMap<String, String>();
+	            //resultMap.put("DOCID", realData.get("DOCID"));
+	            resultMap.put("ErrMsg", (String)map.get("ErrMsg"));
+	            resultMap.put("sqlCode", (String)map.get("sqlCode"));
+	            resultMap.put("sqlErrm", (String)map.get("sqlErrm"));
 	            
 	            
-	            // sqlCode ==> SQLCODE
-	            // sqlErrm ==> SQLERRM
-	            // ErrMsg ==> ÇÁ·Î½ÃÁ® ÀÎÀÚ·Î Á¤ÀÇÇÑ "O_MSG" --> ¿À·ù¸Þ½ÃÁö Á÷Á¢ ÀÛ¼º
-	            restoreList.add( (String)map.get("sqlCode"));
-	            restoreList.add( (String)map.get("sqlErrm"));
-	            restoreList.add( (String)map.get("ErrMsg"));      
+	            
+	            restoreList.add(resultMap);            
+	         	     
 	          }
             
             restoreMap.put("result", restoreList);
+            //restoreMap{ result : restoreList[ resultMap{ errMsg, sqlCode, sqlErrm }, resultMap{}, ]  }
  	       		
 		return restoreMap;
 	}
