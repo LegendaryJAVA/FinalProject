@@ -1,9 +1,0 @@
-1. 원격 저장소에서 가져온 프로젝트 이클립스에 추가
-    Import - General - Existing Project into Workspace - select root directory에서 내려받은 프로젝트 폴더 선택
-    또는 아예 이클립스 내장된 GIT 사용
-
-2. 404에러
-    deploy assembly에서 제대로 경로 잡혀 있나 확인
-
-3. 프로젝트를 웹 프로젝트로 인식하지 못할 때
-    프로젝트 우클릭 - Maven - Update Maven Project
