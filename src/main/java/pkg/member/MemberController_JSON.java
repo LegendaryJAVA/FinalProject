@@ -18,7 +18,6 @@ public class MemberController_JSON {
 	@Autowired
 	MemberService memberService;
 
-	
 	@PostMapping("loginchk")
 	public String loginchk(@RequestBody Map<String, Object> map, HttpSession session) {
 		System.out.println(memberService.loginchk(map));

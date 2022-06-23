@@ -13,12 +13,17 @@
         </div>
         
         <div class="user-profile-wrapper">
-          <%if(session.getAttribute("mid")==null) {%> 
+          <%if(session.getAttribute("memberid")==null) {%> 
         	<div> <a href="login">login</a></div>
         	<%} else{%>	
-        	<div> <a href="logout">logout</a></div>
-	        <div class="user-profile"><div><a href="myform">😯</a></div></div>
-    		
+        	<div> <a href="logout"> <%out.println(session.getAttribute("memberid")); %> </a></div>
+	        <div class="user-profile">
+	        	<div>😯</div>
+	        	<div class="menu-wrapper">
+	        		<div class="menu my-profile"><a href="myform?memberid=<%=session.getAttribute("memberid")%>">내 정보</a></div>
+	        		<div class="menu logout"><a href="logout">로그아웃</a></div>
+	        	</div>
+	        </div>
         <%} %>
         	
         </div>
@@ -30,6 +35,29 @@
 </script> 
 
 <style>
+	.header .user-profile .menu-wrapper {
+		position: absolute;
+    	display: none;
+    	flex-direction: column;
+    	width: 150px;
+    	top: 40px;
+    	right : 0%;
+    	font-size: 14px;
+    	justify-content: center;
+    	align-items: center;
+    	background: #8947cc;
+    	border-radius: 5px;
+    	padding : 5px;
+    	color: white;
+	}
+	.menu {
+		border-top : 1px solid white;
+		padding: 5px 0 5px 0;
+		width: 100%;
+	}
+	.menu:nth-child(1) {
+		border-top : 0px solid;
+	}
     .header-section {
         width: 100%;
         border-bottom: 1px solid #BEBEBE;
@@ -122,12 +150,16 @@
     }
     .user-profile {
         border-radius: 50px;
+        position : relative;
         background-color: #d9d9d9;
         width: 50px;
         height: 50px;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+    }
+    .user-profile:hover > .menu-wrapper, .menu-wrapper:hover {
+    	display : flex !important;
     }
     .user-profile > div {
         font-size: 33px;

@@ -193,7 +193,7 @@
     $(document).on("click", ".update-database", function () {
         console.log(parsedData);
         $.ajax({ 
-            url : "admin.movie.update",
+            url : "admin.movie.reflect",
             data : JSON.stringify({ Result : parsedData.Data[0].Result }),
             contentType : "application/json",
             type : "POST",

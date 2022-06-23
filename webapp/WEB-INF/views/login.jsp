@@ -65,8 +65,6 @@
     		location.href="register";
     	}
   		var Yaho = function(){
-  			<%session.setAttribute("mid", "admin");%>
-  			
   			location.href=document.referrer;
   			
   		}
