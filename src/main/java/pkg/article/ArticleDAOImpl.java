@@ -15,10 +15,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<ArticleVO> getArticleList(String articleMovieid){
+	public List<ArticleVO> getArticleList(Map<String, String[]> params){
+		
+		String[] articleMovieid = params.get("articleMovieid");
+		String[] articleAuthor = params.get("articleAuthor");
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
-		map.put("articleMovieid", articleMovieid);
+		map.put("articleMovieid", paramas);
 		
 		sqlSession.selectList("selectArticleList", map);
 		List<ArticleVO> articleList = (List<ArticleVO>)map.get("result");
