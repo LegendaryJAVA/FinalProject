@@ -1,13 +1,13 @@
 package pkg.movieCast;
 
 public class MovieCastVO {
-    private String castId, castNm, castEnNm;
+    private String castIdx, castId, docId, role;
 
-    public String getCastEnNm() {
-        return castEnNm;
+    public String getCastIdx() {
+        return castIdx;
     }
-    public void setCastEnNm(String castEnNm) {
-        this.castEnNm = castEnNm;
+    public void setCastIdx(String castIdx) {
+        this.castIdx = castIdx;
     }
     public String getCastId() {
         return castId;
@@ -15,10 +15,16 @@ public class MovieCastVO {
     public void setCastId(String castId) {
         this.castId = castId;
     }
-    public String getCastNm() {
-        return castNm;
+    public String getDocId() {
+        return docId;
     }
-    public void setCastNm(String castNm) {
-        this.castNm = castNm;
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
     }
 }
