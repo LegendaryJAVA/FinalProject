@@ -24,11 +24,27 @@
 	<div id="msg3">
 	</div>
 	<div class="">
+<<<<<<< HEAD
 		<input type="button" value ="확인" onclick="chkFunc()"/>
 	</div>
 	<div>
 		<div class="">프로필</div>
 		<div><input tpye="text" id="profile"/></div>
+=======
+<<<<<<< HEAD
+		
+		<input type="button" value ="확인" onclick="chkFunc()"/>
+	</div>
+	<div>
+		<div>프로필</div>
+=======
+		<input type="button" value ="확인" onclick="chkFunc()"/>
+	</div>
+	<div>
+		<div>프로필  </div>
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+		<div><input type="text" id="profile"/></div>
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 	</div>
 	<div>
 		<div class="">닉네임 : </div>
@@ -125,7 +141,11 @@
 			
 			$.ajax({
 				url: "chk",
+<<<<<<< HEAD
 				data: JSON.stringify({data : {memberid : this.value}}),
+=======
+				data: JSON.stringify({data : {mid : this.value}}),
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				type:"post",
 				dataType : "json",
 				contentType:"application/json",
@@ -154,10 +174,17 @@
 		})
 		const nickname = document.querySelector("input#nicka") 
 		nickname.addEventListener("blur", function(event){
+<<<<<<< HEAD
 		
 			$.ajax({
 				url: "chk",
 				data: JSON.stringify({data : { membernickname : this.value }}),
+=======
+			console.log(this.value);
+			$.ajax({
+				url: "chk",
+				data: JSON.stringify({data : { mnickname : this.value }}),
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				type:"post",
 				dataType : "json",
 				contentType:"application/json",
@@ -200,12 +227,17 @@
 				return;
 			}
 			
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 			
 			// $("select#month").val()
 			
 			var alldata = {	
 					
+<<<<<<< HEAD
 				memberid : $("#ida").val(),
 				memberpass : $("#a").val(),
 				memberprofile :$("#profile").val(),
@@ -216,15 +248,32 @@
 				memberhob1		: $("input#hob1").val(),
 				memberhob2		: $("input#hob2").val(),
 				memberhob3		: $("input#hob3").val()
+=======
+				mid : $("#ida").val(),
+				mpass : $("#a").val(),
+				mprofile : $("#profile").val(),
+				mnickname : $("#nicka").val(),
+				mbirth	:$("input#year").val() +"/"+ $("select#month").val() +"/" + $("input#date").val(),
+				mgender : $("select#gender").val(),
+				msigndate : "now",
+				mhob1		: $("input#hob1").val(),
+				mhob2		: $("input#hob2").val(),
+				mhob3		: $("input#hob3").val()
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				
 				
 			}
 			
+<<<<<<< HEAD
 			if(alldata.memberid == ""){
+=======
+			if(alldata.mid == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("아이디를 입력하세요.");
 				return;
 			}
 			
+<<<<<<< HEAD
 			if(alldata.memberpass == ""){
 				alert("비밀번호를 입력하세요.");
 				return;
@@ -233,16 +282,42 @@
 				alert("프로필을 입력하세요.");
 				return;
 			}
+=======
+			if(alldata.mpass == ""){
+				alert("비밀번호를 입력하세요.");
+				return;
+			}
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 			if($("input#b").val() == ""){
 				alert("비밀번호를 입력하세요.");
 				return;
 			}
+<<<<<<< HEAD
 			if($("input#b").val() != alldata.memberpass){
 				alert("비밀번호가 틀렸습니다.");
 				return;
 			}
 			
 			if(alldata.membernickname == ""){
+=======
+			if($("input#b").val() != alldata.mpass){
+				alert("비밀번호가 틀렸습니다.");
+				return;
+			}
+			if($("#profile").val() ==""){
+<<<<<<< HEAD
+				alert("프로필을 설정해주세요");
+				return;
+			}
+				
+=======
+				alert("프로필을 입력하세요.");
+				return;
+			}
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+			
+			if(alldata.mnickname == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("닉네임을 입력하세요.");
 				return;
 			}
@@ -259,22 +334,38 @@
 				return;
 			}
 			
+<<<<<<< HEAD
 			if(alldata.membergender == ""){
+=======
+			if(alldata.mgender == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("성별을 입력하세요.");
 				return;
 			}
 			
+<<<<<<< HEAD
 			if(alldata.memberhob1 == ""){
+=======
+			if(alldata.mhob1 == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("취미를 입력하세요.");
 				return;
 			}
 			
+<<<<<<< HEAD
 			if(alldata.memberhob2 == ""){
+=======
+			if(alldata.mhob2 == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("취미를 입력하세요.");
 				return;
 			}
 			
+<<<<<<< HEAD
 			if(alldata.memberhob3 == ""){
+=======
+			if(alldata.mhob3 == ""){
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 				alert("취미를 입력하세요.");
 				return;
 			}
@@ -292,8 +383,11 @@
 				contentType:"application/json",
 				success : function(result){
 					
+<<<<<<< HEAD
 					alert(result.result + "가입완료되었습니다.");
 					history.back();
+=======
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 					
 				},
 				error: function(error){

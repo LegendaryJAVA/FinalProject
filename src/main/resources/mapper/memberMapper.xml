@@ -13,6 +13,7 @@
 		} 
 	</select>
 
+<<<<<<< HEAD
 	<select statementType="CALLABLE" parameterType="pkg.member.MemberVO" id="chk">
 		{
 			call PKG_MEMBER.PROC_MEMBER_CHK(
@@ -73,4 +74,63 @@
  		<result column="MEMBERFAVORITE3" property="memberhob3"/>
  	</resultMap>	
  	
+=======
+	<select id = "loginchk"  parameterType = "pkg.member.MemberVO" statementType = "CALLABLE">
+		{
+			call PKG_MEMBER.PROC_MEMEBER_LOGIN(
+				#{mid, jdbcType = VARCHAR, mode = IN}
+				,#{mpass, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				 
+			)
+		}
+	
+	</select>
+	
+	<select id = "chk"  parameterType = "pkg.member.MemberVO" statementType = "CALLABLE">
+		{
+			call PKG_MEMBER.PROC_MEMBER_CHK(
+				#{mid, jdbcType = VARCHAR, mode = IN}
+				,#{mnickname, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				
+			)
+		}
+	
+	</select>
+	
+	
+	<select id = "insmem"  parameterType = "pkg.member.MemberVO" statementType = "CALLABLE">
+		{
+			call PKG_MEMBER.PROC_MEMBER_INS (
+				#{mid, jdbcType = VARCHAR, mode = IN}
+				,#{mpass, jdbcType = VARCHAR, mode = IN}
+				,#{mprofile, jdbcType = VARCHAR, mode = IN}
+<<<<<<< HEAD
+				,#{mnickname, jdbcType = VARCHAR, mode = IN}				
+				,#{mbirth, jdbcType = VARCHAR, mode = IN}
+				,#{mgender, jdbcType = VARCHAR, mode = IN}
+=======
+				,#{mnickname, jdbcType = VARCHAR, mode = IN}
+				,#{mbirth, jdbcType = VARCHAR, mode = IN}
+				,#{mgender, jdbcType = VARCHAR, mode = IN}			
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+				,#{mhob1, jdbcType = VARCHAR, mode = IN}
+				,#{mhob2, jdbcType = VARCHAR, mode = IN}
+				,#{mhob3, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				
+			)
+		}
+	
+	</select>
+	
+	
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 </mapper>

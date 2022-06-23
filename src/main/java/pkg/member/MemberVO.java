@@ -1,6 +1,7 @@
 package pkg.member;
 
 public class MemberVO {
+<<<<<<< HEAD
 	private String memberid;
 	private String memberpass;
 	private String memberbirth;
@@ -82,6 +83,87 @@ public class MemberVO {
 	}
 
 	
+=======
+	private String mid;
+	private String mpass;
+	private String mprofile;
+	private String mbirth;
+	private String mnickname;
+	private String mgender;
+	private String msigndate;
+	private String mhob1;
+	private String mhob2;
+	private String mhob3;
+	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
+	public String getMpass() {
+		return mpass;
+	}
+	public void setMpass(String mpass) {
+		this.mpass = mpass;
+	}
+	public String getMprofile() {
+		return mprofile;
+	}
+	public void setMprofile(String mprofile) {
+		this.mprofile = mprofile;
+	}
+	public String getMbirth() {
+		return mbirth;
+	}
+	public void setMbirth(String mbirth) {
+		this.mbirth = mbirth;
+	}
+	public String getMnickname() {
+		return mnickname;
+	}
+	public void setMnickname(String mnickname) {
+		this.mnickname = mnickname;
+	}
+	public String getMgender() {
+		return mgender;
+	}
+	public void setMgender(String mgender) {
+		this.mgender = mgender;
+	}
+	public String getMsigndate() {
+		return msigndate;
+	}
+	public void setMsigndate(String msigndate) {
+		this.msigndate = msigndate;
+	}
+	public String getMhob1() {
+		return mhob1;
+	}
+	public void setMhob1(String mhob1) {
+		this.mhob1 = mhob1;
+	}
+	public String getMhob2() {
+		return mhob2;
+	}
+	public void setMhob2(String mhob2) {
+		this.mhob2 = mhob2;
+	}
+	public String getMhob3() {
+		return mhob3;
+	}
+	public void setMhob3(String mhob3) {
+		this.mhob3 = mhob3;
+	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 	
 
 	

@@ -1,7 +1,10 @@
 package pkg.member;
 
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 import java.util.Map;
 
 
@@ -25,10 +28,13 @@ public class MemberService_impl implements MemberService {
 		
 		return memberdao.insmem(map);
 	}
+<<<<<<< HEAD
 	@Override
 	public List<MemberVO> selmem(Map<String, Object> map) {
 		
 		return memberdao.selmem(map);
 	}
+=======
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
     
 }

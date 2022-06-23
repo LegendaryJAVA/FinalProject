@@ -1,7 +1,10 @@
 package pkg.member;
 
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,6 +44,7 @@ public class MemberDAO_Impl implements MemberDAO{
 		}
 		
 		
+<<<<<<< HEAD
 		return (String)map.get("result");
 	}
 	public List<MemberVO> selmem(Map<String, Object> map) {
@@ -49,6 +53,9 @@ public class MemberDAO_Impl implements MemberDAO{
 		
 		
 		return (List<MemberVO>)map.get("result");
+=======
+		return null;
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 	}
 
 }

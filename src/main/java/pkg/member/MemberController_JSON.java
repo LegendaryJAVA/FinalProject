@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD
 import com.google.gson.JsonObject;
 
 @RestController
@@ -31,6 +32,12 @@ public class MemberController_JSON {
 		}
 		
 		return "{\"result\": \"FAIL\" }";
+=======
+public class MemberController_JSON {
+
+
+	public String getMember() {
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 		
 	}
 	@PostMapping("chk")

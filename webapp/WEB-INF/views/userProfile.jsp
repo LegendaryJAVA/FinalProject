@@ -7,6 +7,7 @@
 <title>index.jsp</title>
 </head>
 <body>
+<<<<<<< HEAD
    		<div id="msg">
    		
    		
@@ -57,6 +58,10 @@
        
        
        
+=======
+    <%@ include file="../comp/header.jsp" %>
+   
+>>>>>>> b37b148715169ba61a068e2ac45e086c6f331e19
 </body>
 
 </html>
