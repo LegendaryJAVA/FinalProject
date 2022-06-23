@@ -5,14 +5,14 @@
 	<select id ="selectArticleList" resultMap ="ArticleMap" 
 					parameterType = "pkg.article.ArticleVO" statementType = "CALLABLE">
 		{
-			call PKG_FINAL_ARTICLE.PROC_SEL_ARTICLE(
-				#{articleId, jdbcType = VARCHAR, mode = IN}
-				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Admin.maps.MenuMap}
+			call PKG_ARTICLE.PROC_SEL_ARTICLE(
+				#{articleMovieid, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=ArticleMap}
 			)
 		}
 	</select>
 	
-	<resultMap type="ArticleMap" id="pkg.article.ArticleVO">
+	<resultMap id="ArticleMap" type="pkg.article.ArticleVO">
 		<result property ="articleId" column="ARTICLEID"/>
 		<result property ="articleAuthor" column="ARTICLEAUTHOR"/>
 		<result property ="articleContent" column="ARTICLECONTENT"/>

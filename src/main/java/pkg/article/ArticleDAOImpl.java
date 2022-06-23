@@ -1,6 +1,6 @@
 package pkg.article;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
@@ -15,19 +15,19 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<ArticleVO> getArticleList(String articleId){
+	public List<ArticleVO> getArticleList(String articleMovieid){
 		
 		Map<String, Object> map = new HashMap<String, Object>(); 
-		map.put("articleId", articleId);
+		map.put("articleMovieid", articleMovieid);
 		
 		sqlSession.selectList("selectArticleList", map);
 		List<ArticleVO> articleList = (List<ArticleVO>)map.get("result");
-				
+		
 		return articleList;
 	}
 
 	@Override
-	public void updateArticle(String artId, ArticleVO vo) {
+	public void updateArticle(String articleId, ArticleVO vo) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,7 +39,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 
 	@Override
-	public void deleteArticle(String artId) {
+	public void deleteArticle(String articleId) {
 		// TODO Auto-generated method stub
 		
 	}
