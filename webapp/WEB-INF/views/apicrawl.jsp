@@ -24,6 +24,7 @@
 		        <div class=""> <div class="response-parse"></div></div>
 		        <div class=""> <div class="--tl1">검색결과(RAW)</div> </div>
 		        <div class=""> <textarea class="response-source"></textarea></div>
+                <div class=""> <div class="update-database --btn1">데이터베이스 갱신</div> </div>
 		    </div>							
 		</div>
 	</div>
@@ -190,9 +191,10 @@
         xhr.send('');
     })
     $(document).on("click", ".update-database", function () {
+        console.log(parsedData);
         $.ajax({ 
-            url : "!update-database",
-            data : JSON.stringify({ Result : parsedData.data[0].Result }),
+            url : "admin.movie.update",
+            data : JSON.stringify({ Result : parsedData.Data[0].Result }),
             contentType : "application/json",
             type : "POST",
             dataType : "json",
