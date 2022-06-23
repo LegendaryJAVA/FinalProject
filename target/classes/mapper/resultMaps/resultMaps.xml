@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Pkg.Movie.maps">
+
+
+     <!-- 0622 Movie Select 시 필요해서 만듬  // 영화,영화감독,배우 등등 API Insert시 resultMap은 필요없다.      -->
+	<resultMap id="movieMap" type="pkg.movie.MovieVO">
+		<result property= "DOCID" column="DOCID" />
+		<result property= "title" column="TITLE" />
+		<result property= "titleEng" column="TITLEENG" />
+		<result property= "titleEtc" column="TITLEETC" />
+		<result property= "nation" column="NATION" />
+		<result property= "company" column="COMPANY" />
+		<result property= "plots" column="PLOT" />
+		<result property= "runtime" column="RUNTIME" />
+		<result property= "genre" column="GENRE" />
+		<result property= "posters" column="POSTERS" />
+		<result property= "keywords" column="KEYWORDS" />
+		<result property= "prodYear" column="PRODYEAR" />
+		<result property= "releaseDate" column="RELEASEDATE" />
+	</resultMap>	
+</mapper>
