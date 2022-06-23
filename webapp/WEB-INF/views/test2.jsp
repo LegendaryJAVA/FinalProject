@@ -258,7 +258,7 @@
 											{
 												   
 											   // MovieAPI    //    DirectorAPI  // ActorAPI
-												url : "ActorAPI",											
+												url : "MovieAPI",											
 												//data : //JSON.stringify(sendJsonDatas),
 												data :  JSON.stringify({"Data": [
 												      {
