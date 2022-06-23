@@ -3,7 +3,7 @@ let _ajax = function () {
 
 //header.section
 $(document).on("click", ".header .logo", function () {
-    location.href = `/project`;  // <<<
+    location.href = `/`;  // <<<
 }); 
 
 //header.section

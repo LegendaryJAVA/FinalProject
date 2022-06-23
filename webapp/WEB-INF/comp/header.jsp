@@ -13,16 +13,24 @@
         </div>
         
         <div class="user-profile-wrapper">
-        	<div class=""> <a href="/login" >login</a> </div>
+          <%if(session.getAttribute("mid")==null) {%> 
+        	<div> <a href="login">login</a></div>
+        	<%} else{%>	
+        	<div> <a href="logout">logout</a></div>
+<<<<<<< HEAD
+			<div> <a href="myform">내정보</a></div>
+=======
+			<div> <a href="myinform">내정보</a></div>
+>>>>>>> 55659e3988baea79019f14122be85d6a1f8e99e7
+        <%} %>
+        	
             <div class="user-profile"><div>😯</div></div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).on("click", ".login", function () {
-        location.href = "login";
-    })
+
 </script> 
 
 <style>
@@ -115,18 +123,6 @@
     .header > .user-profile-wrapper {
         justify-content: center;
         align-items: center;
-    }
-    .login {
-        width: 100px;
-        height: 40px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-        font-weight: 500;
-        background-color: #8947CC;
-        color : whitesmoke;
-        transition : 0.5s color, 0.5s background-color;
-        cursor: pointer;
     }
     .user-profile {
         border-radius: 50px;

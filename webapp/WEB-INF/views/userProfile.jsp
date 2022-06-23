@@ -7,7 +7,8 @@
 <title>index.jsp</title>
 </head>
 <body>
-    사용자 정보를 볼 수 있는 화면
+    <%@ include file="../comp/header.jsp" %>
+   
 </body>
 
 </html>
