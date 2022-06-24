@@ -21,17 +21,15 @@ import com.google.gson.Gson;
 
 @Controller
 public class MovieController { 
+
 	@Autowired
     MovieService movieService;
-	
 	//@Autowired
     //MovieCastService movieCastService; 
 	@Autowired
 	MovieDAO movieDAO;
 	
-	
-	
-    // 寃��깋 寃곌낵瑜� 蹂댁뿬二쇰뒗 �럹�씠吏�
+    // 영화 검색
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(keyword  +  "  - - -  keyWord   여기는 movie.search로 매핑되어있는 곳.");
@@ -46,24 +44,24 @@ public class MovieController {
     		strHTML += "<div>" + vo.getTitleEng() + "</div>";
     		strHTML += "<div>" + vo.getTitleEtc() + "</div>";
     		strHTML += "<div>" + vo.getGenre() + "</div>";
+            strHTML += "<div>" + vo.getDOCID() + "</div>";
     		strHTML += "</div>";
     		//docID = vo.getDocId();
     	}
     	
-    	model.addAttribute("docID", docID);
         model.addAttribute("keyword", keyword);
         model.addAttribute("result", strHTML);
         return "movie.search";
     }
  
-    //  �쁺�솕 �젙蹂대�� 蹂댁뿬二쇰뒗 �럹�씠吏�
+    //  영화 데이터 조회
     @RequestMapping("movie.info")
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         if(docid == null || docid.length() == 0) return "errorPage";
 
         MovieVO movie = new MovieVO();
-        movie.setTitle("�쁺�솕�젣紐�");
+        movie.setTitle("�쁺�솕�젣紐�"); // ?? 인코딩 깨져있음 
         movie.setGenre("genre");
         movie.setCompany("company");
        // movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
@@ -85,8 +83,6 @@ public class MovieController {
     	
     	return "test2";
     }
-    
-    
     
     @ResponseBody
     @RequestMapping("MovieAPI")
