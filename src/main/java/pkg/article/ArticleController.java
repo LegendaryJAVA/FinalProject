@@ -5,10 +5,11 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+@Controller
 public class ArticleController {
-
+	
 	// 조건에 맞는 게시글 가져오기
     public String getArticles (Map<String, Object> params, Model model, HttpServletRequest request, HttpServletResponse response) {
 		

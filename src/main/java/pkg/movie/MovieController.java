@@ -1,110 +1,74 @@
 package pkg.movie;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
+import pkg.movieCast.MovieCastService;
+import pkg.reply.ReplyService;
+import pkg.reply.ReplyVO;
 
-//import pkg.movieCast.MovieCastService;
+import java.util.List;
 
 @Controller
 public class MovieController { 
-	@Autowired
+
     MovieService movieService;
-	
-	//@Autowired
-    //MovieCastService movieCastService; 
-	@Autowired
-	MovieDAO movieDAO;
-	
-	
-	
-    // 寃��깋 寃곌낵瑜� 蹂댁뿬二쇰뒗 �럹�씠吏�
+    MovieCastService movieCastService;
+    ReplyService replyService;
+    @Autowired
+    public MovieController(MovieService movieService, MovieCastService movieCastService, ReplyService replyService){
+        this.movieService = movieService;
+        this.movieCastService = movieCastService;
+        this.replyService = replyService;
+    }
+ 
+    // 검색 결과를 보여주는 페이지
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println(keyword  +  "  - - -  keyWord   여기는 movie.search로 매핑되어있는 곳.");
-  	
-    	List<MovieVO> menuList = movieService.getMovieList(keyword);
-  	
-    	String strHTML = "";
-    	String docID = "";
-    	for(MovieVO vo : menuList) {
-    		strHTML += "<div>";
-    		strHTML += "<div>" + vo.getTitle() + "</div>";
-    		strHTML += "<div>" + vo.getTitleEng() + "</div>";
-    		strHTML += "<div>" + vo.getTitleEtc() + "</div>";
-    		strHTML += "<div>" + vo.getGenre() + "</div>";
-    		strHTML += "</div>";
-    		//docID = vo.getDocId();
-    	}
-    	
-    	model.addAttribute("docID", docID);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("result", strHTML);
+        
+        List<MovieVO> list = movieService.searchMovieList(keyword);
+        
+        //테스트용
+        String strHTML = "";
+        for(MovieVO vo : list){
+            strHTML += "<div>";
+            strHTML += "<div>제목&nbsp;&nbsp;<a href=\"movie.info?docid="+vo.getDocId()+"\">"+vo.getTitle()+"</a></div>";
+            strHTML += "<div>영어제목&nbsp;&nbsp;"+vo.getTitleEng()+"</div>";
+            strHTML += "<div>장르&nbsp;&nbsp;"+vo.getGenre()+"</div>";
+            strHTML += "<div>상영시간&nbsp;&nbsp;"+vo.getRuntime()+"</div>";
+            strHTML += "</div>";
+        }
+    
+        model.addAttribute("searchResult",strHTML);
+        
         return "movie.search";
     }
  
-    //  �쁺�솕 �젙蹂대�� 蹂댁뿬二쇰뒗 �럹�씠吏�
+    //  영화 정보를 보여주는 페이지
     @RequestMapping("movie.info")
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+        
         if(docid == null || docid.length() == 0) return "errorPage";
-
-        MovieVO movie = new MovieVO();
-        movie.setTitle("�쁺�솕�젣紐�");
-        movie.setGenre("genre");
-        movie.setCompany("company");
-       // movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
-
         model.addAttribute("docid", docid);
-        model.addAttribute("movieTitle", movie.getTitle());
-        model.addAttribute("movieGenre", movie.getGenre());
-        model.addAttribute("movieCompany", movie.getCompany());
-        //model.addAttribute("moviePlot", movie.getPlot());
-
+    
+        List<MovieVO> list = movieService.getMovieInfo(docid);
+        MovieVO resultVO = list.get(0);
+        //model.addAttribute("resultVO",resultVO);
+        model.addAttribute("movieName",resultVO.getTitle());
+        model.addAttribute("movieTitle",resultVO.getTitle());
+        model.addAttribute("movieGenre",resultVO.getGenre());
+        model.addAttribute("moviePlot",resultVO.getPlot());
+        
+        //+해당영화게시물
+        //+그 게시물의 댓글
+        
         return "movie.info";
     }
     
-    @RequestMapping("test2")
-    public String asasdsq() {
-    	
-    	
-    	
-    	
-    	return "test2";
-    }
-    
-    
-    
-    @ResponseBody
-    @RequestMapping("MovieAPI")
-    public String KMDB에서_영화API_갸져와서_INSERT하기(@RequestBody Map<String, Object> params) {
-    	
-    	Map<String, Object> chkResultMap = movieDAO.getMovieAPI(params);
- 
-    	List<Map<String, String>> resultList = (List<Map<String, String>>)chkResultMap.get("result");
-    	System.out.println("MovieAPI 리턴");
-    	for(Map<String, String> element : resultList) {
-        	System.out.println("-----------");
-    		System.out.println("sqlCode : "+ element.get("sqlCode"));
-    		System.out.println("sqlErrm : "+ element.get("sqlErrm"));
-    		System.out.println("ErrMsg : "+ element.get("ErrMsg"));
-    		
-    	}
-    	
-    	return new Gson().toJson(resultList);
-    }
-  
 }

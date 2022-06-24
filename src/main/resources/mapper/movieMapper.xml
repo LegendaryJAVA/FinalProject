@@ -2,91 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="movie" >
+    <select id="searchMovieList" resultMap="searchMovieMap" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
+        {call PKG_MOVIE.PROC_SEARCH_MOVIE(
+            #{keyword, jdbcType=VARCHAR, mode=IN}
+            ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+            )}
+    </select>
 
-	    <select id="selectMovieList" resultMap= "Pkg.Movie.maps.movieMap" parameterType= "pkg.movie.MovieVO" statementType="CALLABLE">
-		 {
-		 	call PKG_MOVIE.PROC_SEARCH_MOVIE(
-		 		#{keyword, jdbcType = VARCHAR, mode = IN}
-		 		,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Movie.maps.movieMap}
-		 	)
-		 }
-		</select>
-		<select id="insertMovieList" resultMap= "Pkg.Movie.maps.movieMap" parameterType= "pkg.movie.MovieVO" statementType="CALLABLE">
-		 {
-		 	call PKG_MOVIE.PROC_INS_MOVIE(
-		 		#{docId, jdbcType = VARCHAR, mode = IN}
-		 		,#{title, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEtc, jdbcType = VARCHAR, mode = IN}
-		 		,#{nation, jdbcType = VARCHAR, mode = IN}
-		 		,#{company, jdbcType = VARCHAR, mode = IN}
-		 		,#{prodyear, jdbcType = VARCHAR, mode = IN}
-		 		,#{plot, jdbcType = VARCHAR, mode = IN}
-		 		,#{runtime, jdbcType = VARCHAR, mode = IN}
-		 		,#{genre, jdbcType = VARCHAR, mode = IN}
-		 		,#{posters, jdbcType = VARCHAR, mode = IN}
-		 		,#{keywords, jdbcType = VARCHAR, mode = IN}
-		 		,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Movie.maps.movieMap}
-		 	)
-		 }
-		</select>
-		
-		<!-- Movie API 데이터 삽입 시 쓰이는 로직 // 임시로 Test테이블에 데이터 삽입중-->
-		<select id="MovieAPI"  parameterType= "String" statementType="CALLABLE">
-		 {
-		 	call PKG_MOVIE.PROC_INS_MOVIE_TEST(
-		 		#{DOCID, jdbcType = VARCHAR, mode = IN}
-		 		,#{title, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEtc, jdbcType = VARCHAR, mode = IN}
-		 		,#{nation, jdbcType = VARCHAR, mode = IN}
-		 		 ,#{company, jdbcType = VARCHAR, mode = IN}
-		 		,#{prodYear, jdbcType = VARCHAR, mode = IN}
-		 	    ,#{plots, jdbcType = VARCHAR, mode = IN}
-		 		,#{runtime, jdbcType = VARCHAR, mode = IN}
-		 		,#{genre, jdbcType = VARCHAR, mode = IN}	 		
-		 		,#{posters, jdbcType = VARCHAR, mode = IN}
-		 		,#{keywords, jdbcType = VARCHAR, mode = IN}
-		 		,#{releaseDate, jdbcType = VARCHAR, mode = IN}	
-		 		,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 	)
-		 }
-		</select>
+    <resultMap id="searchMovieMap" type="pkg.movie.MovieVO">
+        <result property="docId" column="DOCID"></result>
+        <result property="title" column="TITLE"></result>
+        <result property="titleEng" column="TITLEENG"></result>
+        <result property="nation" column="NATION"></result>
+        <result property="company" column="COMPANY"></result>
+        <result property="plot" column="PLOT"></result>
+        <result property="runtime" column="RUNTIME"></result>
+        <result property="genre" column="GENRE"></result>
+        <result property="posters" column="POSTERS"></result>
+        <result property="keywords" column="KEYWORDS"></result>
+        <result property="releaseDate" column="RELEASEDATE"></result>
+        <result property="prodYear" column="PRODYEAR"></result>
+    </resultMap>
 
-
-
-
-
-		<!-- Director API 데이터 삽입 시 쓰이는 로직 -->
-		<select id="DirectorAPI"  parameterType= "String" statementType="CALLABLE">
-		 {
-		 	call PKG_DIRECTOR.PROC_INS_DIRECTOR(
-		 		#{directorId, jdbcType = VARCHAR, mode = IN}
-		 		,#{directorNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{directorEnNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 	)
-		 }
-		</select>
-		
-		<!-- Actor API 데이터 삽입 시 쓰이는 로직 -->
-		<select id="ActorAPI"  parameterType= "String" statementType="CALLABLE">
-		 {
-		 	call PKG_ACTOR.PROC_INS_ACTOR(
-		 		#{actorId, jdbcType = VARCHAR, mode = IN}
-		 		,#{actorNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{actorEnNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 	)
-		 }
-		</select>
-
+    <!-- 나중에 세부페이지에 들어갈 정보 더 생기면 resultMap 수정 -->
+    <select id="getMovieInfo" resultMap="searchMovieMap" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
+        {call PKG_MOVIE.PROC_SEL_MOVIE(
+            #{docId, jdbcType=VARCHAR, mode=IN}
+            ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+            )}
+    </select>
 
 
 </mapper>

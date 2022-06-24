@@ -3,45 +3,20 @@
    <context:annotation-config />
    <context:component-scan base-package="pkg.*" />
    <mvc:annotation-driven />
-   <mvc:interceptors>
-      <mvc:interceptor>
-         <mvc:mapping path="/**" />
-         <mvc:exclude-mapping path="/resource/**" />
-         <mvc:exclude-mapping path="/login" />
-         <mvc:exclude-mapping path="/logout" />
-         <bean id="nsq" class="pkg.$.Interceptor" />
-      </mvc:interceptor> 
-   </mvc:interceptors>
    <mvc:resources location="/resource/" mapping="/resource/**" />
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/views/" />
       <property name="suffix" value=".jsp" />
-   </bean> 
+   </bean>
 
-   <!-- 
+   <!--
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
       <property value="jdbc:oracle:thin:@localhost:1521:xe" name="url" />
-      <property value="auth" name="username" />
+      <property value="project" name="username" />
       <property value="1" name="password" />
+   </bean> -->
 
- 
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=\\or\\Wallet_DB20220621092517"/>
-      <property name="username" value="FINALPROJECT"/>
-      <property name="password" value="Project123123"/>
-
-   </bean>
-   --> 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=\\or\\Wallet_DB20220621092517"/>
-      <property name="username" value="FINALPROJECT"/>
-      <property name="password" value="Project123123"/>
-     </bean>
-     
-    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
       <!--  <property value="classpath:mybatis-config.xml" name="configLocation" /> -->
@@ -50,4 +25,15 @@
    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>     
    </bean>
+
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=/Users/sniperditto/Documents/Project/Wallet_DB20220621092517"/>
+      <property name="username" value="FINALPROJECT"/>
+      <property name="password" value="Project123123"/>
+   </bean>
+
+
+
+
 </beans>
