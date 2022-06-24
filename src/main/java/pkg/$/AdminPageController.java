@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminPageController {
     
+    @GetMapping("admin")
+    public String adminLandingPage () {
+
+        return "";
+    }
+
     @GetMapping("admin.movie")
     public String moviePage () {
 

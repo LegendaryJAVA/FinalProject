@@ -1,6 +1,7 @@
 package pkg.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class MovieService_impl implements MovieService {
 		//별점, 출연 배우들 등 추가하기
 		return movieDAO.getMovieInfo(docId);
 	}
-	
+	@Override
+	public Map<String, Object> quickSearch(String keyword) {
+		//별점, 출연 배우들 등 추가하기
+		return movieDAO.quickSearch(keyword);
+	}
     
 }
