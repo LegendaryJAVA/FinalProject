@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface MovieDAO {
-
 	
-	 List<MovieVO> getMovieList(String keyword);
+	
+	public List<MovieVO> searchMovieList(String keyword);
+	public List<MovieVO> getMovieInfo(String docId);
 	 
 	 Map<String, Object> getMovieAPI(Map<String, Object> params);
 	
+
 }

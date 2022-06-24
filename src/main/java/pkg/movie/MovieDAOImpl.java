@@ -12,29 +12,32 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MovieDAOImpl implements MovieDAO{
-    
 	
-	@Autowired
 	SqlSessionTemplate sqlSession;
-
+	@Autowired
+	public MovieDAOImpl(SqlSessionTemplate sqlSession){
+		this.sqlSession = sqlSession;
+	}
 	
-
+	public List<MovieVO> searchMovieList(String keyword){
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword",keyword);
+		
+		sqlSession.selectList("searchMovieList",map);
+		List<MovieVO> list = (List<MovieVO>) map.get("result");
+		
+		return list;
+	}
 	
-	
-	public List<MovieVO> getMovieList(String keyword) {
-					
-			Map<String, Object> map = new HashMap<String, Object>();
-						
-			//reply.selectMovieList
-			map.put("keyword", keyword);
-			
-			sqlSession.selectList("movie.selectMovieList", map);
-			
-			List<MovieVO> movieList =  (List<MovieVO>)map.get("result");
-						
-			return movieList;
-			
-		}
+	public List<MovieVO> getMovieInfo(String docId){
+		Map<String, Object> map = new HashMap<>();
+		map.put("docId",docId);
+		
+		sqlSession.selectList("getMovieInfo",map);
+		List<MovieVO> list = (List<MovieVO>) map.get("result");
+		
+		return list;
+	}
 	
 	@Override
 	public Map<String, Object> getMovieAPI(Map<String, Object> params){				
@@ -114,9 +117,11 @@ public class MovieDAOImpl implements MovieDAO{
  	       		
 		return restoreMap;
 	}
-		
-		
-	}
+	
+
+	
+	
+}
 	
 
 

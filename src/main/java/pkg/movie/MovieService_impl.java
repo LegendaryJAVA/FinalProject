@@ -7,18 +7,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MovieService_impl implements MovieService {
-
 	
-	
+	MovieDAO movieDAO;
 	@Autowired
-	private MovieDAO movieDAO;
-	
-	
-
-	public List<MovieVO> getMovieList(String keyword) {
-		
-		return movieDAO.getMovieList(keyword);
-				
+	public MovieService_impl(MovieDAO movieDAO){
+		this.movieDAO = movieDAO;
 	}
+	@Override
+	public List<MovieVO> searchMovieList(String keyword) {
+		return movieDAO.searchMovieList(keyword);
+	}
+	
+	@Override
+	public List<MovieVO> getMovieInfo(String docId) {
+		//별점, 출연 배우들 등 추가하기
+		return movieDAO.getMovieInfo(docId);
+	}
+	
     
 }

@@ -9,7 +9,7 @@
 <body>
     <%@ include file="../comp/header.jsp" %>
     <div class="container-section">
-        <div class="container movie-info">          
+        <div class="container movie-info">
             <div class="title">${ movieTitle }</div>
             <div class="desc-wrapper">
                 <div class="posters"> <img src=""/> </div>
@@ -21,8 +21,13 @@
         </div>
         <div class="container articles">
             <div class="title">사용자 후기</div>
-                ajax로 구현할 부분
+            ajax로 구현할 부분
+            <div>
+                <div>댓글</div>
+                <div>${replyList}</div>
+            </div>
         </div>
+
 
 
     </div>

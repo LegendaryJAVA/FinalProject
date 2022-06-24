@@ -3,14 +3,35 @@
 
 <mapper namespace="movie" >
 
-	    <select id="selectMovieList" resultMap= "Pkg.Movie.maps.movieMap" parameterType= "pkg.movie.MovieVO" statementType="CALLABLE">
-		 {
-		 	call PKG_MOVIE.PROC_SEARCH_MOVIE(
-		 		#{keyword, jdbcType = VARCHAR, mode = IN}
-		 		,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Movie.maps.movieMap}
-		 	)
-		 }
-		</select>
+	<select id="searchMovieList" resultMap="searchMovieMap" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
+		{call PKG_MOVIE.PROC_SEARCH_MOVIE(
+				#{keyword, jdbcType=VARCHAR, mode=IN}
+			,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+			)}
+	</select>
+
+	<resultMap id="searchMovieMap" type="pkg.movie.MovieVO">
+		<result property="DOCID" column="DOCID"></result>
+		<result property="title" column="TITLE"></result>
+		<result property="titleEng" column="TITLEENG"></result>
+		<result property="nation" column="NATION"></result>
+		<result property="company" column="COMPANY"></result>
+		<result property="plots" column="PLOT"></result>
+		<result property="runtime" column="RUNTIME"></result>
+		<result property="genre" column="GENRE"></result>
+		<result property="posters" column="POSTERS"></result>
+		<result property="keywords" column="KEYWORDS"></result>
+		<result property="releaseDate" column="RELEASEDATE"></result>
+		<result property="prodYear" column="PRODYEAR"></result>
+	</resultMap>
+
+	<!-- 나중에 세부페이지에 들어갈 정보 더 생기면 resultMap 수정 -->
+	<select id="getMovieInfo" resultMap="searchMovieMap" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
+		{call PKG_MOVIE.PROC_SEL_MOVIE(
+				#{DOCID, jdbcType=VARCHAR, mode=IN}
+			,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+			)}
+	</select>
 		
 		
 		<!-- Movie API 데이터 삽입 시 쓰이는 로직 // 임시로 Test테이블에 데이터 삽입중-->
