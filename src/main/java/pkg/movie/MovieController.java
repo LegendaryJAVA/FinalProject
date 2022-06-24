@@ -35,13 +35,9 @@ public class MovieController {
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(keyword  +  "  - - -  keyWord   여기는 movie.search로 매핑되어있는 곳.");
-    	     	
-    	
-    	
+  	
     	List<MovieVO> menuList = movieService.getMovieList(keyword);
-
-    	
-    	
+  	
     	String strHTML = "";
     	String docID = "";
     	for(MovieVO vo : menuList) {
@@ -54,9 +50,7 @@ public class MovieController {
     		//docID = vo.getDocId();
     	}
     	
-    	
-    	
-    	 model.addAttribute("docID", docID);
+    	model.addAttribute("docID", docID);
         model.addAttribute("keyword", keyword);
         model.addAttribute("result", strHTML);
         return "movie.search";
