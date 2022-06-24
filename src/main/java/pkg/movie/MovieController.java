@@ -29,50 +29,50 @@ public class MovieController {
 	@Autowired
 	MovieDAO movieDAO;
 	
-    // 영화 검색
+	// 검색 결과를 보여주는 페이지
     @RequestMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(keyword  +  "  - - -  keyWord   여기는 movie.search로 매핑되어있는 곳.");
-  	
-    	List<MovieVO> menuList = movieService.getMovieList(keyword);
-  	
-    	String strHTML = "";
-    	String docID = "";
-    	for(MovieVO vo : menuList) {
-    		strHTML += "<div>";
-    		strHTML += "<div>" + vo.getTitle() + "</div>";
-    		strHTML += "<div>" + vo.getTitleEng() + "</div>";
-    		strHTML += "<div>" + vo.getTitleEtc() + "</div>";
-    		strHTML += "<div>" + vo.getGenre() + "</div>";
-            strHTML += "<div>" + vo.getDOCID() + "</div>";
-    		strHTML += "</div>";
-    		//docID = vo.getDocId();
-    	}
-    	
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("result", strHTML);
-        return "movie.search";
+	
+		model.addAttribute("keyword", keyword);
+	
+		List<MovieVO> list = movieService.searchMovieList(keyword);
+	
+		
+		String strHTML = "";
+		for(MovieVO vo : list){
+			strHTML += "<div>";
+			strHTML += "<div>제목&nbsp;&nbsp;<a href=\"movie.info?docid="+vo.getDOCID()+"\">"+vo.getTitle()+"</a></div>";
+			strHTML += "<div>영어제목&nbsp;&nbsp;"+vo.getTitleEng()+"</div>";
+			strHTML += "<div>장르&nbsp;&nbsp;"+vo.getGenre()+"</div>";
+			strHTML += "<div>상영시간&nbsp;&nbsp;"+vo.getRuntime()+"</div>";
+			strHTML += "</div>";
+		}
+	
+		model.addAttribute("searchResult",strHTML);
+	
+		return "movie.search";
     }
- 
-    //  영화 데이터 조회
+	
+	//  영화 정보를 보여주는 페이지
     @RequestMapping("movie.info")
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         if(docid == null || docid.length() == 0) return "errorPage";
 
-        MovieVO movie = new MovieVO();
-        movie.setTitle("�쁺�솕�젣紐�"); // ?? 인코딩 깨져있음 
-        movie.setGenre("genre");
-        movie.setCompany("company");
-       // movie.setPlot("dasdadsddsadsdsadsdasdasdddsada");
-
-        model.addAttribute("docid", docid);
-        model.addAttribute("movieTitle", movie.getTitle());
-        model.addAttribute("movieGenre", movie.getGenre());
-        model.addAttribute("movieCompany", movie.getCompany());
-        //model.addAttribute("moviePlot", movie.getPlot());
-
-        return "movie.info";
+	
+		List<MovieVO> list = movieService.getMovieInfo(docid);
+		MovieVO resultVO = list.get(0);
+		//model.addAttribute("resultVO",resultVO);
+		model.addAttribute("movieName",resultVO.getTitle());
+		model.addAttribute("movieTitle",resultVO.getTitle());
+		model.addAttribute("movieGenre",resultVO.getGenre());
+		model.addAttribute("moviePlot",resultVO.getPlots());
+	
+		//+해당영화게시물
+		//+그 게시물의 댓글
+	
+		return "movie.info";
     }
     
     @RequestMapping("test2")

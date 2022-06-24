@@ -3,9 +3,31 @@
 
 <mapper namespace="reply" >
 
+    <select id="insertReplyList" parameterType="pkg.reply.ReplyVO" statementType="CALLABLE">
+        {call PKG_REPLY.PROC_INS_REPLY(
+                #{replyAuthor, jdbcType=VARCHAR, mode=IN}
+            ,#{replyContent, jdbcType=VARCHAR, mode=IN}
+            ,#{replyArticleId, jdbcType=VARCHAR, mode=IN}
+            ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+            ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+            )}
+    </select>
 
-	
-			
+    <select id="selectReplyList" resultMap="replyMap" parameterType="pkg.reply.ReplyVO" statementType="CALLABLE">
+        {call PKG_REPLY.(
+                #{replyArticleId, jdbcType=VARCHAR, mode=IN}
+            ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=replyMap}
+            ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+            ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+            )}
+    </select>
 
+    <resultMap id="replyMap" type="pkg.reply.ReplyVO">
+        <result property="replyId" column="replyid"></result>
+        <result property="replyAuthor" column="replyauthor"></result>
+        <result property="replyContent" column="replycontent"></result>
+        <result property="replyRegdate" column="replyregdate"></result>
+        <result property="replyArticleId" column="replyarticleid"></result>
+    </resultMap>
 
 </mapper>
