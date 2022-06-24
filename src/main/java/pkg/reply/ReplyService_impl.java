@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public class ReplyService_impl implements ReplyService{
 	
-	ReplyDAO replyDAO;
+	ReplyDAOImpl replyDAO;
 	@Autowired
-	public ReplyService_impl(ReplyDAO replyDAO){
+	public ReplyService_impl(ReplyDAOImpl replyDAO){
 		this.replyDAO = replyDAO;
 	}
 	
