@@ -18,6 +18,8 @@ local.properties
 
 .settings
 .classpath
+.idea
+project.iml
 
 # External tool builders
 .externalToolBuilders/
