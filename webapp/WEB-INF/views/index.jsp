@@ -10,6 +10,7 @@
     <%@ include file="../comp/header.jsp" %>
     <div class="container-section">
         <div class="container">
+            <div><a href="moviegrid">영화관리테스트</a></div>
             <div class="carousel">
                 <div class="title">캐러셀 샘플</div>
                 <div>

@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="resource/js/sampleData.js"></script>
 <link href="resource/css/sample.css" rel="stylesheet" />
-<title>index.jspdasda</title>
+<title>index.jsp</title>
 </head>
 <body>
     <div class="header">

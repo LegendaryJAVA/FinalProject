@@ -8,8 +8,10 @@ public interface MovieDAO {
 	
 	public List<MovieVO> searchMovieList(String keyword);
 	public List<MovieVO> getMovieInfo(String docId);
-	 
-	 Map<String, Object> getMovieAPI(Map<String, Object> params);
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList);
+	
+	
+	Map<String, Object> getMovieAPI(Map<String, Object> params);
 	
 
 }

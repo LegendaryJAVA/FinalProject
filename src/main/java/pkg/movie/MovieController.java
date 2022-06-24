@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,13 +77,32 @@ public class MovieController {
 	
 		return "movie.info";
     }
+	
+	@RequestMapping("moviegrid")
+	public String movieGridPage(Model model, HttpServletRequest request, HttpServletResponse response){
+		
+		return "moviegrid";
+	}
+	@ResponseBody
+	@RequestMapping("moviegridData")
+	public String movieGridData(Model model, HttpServletRequest request, HttpServletResponse response){
+		
+		List<MovieVO> list = movieService.searchMovieList("");
+		
+		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping("moviegridSave")
+	public String moviegridSave(Model model, HttpServletRequest request, HttpServletResponse response){
+		
+		
+		
+		return "moviegrid";
+	}
+	
     
     @RequestMapping("test2")
     public String asasdsq() {
-    	
-    	
-    	
-    	
     	return "test2";
     }
     
