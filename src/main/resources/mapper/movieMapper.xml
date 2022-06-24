@@ -67,34 +67,7 @@
 
 
 
-		<!-- Director API 데이터 삽입 시 쓰이는 로직 -->
-		<select id="DirectorAPI"  parameterType= "String" statementType="CALLABLE">
-		 {
-		 	call PKG_DIRECTOR.PROC_INS_DIRECTOR(
-		 		#{directorId, jdbcType = VARCHAR, mode = IN}
-		 		,#{directorNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{directorEnNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 	)
-		 }
-		</select>
 		
-		<!-- Actor API 데이터 삽입 시 쓰이는 로직 -->
-		<select id="ActorAPI"  parameterType= "String" statementType="CALLABLE">
-		 {
-		 	call PKG_ACTOR.PROC_INS_ACTOR(
-		 		#{actorId, jdbcType = VARCHAR, mode = IN}
-		 		,#{actorNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{actorEnNm, jdbcType = VARCHAR, mode = IN}
-		 		,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 		,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
-		 	)
-		 }
-		</select>
-
 
 
 </mapper>
