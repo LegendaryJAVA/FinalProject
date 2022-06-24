@@ -11,30 +11,12 @@
 		 	)
 		 }
 		</select>
-		<select id="insertMovieList" resultMap= "Pkg.Movie.maps.movieMap" parameterType= "pkg.movie.MovieVO" statementType="CALLABLE">
-		 {
-		 	call PKG_MOVIE.PROC_INS_MOVIE(
-		 		#{docId, jdbcType = VARCHAR, mode = IN}
-		 		,#{title, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
-		 		,#{titleEtc, jdbcType = VARCHAR, mode = IN}
-		 		,#{nation, jdbcType = VARCHAR, mode = IN}
-		 		,#{company, jdbcType = VARCHAR, mode = IN}
-		 		,#{prodyear, jdbcType = VARCHAR, mode = IN}
-		 		,#{plot, jdbcType = VARCHAR, mode = IN}
-		 		,#{runtime, jdbcType = VARCHAR, mode = IN}
-		 		,#{genre, jdbcType = VARCHAR, mode = IN}
-		 		,#{posters, jdbcType = VARCHAR, mode = IN}
-		 		,#{keywords, jdbcType = VARCHAR, mode = IN}
-		 		,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Movie.maps.movieMap}
-		 	)
-		 }
-		</select>
+		
 		
 		<!-- Movie API 데이터 삽입 시 쓰이는 로직 // 임시로 Test테이블에 데이터 삽입중-->
 		<select id="MovieAPI"  parameterType= "String" statementType="CALLABLE">
 		 {
-		 	call PKG_MOVIE.PROC_INS_MOVIE_TEST(
+		 	call PKG_MOVIE.PROC_INS_MOVIE(
 		 		#{DOCID, jdbcType = VARCHAR, mode = IN}
 		 		,#{title, jdbcType = VARCHAR, mode = IN}
 		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
@@ -54,6 +36,32 @@
 		 	)
 		 }
 		</select>
+		
+		<select id="insertMovieList" resultMap= "Pkg.Movie.maps.movieMap" parameterType= "pkg.movie.MovieVO" statementType="CALLABLE">
+		 {
+		 	call PKG_MOVIE.PROC_INS_MOVIE2(
+		 		#{docId, jdbcType = VARCHAR, mode = IN}
+		 		,#{title, jdbcType = VARCHAR, mode = IN}
+		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
+		 		,#{titleEtc, jdbcType = VARCHAR, mode = IN}
+		 		,#{nation, jdbcType = VARCHAR, mode = IN}
+		 		,#{company, jdbcType = VARCHAR, mode = IN}
+		 		,#{prodyear, jdbcType = VARCHAR, mode = IN}
+		 		,#{plot, jdbcType = VARCHAR, mode = IN}
+		 		,#{runtime, jdbcType = VARCHAR, mode = IN}
+		 		,#{genre, jdbcType = VARCHAR, mode = IN}
+		 		,#{posters, jdbcType = VARCHAR, mode = IN}
+		 		,#{keywords, jdbcType = VARCHAR, mode = IN}
+		 		,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=Pkg.Movie.maps.movieMap}
+		 	)
+		 }
+		</select>
+		
+		
+		
+		
+		
+		
 
 
 
