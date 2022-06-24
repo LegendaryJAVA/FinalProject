@@ -50,10 +50,6 @@ public class MovieDAOImpl implements MovieDAO{
             Map<String, Object> restoreMap = new HashMap<String, Object>();
             List<Map<String, String>> restoreList = new ArrayList<Map<String, String>>();
             
-            
-            
-            
-            
             for(int i = 0; i<API3.size(); i++) {
 	            Map<String, Object> realData = (Map<String, Object>)API3.get(i);   		//  ��ü �����Ϳ��� 1���� �����´�.
 	                
@@ -97,16 +93,11 @@ public class MovieDAOImpl implements MovieDAO{
             
 	            sqlSession.selectList("movie.MovieAPI", map);    
 	            
-	           	           
-       
-	            
 	            Map<String, String> resultMap = new HashMap<String, String>();
 	            //resultMap.put("DOCID", realData.get("DOCID"));
 	            resultMap.put("ErrMsg", (String)map.get("ErrMsg"));
 	            resultMap.put("sqlCode", (String)map.get("sqlCode"));
 	            resultMap.put("sqlErrm", (String)map.get("sqlErrm"));
-	            
-	            
 	            
 	            restoreList.add(resultMap);            
 	         	     

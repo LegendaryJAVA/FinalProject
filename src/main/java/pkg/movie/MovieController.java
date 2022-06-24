@@ -21,15 +21,13 @@ import com.google.gson.Gson;
 
 @Controller
 public class MovieController { 
+
 	@Autowired
     MovieService movieService;
-	
 	//@Autowired
     //MovieCastService movieCastService; 
 	@Autowired
 	MovieDAO movieDAO;
-	
-	
 	
 	// 검색 결과를 보여주는 페이지
     @RequestMapping("movie.search")
@@ -61,6 +59,7 @@ public class MovieController {
     public String movieInfoPage (String docid, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         if(docid == null || docid.length() == 0) return "errorPage";
+
 	
 		List<MovieVO> list = movieService.getMovieInfo(docid);
 		MovieVO resultVO = list.get(0);
@@ -84,8 +83,6 @@ public class MovieController {
     	
     	return "test2";
     }
-    
-    
     
     @ResponseBody
     @RequestMapping("MovieAPI")
