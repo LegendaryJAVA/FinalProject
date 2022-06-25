@@ -51,4 +51,13 @@ public class MemberDAO_Impl implements MemberDAO{
 		return (List<MemberVO>)map.get("result");
 	}
 
+	public String updatemem(Map<String, Object> map) {
+		sqlSessionTemplate.selectList("updatemem",map);
+		System.out.println((String)map.get("result"));
+		System.out.println((String)map.get("error"));
+		System.out.println((String)map.get("error2"));
+		
+		return (String)map.get("result");
+	}
+
 }

@@ -13,11 +13,11 @@
         </div>
         
         <div class="user-profile-wrapper">
-          <%if(session.getAttribute("mid")==null) {%> 
+          <%if(session.getAttribute("memberid")==null) {%> 
         	<div> <a href="login">login</a></div>
         	<%} else{%>	
         	<div> <a href="logout">logout</a></div>
-	        <div class="user-profile"><div><a href="myform">😯</a></div></div>
+	        <div class="user-profile"><div><a href="profile?memberid=<%=session.getAttribute("memberid")%>">😯</a></div></div>
     		
         <%} %>
         	

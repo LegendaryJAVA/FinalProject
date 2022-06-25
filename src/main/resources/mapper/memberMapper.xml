@@ -46,7 +46,25 @@
  	
  	</select>
  	
-
+	<select statementType="CALLABLE" parameterType="pkg.member.MemberVO" id="updatemem">
+	{
+		call PKG_MEMBER.PROC_MEMBER_UPDATE (
+			#{memberid, jdbcType = VARCHAR, mode = IN}
+			,#{memberprofile, jdbcType = VARCHAR, mode = IN}
+			,#{membernickname, jdbcType = VARCHAR, mode = IN}
+			,#{memberbirth, jdbcType = VARCHAR, mode = IN}
+			,#{membergender, jdbcType = VARCHAR, mode = IN}
+			,#{memberhob1, jdbcType = VARCHAR, mode = IN}
+			,#{memberhob2, jdbcType = VARCHAR, mode = IN}
+			,#{memberhob3, jdbcType = VARCHAR, mode = IN}
+			,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		)
+		
+	}
+ 	
+ 	</select>
  	
  	
 	<select statementType="CALLABLE" parameterType="pkg.member.MemberVO" id="selmem" resultMap="memberMap">

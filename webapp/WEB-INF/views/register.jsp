@@ -15,20 +15,21 @@
 	</div>
 	<div class="">
 		<div class="">비밀번호 : </div>
-		<div class=""><input type="password" id="a" onblur="chkFunc()" maxlength="12"/></div>
+		<div class=""><input type="password" id="passa" onblur="chkFunc()" maxlength="12"/></div>
 	</div>
 	<div class="">
 		<div class="">비밀번호 확인: </div>
-		<div class=""><input type="password" id="b" onblur="chkFunc()" maxlength="12"/></div>
-	</div>
-	<div id="msg3">
+		<div class=""><input type="password" id="passb" onblur="chkFunc()" maxlength="12"/></div>
 	</div>
 	<div class="">
 		<input type="button" value ="확인" onclick="chkFunc()"/>
 	</div>
+	<div id="msgchkcpass">
+	</div>
+	
 	<div>
 		<div class="">프로필</div>
-		<div><input tpye="text" id="profile"/></div>
+		<div><input type="text" id="profile"/></div>
 	</div>
 	<div>
 		<div class="">닉네임 : </div>
@@ -88,12 +89,12 @@
 	<script>
 		
 		var chkFunc = function(){
-			if(document.getElementById("a").value != "" &
-				document.getElementById("b").value !=""){
-				if(document.getElementById("a").value == document.getElementById("b").value){
-					console.log("비밀번호가 일치합니다.");
+			if(document.getElementById("passa").value != "" &
+				document.getElementById("passb").value !=""){
+				if(document.getElementById("passa").value == document.getElementById("passb").value){
+					document.querySelector("div#msgchkcpass").innerHTML="비밀번호가 일치합니다.";
 				}else{
-					console.log("비밀번호가 일치하지않습니다.");
+					document.querySelector("div#msgchkcpass").innerHTML="비밀번호가 일치하지않습니다.";
 				}
 					
 				
@@ -207,7 +208,7 @@
 			var alldata = {	
 					
 				memberid : $("#ida").val(),
-				memberpass : $("#a").val(),
+				memberpass : $("#passa").val(),
 				memberprofile :$("#profile").val(),
 				membernickname : $("#nicka").val(),
 				memberbirth	:$("input#year").val() +"/"+ $("select#month").val() +"/" + $("input#date").val(),

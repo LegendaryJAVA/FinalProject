@@ -14,13 +14,16 @@ public class MemberService_impl implements MemberService {
 	@Autowired
 	MemberDAO memberdao;
 	
+	@Override
 	public String loginchk(Map<String, Object> map) {
 		
 		return memberdao.loginchk(map);
 	}
+	@Override
 	public String chk(Map<String, Object> map) {
 		return memberdao.chk(map);
 	}
+	@Override
 	public String insmem(Map<String, Object> map) {
 		
 		return memberdao.insmem(map);
@@ -29,6 +32,11 @@ public class MemberService_impl implements MemberService {
 	public List<MemberVO> selmem(Map<String, Object> map) {
 		
 		return memberdao.selmem(map);
+	}
+	@Override
+	public String updatemem(Map<String, Object> map) {
+		
+		return memberdao.updatemem(map);
 	}
     
 }

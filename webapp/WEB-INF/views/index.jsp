@@ -8,7 +8,7 @@
 </head> 
 <body>
     <%@ include file="../comp/header.jsp" %>
-    <%out.println(session.getAttribute("mid")); %> 
+    <%out.println(session.getAttribute("memberid")); %> 
     <div class="container-section">
         <div class="container">
             <div class="carousel">
