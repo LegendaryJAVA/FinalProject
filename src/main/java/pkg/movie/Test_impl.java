@@ -16,6 +16,11 @@ public class Test_impl implements MovieDAO{
 	}
 	
 	@Override
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+		return null;
+	}
+	
+	@Override
 	public Map<String, Object> getMovieAPI(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		return null;

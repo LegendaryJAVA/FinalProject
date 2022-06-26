@@ -31,12 +31,23 @@ public class MovieDAOImpl implements MovieDAO{
 	
 	public List<MovieVO> getMovieInfo(String docId){
 		Map<String, Object> map = new HashMap<>();
-		map.put("docId",docId);
+		map.put("DOCID",docId);
 		
 		sqlSession.selectList("getMovieInfo",map);
 		List<MovieVO> list = (List<MovieVO>) map.get("result");
 		
 		return list;
+	}
+	
+	@Override
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+		Map<String, Object> map = new HashMap<>();
+		
+		for(MovieVO vo : saveList){
+		
+		}
+		
+		return null;
 	}
 	
 	@Override

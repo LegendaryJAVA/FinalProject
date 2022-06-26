@@ -24,5 +24,11 @@ public class MovieService_impl implements MovieService {
 		return movieDAO.getMovieInfo(docId);
 	}
 	
-    
+	@Override
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+		
+		return null;
+	}
+	
+	
 }
