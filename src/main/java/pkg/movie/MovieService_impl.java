@@ -1,6 +1,7 @@
 package pkg.movie;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,14 @@ public class MovieService_impl implements MovieService {
 	}
 	
 	@Override
-	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+	public Map<String, Object> saveMovieList(List<MovieVO> saveList) {
 		
-		return null;
+		return movieDAO.saveMovieList(saveList);
+	}
+	
+	@Override
+	public Map<String, Object> delMovieList(List<MovieVO> delList) {
+		return movieDAO.delMovieList(delList);
 	}
 	
 	
