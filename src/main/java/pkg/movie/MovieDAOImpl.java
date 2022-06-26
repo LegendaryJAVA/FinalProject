@@ -44,7 +44,7 @@ public class MovieDAOImpl implements MovieDAO{
 		Map<String, Object> map = new HashMap<>();
 		
 		for(MovieVO vo : saveList){
-		
+			//----------------------------
 		}
 		
 		return null;
