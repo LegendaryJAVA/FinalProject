@@ -60,6 +60,7 @@
 	<select id="delMovieList" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
 		{call PKG_MOVIE.PROC_DEL_MOVIE(
 			#{DOCID, jdbcType = VARCHAR, mode = IN}
+			,#{ErrMsg, mode=OUT, jdbcType=VARCHAR, javaType=string}
 			,#{sqlCode, mode=OUT, jdbcType=VARCHAR, javaType=string}
 			,#{sqlErrm, mode=OUT, jdbcType=VARCHAR, javaType=string}
 			)}

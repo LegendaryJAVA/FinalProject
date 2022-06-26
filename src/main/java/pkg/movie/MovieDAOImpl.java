@@ -40,14 +40,45 @@ public class MovieDAOImpl implements MovieDAO{
 	}
 	
 	@Override
-	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
-		Map<String, Object> map = new HashMap<>();
+	public Map<String, Object> saveMovieList(List<MovieVO> saveList) {
+		Map<String, Object> resultMap = new HashMap<>();
 		
 		for(MovieVO vo : saveList){
-			//----------------------------
+			Map<String, Object> map = new HashMap<>();
+			map.put("DOCID", vo.getDOCID());
+			map.put("title", vo.getTitle());
+			map.put("titleEng", vo.getTitleEng());
+			map.put("titleEtc", vo.getTitleEtc());
+			map.put("prodYear", vo.getProdYear());
+			map.put("nation", vo.getNation());
+			map.put("runtime", vo.getRuntime());
+			map.put("genre", vo.getGenre());
+			map.put("plots", vo.getPlots());
+			map.put("posters", vo.getPosters());
+			map.put("releaseDate", vo.getReleaseDate());
+			map.put("keywords", vo.getKeywords());
+			map.put("company", vo.getCompany());
+			
+			sqlSession.selectList("saveMovieList", map);
+			resultMap.put(vo.getDOCID(), map.get("errMsg"));
 		}
 		
-		return null;
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> delMovieList(List<MovieVO> delList) {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		for(MovieVO vo : delList){
+			Map<String, Object> map = new HashMap<>();
+			map.put("DOCID", vo.getDOCID());
+			
+			sqlSession.selectList("delMovieList", map);
+			resultMap.put(vo.getDOCID(), map.get("errMsg"));
+		}
+		
+		return resultMap;
 	}
 	
 	@Override

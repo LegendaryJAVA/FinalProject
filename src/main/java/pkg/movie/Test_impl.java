@@ -16,7 +16,12 @@ public class Test_impl implements MovieDAO{
 	}
 	
 	@Override
-	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+	public Map<String, Object> saveMovieList(List<MovieVO> saveList) {
+		return null;
+	}
+	
+	@Override
+	public Map<String, Object> delMovieList(List<MovieVO> delList) {
 		return null;
 	}
 	
