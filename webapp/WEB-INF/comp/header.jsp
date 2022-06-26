@@ -37,21 +37,14 @@
     let acArray = 0;
     let acIndex = 0;
     let acLength = 0;
-    document.querySelector(".search-input").addEventListener("keyup",function (key) {
-        if (!document.querySelector(".search-input").value.trim()) {
+    let beforeKeyword = "";
+    let currentKeyword = "";
+    let quickSearch = function () {
+            if (!document.querySelector(".search-input").value.trim()) {
                 document.querySelector(".auto-completaion").innerHTML = "";
                 return;
-        }
-        console.log(key);
-        console.log(document.querySelector(".search-input").value.trim());
-    });
-    document.querySelector(".search-input").addEventListener("keydown",function (key) {
-        //console.log(key);
-
-
-        let qs = function () {
-            //console.log("commit "+timeoutObjectId);
-            
+        	}
+            console.log("QUICK SEARCH : "+document.querySelector(".search-input").value.trim());
             $.ajax({
                 url : `qs?keyword=\${document.querySelector(".search-input").value}`,
                 type : `post`,
@@ -59,57 +52,96 @@
                 contentType : `application/json`,
                 success : function (res) {
                     console.log(res);
-                    let HTML = res.result.map( e => `<div class="ar"> \${e.DOCID} \${e.title} </div>`).join("");
+                    let HTML = res.result.map( e => `<div class="ar" data-docid=\${e.DOCID}>\${e.title}</div>`).join("");
                     document.querySelector(".auto-completaion").innerHTML = HTML;
                     acArray = [ document.querySelector(".search-input"), ...document.querySelectorAll(".ar") ];
                     acIndex = 0;
                     acLength = acArray.length;
-                    console.log(acArray, acIndex);
                 },
                 error : function (err) {
-
+                    console.error(err);
                 }
             });
             clearTimeout(timeoutObjectId);
         }
 
-        if(key.keyCode == 13) {
+    document.querySelector(".search-input").addEventListener("keydown",function (key) {
+        let ignoreKeyList = [37, 39, 229]; // arrow-left, arrow-right, korean-ime
+        if(ignoreKeyList.includes(key.keyCode)) return;
+        
+        else if(key.keyCode == 13) { // enter
             document.querySelector(".search-button").click();
         }
-        else if(key.keyCode == 40) { // bottom
+        else if(key.keyCode == 40) { // arrow-bottom
             if(acIndex == acLength-1) acIndex = 0;
             acArray.map( e => e.classList.remove("selected"));
             acArray[++acIndex].classList.add("selected");
-            console.log('bottom');
+            acArray[0].value = acArray[acIndex].innerText;
         }
-        else if(key.keyCode == 38) { // top
-            if(acIndex == 0) acIndex = acLength-1;
+        else if(key.keyCode == 38) { // arrow-top
+            if(acIndex == 1) acIndex = acLength;
             acArray.map( e => e.classList.remove("selected"));
             acArray[--acIndex].classList.add("selected");
-            console.log('top');
+            acArray[0].value = acArray[acIndex].innerText;
+            let that = this;
+            setTimeout(function(){ that.selectionStart = that.selectionEnd = 10000; }, 0);
         }
-        else if(key.isComposing == true) {
+        else if(key.keyCode == 8) { // backspace
             clearTimeout(timeoutObjectId);
-            timeoutObjectId = setTimeout(qs, 500);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 200);
         }
     });
+
+    document.querySelector(".search-input").addEventListener("input", function (key) {
+        beforeKeyword = currentKeyword;
+        currentKeyword = document.querySelector(".search-input").value;
+        if(beforeKeyword.length != currentKeyword.length) { // ignore korean-ime return
+            clearTimeout(timeoutObjectId);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 200);
+        }
+    });
+    document.querySelector(".search-input").addEventListener("blur", function (e) {
+        if(document.activeElement == document.querySelector(".auto-completation")) {};
+        setTimeout(function() {
+            $('.auto-completaion').css({"opacity": "0"});
+        }, 50);
+        
+    });
+    document.querySelector(".search-input").addEventListener("focus", function (e) {
+        $('.auto-completaion').css({"display": "flex"});
+        $('.auto-completaion').css({"opacity": "1"});
+    });
+    $(document).on("click", ".ar", function () {
+        location.href = `movie.info?docid=\${this.dataset.docid}`;
+    })
 
 
 </script> 
 
 <style>
-    .selected {
-        background-color: #53178F;
+    .ar {
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .ar:first-child {
+        border-radius: 5px 5px 0 0;
+    }
+    .ar:last-child {
+        border-radius: 0 0 5px 5px;
+    }
+    .ar.selected, .ar:hover {
+        background-color: #d9d9d9;
     }
     .auto-completaion {
-        display: flex;
+        box-shadow: 0px 1px 11px -2px #adadad;
+        display: none;
         flex-direction: column;
         position: absolute;
         float: right;
         width: 550px;
-        background: #d9d9d9;
+        background: #f4f4f4;
         font-size: 13px;
-        top: 70px;
+        top: 75px;
         border-radius: 5px;
         box-sizing: border-box;
     }
@@ -205,7 +237,9 @@
         padding-left: 50px;
         flex-grow: 1;
         font-size: 14px;
+        outline-color: #53178fb3;
     }
+    
     .search-box .search-input::placeholder {
         color: #7B7B7B;
         font-size: 14px;

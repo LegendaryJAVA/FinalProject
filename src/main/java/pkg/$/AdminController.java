@@ -156,7 +156,7 @@ public class AdminController {
 			staffArray.addAll(actor);
 			staffArray.addAll(director);
 		}
-
+ 
 		Map<String, Object> movies = new HashMap<String, Object>();
 		movies.put("movies", movieArray);
 		

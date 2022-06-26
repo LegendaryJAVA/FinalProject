@@ -110,6 +110,7 @@ public class MovieDAOImpl implements MovieDAO{
 	}
 	
 	public Map<String, Object> quickSearch(String keyword) {
+		System.out.println(keyword);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		sqlSession.selectList("movie.QUICKSEARCH", map);
