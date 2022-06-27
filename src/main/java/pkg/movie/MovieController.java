@@ -125,4 +125,13 @@ public class MovieController {
     	return new Gson().toJson(resultList);
     }
   
+	@ResponseBody
+    @RequestMapping("qs")
+    public String quickSearch(String keyword) {
+    	
+		Map<String, Object> movies = movieService.quickSearch(keyword);
+ 
+    	return new Gson().toJson(movies);
+    }
+
 }

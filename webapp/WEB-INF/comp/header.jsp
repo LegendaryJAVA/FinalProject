@@ -7,9 +7,11 @@
         </div>
         <div class="search-wrapper">
             <div class="search-box">
+                <div class="-fw-search"> <i class="fa-solid fa-magnifying-glass"></i>  </div>
                 <input class="search-input" placeholder="영화 또는 출연진 이름으로 검색하기" />
                 <div class="search-button-wrapper"><button class="search-button">검색</button></div>
             </div>
+            <div class="auto-completaion"></div>
         </div>
         
         <div class="user-profile-wrapper">
@@ -31,10 +33,125 @@
 </div>
 
 <script>
+    let timeoutObjectId = undefined;
+    let acArray = 0;
+    let acIndex = 0;
+    let acLength = 0;
+    let beforeKeyword = "";
+    let currentKeyword = "";
+    let quickSearch = function () {
+            if (!document.querySelector(".search-input").value.trim()) {
+                document.querySelector(".auto-completaion").innerHTML = "";
+                return;
+        	}
+            console.log("QUICK SEARCH : "+document.querySelector(".search-input").value.trim());
+            $.ajax({
+                url : `qs?keyword=\${document.querySelector(".search-input").value}`,
+                type : `get`,
+                dataType : `json`,
+                contentType : `application/json`,
+                success : function (res) {
+                    console.log(res);
+                    let HTML = res.result.map( e => `<div class="ar" data-docid=\${e.DOCID}>\${e.title}</div>`).join("");
+                    document.querySelector(".auto-completaion").innerHTML = HTML;
+                    acArray = [ document.querySelector(".search-input"), ...document.querySelectorAll(".ar") ];
+                    acIndex = 0;
+                    acLength = acArray.length;
+                },
+                error : function (err) {
+                    console.error(err);
+                }
+            });
+            clearTimeout(timeoutObjectId);
+        }
+
+    document.querySelector(".search-input").addEventListener("keydown",function (key) {
+        let ignoreKeyList = [37, 39, 229]; // arrow-left, arrow-right, korean-ime
+        if(ignoreKeyList.includes(key.keyCode)) return;
+        
+        else if(key.keyCode == 13) { // enter
+            document.querySelector(".search-button").click();
+        }
+        else if(key.keyCode == 40) { // arrow-bottom
+            if(acIndex == acLength-1) acIndex = 0;
+            acArray.map( e => e.classList.remove("selected"));
+            acArray[++acIndex].classList.add("selected");
+            acArray[0].value = acArray[acIndex].innerText;
+        }
+        else if(key.keyCode == 38) { // arrow-top
+            if(acIndex == 1) acIndex = acLength;
+            acArray.map( e => e.classList.remove("selected"));
+            acArray[--acIndex].classList.add("selected");
+            acArray[0].value = acArray[acIndex].innerText;
+            let that = this;
+            setTimeout(function(){ that.selectionStart = that.selectionEnd = 10000; }, 0);
+        }
+        else if(key.keyCode == 8) { // backspace
+            clearTimeout(timeoutObjectId);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 400);
+        }
+    });
+    document.querySelector(".search-input").addEventListener("input", function (key) {
+        beforeKeyword = currentKeyword;
+        currentKeyword = document.querySelector(".search-input").value;
+        if(beforeKeyword.length != currentKeyword.length) { // ignore korean-ime return
+            clearTimeout(timeoutObjectId);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 400);
+        }
+    });
+    document.querySelector(".search-input").addEventListener("blur", function (e) {
+        setTimeout(function() {
+            $('.auto-completaion').css({"display": "none", "opacity" : "0"});
+        }, 150);
+        
+    });
+    document.querySelector(".search-input").addEventListener("focus", function (e) {
+        $('.auto-completaion').css({"display": "flex", "opacity" : "1"});
+    });
+    $(document).on("click", ".ar", function () {
+        location.href = `movie.info?docid=\${this.dataset.docid}`;
+    })
+
 
 </script> 
 
 <style>
+    .ar {
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .ar:first-child {
+        border-radius: 5px 5px 0 0;
+    }
+    .ar:last-child {
+        border-radius: 0 0 5px 5px;
+    }
+    .ar.selected, .ar:hover {
+        background-color: #d9d9d9;
+    }
+    .auto-completaion {
+        box-shadow: 0px 1px 11px -2px #adadad;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        float: right;
+        width: 550px;
+        background: #f4f4f4;
+        font-size: 13px;
+        top: 75px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .auto-completaion > div {
+        padding : 10px 10px 10px 50px;
+    }
+    .-fw-search {
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: absolute;
+        height: 100%;
+    }
 	.header .user-profile .menu-wrapper {
 		position: absolute;
     	display: none;
@@ -58,6 +175,11 @@
 	.menu:nth-child(1) {
 		border-top : 0px solid;
 	}
+    .menu a:link, .menu a:visited { 
+        color : whitesmoke;
+        text-decoration: none;
+    } 
+    
     .header-section {
         width: 100%;
         border-bottom: 1px solid #BEBEBE;
@@ -97,6 +219,7 @@
         flex-grow: 3;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
     .search-box {
         position: relative;
@@ -108,10 +231,12 @@
     .search-box .search-input {
         background: none;
         border: 0px solid;
-        padding-left: 10px;
+        padding-left: 50px;
         flex-grow: 1;
         font-size: 14px;
+        outline-color: #53178fb3;
     }
+    
     .search-box .search-input::placeholder {
         color: #7B7B7B;
         font-size: 14px;
