@@ -47,7 +47,7 @@
             console.log("QUICK SEARCH : "+document.querySelector(".search-input").value.trim());
             $.ajax({
                 url : `qs?keyword=\${document.querySelector(".search-input").value}`,
-                type : `post`,
+                type : `get`,
                 dataType : `json`,
                 contentType : `application/json`,
                 success : function (res) {
@@ -88,28 +88,25 @@
         }
         else if(key.keyCode == 8) { // backspace
             clearTimeout(timeoutObjectId);
-            timeoutObjectId = setTimeout(function () { quickSearch();}, 200);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 400);
         }
     });
-
     document.querySelector(".search-input").addEventListener("input", function (key) {
         beforeKeyword = currentKeyword;
         currentKeyword = document.querySelector(".search-input").value;
         if(beforeKeyword.length != currentKeyword.length) { // ignore korean-ime return
             clearTimeout(timeoutObjectId);
-            timeoutObjectId = setTimeout(function () { quickSearch();}, 200);
+            timeoutObjectId = setTimeout(function () { quickSearch();}, 400);
         }
     });
     document.querySelector(".search-input").addEventListener("blur", function (e) {
-        if(document.activeElement == document.querySelector(".auto-completation")) {};
         setTimeout(function() {
-            $('.auto-completaion').css({"opacity": "0"});
-        }, 50);
+            $('.auto-completaion').css({"display": "none", "opacity" : "0"});
+        }, 150);
         
     });
     document.querySelector(".search-input").addEventListener("focus", function (e) {
-        $('.auto-completaion').css({"display": "flex"});
-        $('.auto-completaion').css({"opacity": "1"});
+        $('.auto-completaion').css({"display": "flex", "opacity" : "1"});
     });
     $(document).on("click", ".ar", function () {
         location.href = `movie.info?docid=\${this.dataset.docid}`;
