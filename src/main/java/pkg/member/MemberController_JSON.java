@@ -72,12 +72,8 @@ public class MemberController_JSON {
 		return "{\"result\": \"FAIL\" }";
 		
 	}
-<<<<<<< HEAD
-	//
-	@PostMapping("myform")
-=======
+
 	@PostMapping("myform") // profile // profile?memberId=this9999
->>>>>>> origin/sangjin
 	public String myform(@RequestBody Map<String,Object> map) {
 		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
 		System.out.println("----myform-----");
