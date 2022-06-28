@@ -47,9 +47,6 @@
         </div>
 
     </div>
-    <div>
-        ${gridList}
-    </div>
 
 
     <script type="text/javascript">

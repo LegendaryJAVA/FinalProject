@@ -40,8 +40,8 @@ public class MovieDAOImpl implements MovieDAO{
 	}
 	
 	@Override
-	public Map<String, Object> saveMovieList(List<MovieVO> saveList) {
-		Map<String, Object> resultMap = new HashMap<>();
+	public List<Object> saveMovieList(List<MovieVO> saveList) {
+		List<Object> resultList = new ArrayList<>();
 		
 		for(MovieVO vo : saveList){
 			Map<String, Object> map = new HashMap<>();
@@ -60,25 +60,36 @@ public class MovieDAOImpl implements MovieDAO{
 			map.put("company", vo.getCompany());
 			
 			sqlSession.selectList("saveMovieList", map);
-			resultMap.put(vo.getDOCID(), map.get("errMsg"));
+			
+			Map<String, Object> resultMap = new HashMap<>();
+			resultMap.put("DOCID", vo.getDOCID());
+			resultMap.put("ErrMsg", map.get("ErrMsg"));
+			resultMap.put("sqlCode", map.get("sqlCode"));
+			resultMap.put("sqlErrm", map.get("sqlErrm"));
+			resultList.add(resultMap);
 		}
 		
-		return resultMap;
+		return resultList;
 	}
 	
 	@Override
-	public Map<String, Object> delMovieList(List<MovieVO> delList) {
-		Map<String, Object> resultMap = new HashMap<>();
+	public List<Object> delMovieList(List<MovieVO> delList) {
+		List<Object> resultList = new ArrayList<>();
 		
 		for(MovieVO vo : delList){
 			Map<String, Object> map = new HashMap<>();
 			map.put("DOCID", vo.getDOCID());
 			
 			sqlSession.selectList("delMovieList", map);
-			resultMap.put(vo.getDOCID(), map.get("errMsg"));
+			Map<String, Object> resultMap = new HashMap<>();
+			resultMap.put("DOCID", vo.getDOCID());
+			resultMap.put("ErrMsg", map.get("ErrMsg"));
+			resultMap.put("sqlCode", map.get("sqlCode"));
+			resultMap.put("sqlErrm", map.get("sqlErrm"));
+			resultList.add(resultMap);
 		}
 		
-		return resultMap;
+		return resultList;
 	}
 	
 	@Override

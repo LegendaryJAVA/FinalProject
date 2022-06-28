@@ -26,13 +26,13 @@ public class MovieService_impl implements MovieService {
 	}
 	
 	@Override
-	public Map<String, Object> saveMovieList(List<MovieVO> saveList) {
+	public List<Object> saveMovieList(List<MovieVO> saveList) {
 		
 		return movieDAO.saveMovieList(saveList);
 	}
 	
 	@Override
-	public Map<String, Object> delMovieList(List<MovieVO> delList) {
+	public List<Object> delMovieList(List<MovieVO> delList) {
 		return movieDAO.delMovieList(delList);
 	}
 	

@@ -8,7 +8,7 @@ public interface MovieService {
 	
 	public List<MovieVO> searchMovieList(String keyword);
 	public List<MovieVO> getMovieInfo(String docId);
-	public Map<String, Object> saveMovieList (List<MovieVO> saveList);
-	public Map<String, Object> delMovieList (List<MovieVO> delList);
+	public List<Object> saveMovieList (List<MovieVO> saveList);
+	public List<Object> delMovieList (List<MovieVO> delList);
 	
 }
