@@ -31,7 +31,7 @@ public class MemberController {
 
         return "register";
     }
-    @GetMapping("profile") //profile
+    @RequestMapping("profile") //profile
     public String profile () {
 
         return "userProfile";

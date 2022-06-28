@@ -29,7 +29,6 @@ public class MemberDAO_Impl implements MemberDAO{
 		return (String) hmep.get("result");
 	}
 
-
 	public String insmem(Map<String, Object> map) {
 		
 		sqlSessionTemplate.selectList("insmem",map);

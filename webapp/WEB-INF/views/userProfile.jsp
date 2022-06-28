@@ -97,10 +97,12 @@
 	
        <script>
        		$(document).ready(function(){
+       	
        			$.ajax({
-       			
-       				url: "profile2?memberid=<%=request.getParameter("memberid")%>" ,
-      				type : "get", //post or get
+       				
+       				url: "profile",
+      				data :  JSON.stringify({ 	memberid : "<%=request.getParameter("memberid")%>" } ),
+       				type : "post", //post or get
     				async : true, //true or false
     				dataType : "json",
     				contentType : "application/json",

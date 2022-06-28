@@ -116,21 +116,22 @@ public class MemberController_JSON {
 	
 	
 	
-	@GetMapping("profile2")
-	public String profile(String memberid, HttpSession session) {
+	@PostMapping("profile")
+	public String profile(@RequestBody Map<String,Object> map, HttpSession session) {
+		System.out.println(map.get("memberid"));
+		
 		boolean isOwn = false;
-		System.out.println(session.getAttribute("memberid"));
-		// session 체크
-		System.out.println("---getmapping---");
-		System.out.println(memberid);
-		if (session.getAttribute("memberid").equals(memberid)) {
+		
+		if (session==null) {
+			isOwn = false;
+		}		
+		else if(session.getAttribute("memberid").equals(map.get("memberid"))) {
 			isOwn = true;
 		}
 		else {
 			isOwn = false;
 		}
-		Map<String , Object> map =new HashMap<String, Object>() ;
-		map.put("memberid", memberid);
+		
 		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
 		JsonObject obj = new JsonObject();
 		for(MemberVO vo : memlist) {
@@ -159,10 +160,11 @@ public class MemberController_JSON {
 		
 		}
 		
-		
-		
+				
 	
 		return obj.toString();
+		
+		
 	}
 	
 }
