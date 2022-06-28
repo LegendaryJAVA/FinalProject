@@ -8,10 +8,7 @@
 </head> 
 <body>
     <%@ include file="../comp/header.jsp" %>
-<<<<<<< HEAD
-=======
-    <%out.println(session.getAttribute("memberid")); %> 
->>>>>>> origin/sangjin
+
     <div class="container-section">
         <div class="container">
             <div><a href="moviegrid">영화관리테스트</a></div>
