@@ -1,5 +1,6 @@
 package pkg.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @RestController
@@ -18,6 +20,7 @@ public class MemberController_JSON {
 	@Autowired
 	MemberService memberService;
 
+	// 로그인
 	@PostMapping("loginchk")
 	public String loginchk(@RequestBody Map<String, Object> map, HttpSession session) {
 		System.out.println(memberService.loginchk(map));
@@ -25,22 +28,27 @@ public class MemberController_JSON {
 			session.setAttribute("memberid", memberService.loginchk(map));
 			JsonObject obj = new JsonObject();	
 			obj.addProperty("result", "SUC");
+			List<MemberVO> list = memberService.selmem(map);
 			
+			// TODO : 임시로 세션에 값 달아주었음, 나머지도 추가해야함
+			session.setAttribute("memberProfile", list.get(0).getMemberprofile());
 			return obj.toString();
 		}
 		
 		return "{\"result\": \"FAIL\" }";
 		
 	}
+	// 아이디 중복 체크용
+	// TODO : 메서드 명, 요청 인자 명 너무 헷갈림, 중복체크면 overlap-check 등
 	@PostMapping("chk")
 	public String chk(@RequestBody Map<String,Object> map) {
 		
 		JsonObject obj = new JsonObject();
 		obj.addProperty("result", memberService.chk(map));
 		
-		
 		return  obj.toString();
 	}
+	//
 	@PostMapping("test2")
 	public String gaip(@RequestBody Map<String,Object> map) {
 		Map<String, Object> jmap = (Map<String, Object>) map.get("data");
@@ -61,6 +69,7 @@ public class MemberController_JSON {
 		return "{\"result\": \"FAIL\" }";
 		
 	}
+	//
 	@PostMapping("myform")
 	public String myform(@RequestBody Map<String,Object> map) {
 		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);

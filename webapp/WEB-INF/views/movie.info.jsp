@@ -12,7 +12,7 @@
         <div class="container movie-info">
             <div class="title">${ movieTitle }</div>
             <div class="desc-wrapper">
-                <div class="posters"> <img src=""/> </div>
+                <div class="posters"> <img src="${ posters }"/> </div>
                 <div class="desc">
                     <div>${ movieGenre }</div>
                     <div>${ moviePlot }</div>
@@ -50,6 +50,10 @@
         height: 450px;
         border-radius: 5px;
         width: 300px;
+    }
+    .desc-wrapper > .posters > img {
+        width: 100%;
+        border-radius: 5px;
     }
     .articles.container {
         margin-top : 50px;

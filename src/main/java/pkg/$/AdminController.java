@@ -9,26 +9,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
 import pkg.movie.MovieDAO;
 
-@RestController
+@Controller
 public class AdminController {
 
 	@Autowired
 	MovieDAO movieDAO;
+
+	@GetMapping(value={"admin.{menu}"}) 
+	public String landing (@PathVariable("menu") String menu, Model model, HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("content", menu);
+		return "admin."+menu;
+	}
 	
+	@ResponseBody
 	@PostMapping("admin.movie.select")
 	public String selectMovie (@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 
 		return new Gson().toJson("");
 	}
-	
+	@ResponseBody
 	@PostMapping("admin.movie.reflect2")
 	public String reflectKMDb (@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println(params);
@@ -69,7 +80,7 @@ public class AdminController {
 			
 		return new Gson().toJson("");
 	}
-	
+	@ResponseBody
 	@PostMapping("admin.movie.update")
 	public String updateMovieDatabase (@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -109,7 +120,7 @@ public class AdminController {
 		return new Gson().toJson("");
 	}
 
-
+	@ResponseBody
 	@PostMapping("admin.movie.reflect")
 	public String testMember (@RequestBody Map<String, Object> params) {
 

@@ -1,19 +1,15 @@
 package pkg.movie;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,29 +28,60 @@ public class MovieController {
 	@Autowired
 	MovieDAO movieDAO;
 	
+	// 검색결과 HTML SET, movie.search에 수직 목록 보여줄 때 사용됨
+	public String HTML$movies_large (List<MovieVO> list) {
+		String HTML = "";
+
+		for(MovieVO vo : list) {
+			HTML += "<div class='dagger dagger-horizontal' data-docid=" + vo.getDOCID()  + ">";
+			HTML += 	"<div class='poster'> <img src='" + vo.getPosters() + "'> </div>";
+			HTML += 	"<div class='desc'>";
+			HTML += 		"<div class='title'>" + vo.getTitle() + "</div>";
+			HTML += 		"<div class='edge'>";
+			HTML += 			"<div class='i'>" + vo.getReleaseDate() + "</div>";
+			HTML += 			"<div class='j'>" + vo.getGenre() + "</div>";
+			HTML += 			"<div class='k'>" + vo.getRuntime() + "</div>";
+			//HTML += 			"<div class='l'>" + 출연진 정보 + "</div>";
+			//HTML += 			"<div class='m'>" + 감독 정보 등 + "</div>";
+			HTML +=			"</div>";
+			HTML += 	"</div>";
+			HTML += "</div>";
+		}
+
+		return HTML;
+	}
+	// 영화 목록 HTML SET, 메인 페이지에서 수평 목록 보여줄 떄 사용됨
+	public String HTML$movies_small (List<MovieVO> list) {
+		String HTML = "";
+
+		for(MovieVO vo : list) {
+			// create html doms
+		}
+
+		return HTML;
+	}
+
 	// 검색 결과를 보여주는 페이지
-    @RequestMapping("movie.search")
+    @GetMapping("movie.search")
     public String searchResultPage (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(keyword  +  "  - - -  keyWord   여기는 movie.search로 매핑되어있는 곳.");
-	
-		model.addAttribute("keyword", keyword);
-	
 		List<MovieVO> list = movieService.searchMovieList(keyword);
-	
-		
-		String strHTML = "";
-		for(MovieVO vo : list){
-			strHTML += "<div>";
-			strHTML += "<div>제목&nbsp;&nbsp;<a href=\"movie.info?docid="+vo.getDOCID()+"\">"+vo.getTitle()+"</a></div>";
-			strHTML += "<div>영어제목&nbsp;&nbsp;"+vo.getTitleEng()+"</div>";
-			strHTML += "<div>장르&nbsp;&nbsp;"+vo.getGenre()+"</div>";
-			strHTML += "<div>상영시간&nbsp;&nbsp;"+vo.getRuntime()+"</div>";
-			strHTML += "</div>";
-		}
-	
-		model.addAttribute("searchResult",strHTML);
+		// TODO : 인덱스 카운터가 필요함, movieService.searchMovieList(keyword, 1);
+		// TODO : 결과값이 N개가 존재할 때, P 개 단위로 페이지를 나눠 그 중, 1 페이지를 가져오는 형태
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchResult", HTML$movies_large(list));
 	
 		return "movie.search";
+    }
+	// 검색 결과를 전달하는 메서드
+	@PostMapping("movie.search")
+    public String searchResult (String keyword, Model model, HttpServletRequest request, HttpServletResponse response) {
+		List<MovieVO> list = movieService.searchMovieList(keyword);
+		// TODO : 검색 결과 창에서 처음 1 페이지만 보여주고, 아래 [더보기] 버튼을 누르면 이 메서드를 통해 추가적인 데이터를 불러오도록 함
+		// TODO : ajax를 통해서 HTML 문자열을 던져주고 그걸 받아서 바로 페이지에 삽입
+
+		return HTML$movies_large(list);
     }
 	
 	//  영화 정보를 보여주는 페이지
@@ -63,10 +90,10 @@ public class MovieController {
 
         if(docid == null || docid.length() == 0) return "errorPage";
 
-	
 		List<MovieVO> list = movieService.getMovieInfo(docid);
 		MovieVO resultVO = list.get(0);
 		//model.addAttribute("resultVO",resultVO);
+		model.addAttribute("posters",resultVO.getPosters());
 		model.addAttribute("movieName",resultVO.getTitle());
 		model.addAttribute("movieTitle",resultVO.getTitle());
 		model.addAttribute("movieGenre",resultVO.getGenre());
@@ -99,12 +126,6 @@ public class MovieController {
 		
 		return "moviegrid";
 	}
-	
-    
-    @RequestMapping("test2")
-    public String asasdsq() {
-    	return "test2";
-    }
     
     @ResponseBody
     @RequestMapping("MovieAPI")

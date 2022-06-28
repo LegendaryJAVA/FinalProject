@@ -1,38 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>ajaxTester</title>
-</head>
+<%@ include file="../comp/script.jsp" %>
+<title>관리자 페이지</title>
+</head> 
 <body>
-    <div>AJAX 테스트 도구</div>
-    <div> <img src="resource/image/testImage.png"></div> 
-
-    <div class="wrapper">
-        <div class="ajax-tester"> 
-            <div> <div>url</div> <input class="url" value="test" /> </div>
-            <div> <div>contentType</div> <input class="contentType" value="application/json" /> </div>
-            <div> <div>type</div> <input class="type" value="POST" /> </div>
-            <div> <div>dataType</div> <input class="dataType" value="json" /> </div>
-            <div> <div>data</div> <input class="data" value="{ foo : bar }" /> </div>
-            <div> <button id="submit">test</button> </div>
-        </div> 
-        <div class="ajax-convert">
-            <textarea class="ajax-convert"> </textarea>
+    <%@ include file="../comp/admin.header.jsp" %>
+    
+    <div class="container-section">
+        <div class="container">
+            <div class="title">AJAX 테스트 도구</div>
+                <div> <img src="resource/image/testImage.png"></div> 
+                <div class="wrapper">
+                    <div class="ajax-tester"> 
+                        <div> <div>url</div> <input class="url" value="test" /> </div>
+                        <div> <div>contentType</div> <input class="contentType" value="application/json" /> </div>
+                        <div> <div>type</div> <input class="type" value="POST" /> </div>
+                        <div> <div>dataType</div> <input class="dataType" value="json" /> </div>
+                        <div> <div>data</div> <input class="data" value="{ foo : bar }" /> </div>
+                        <div> <button id="submit">test</button> </div>
+                    </div> 
+                    <div class="ajax-convert">
+                        <textarea class="ajax-convert"> </textarea>
+                    </div>
+                </div>
+                <div class="result">
+                    <div>response</div>
+                    <div class="success"></div>
+                    <div class="error"></div>
+            </div>
         </div>
     </div>
-    <div class="result">
-        <div>response</div>
-        <div class="success"></div>
-        <div class="error"></div>
-    </div>
-    
-     <div>${ greeting }</div>
-     <div>${ servingData }</div>
-     <div>${ servingDataHTML }</div>
+
+    <%@ include file="../comp/footer.jsp" %>
 </body>
 
 <script>
@@ -86,11 +88,10 @@
         width: 400px;
         height: 100%;
     }
-    body > div > input {
-
-    }
     .error {
         flex-direction: column;
     }
 </style>
+
+
 </html>

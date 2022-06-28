@@ -12,36 +12,36 @@
          <bean id="nsq" class="pkg.$.Interceptor" />
       </mvc:interceptor> 
    </mvc:interceptors>
+   <!-- spring : static resource mapping -->
    <mvc:resources location="/resource/" mapping="/resource/**" />
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/views/" />
       <property name="suffix" value=".jsp" />
-   </bean> 
-
-   <!-- 
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
-      <property value="jdbc:oracle:thin:@localhost:1521:xe" name="url" />
-      <property value="auth" name="username" />
-      <property value="1" name="password" />
-
- 
+   </bean>
+   <!-- spring : external properties -->
+   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="location" value="/WEB-INF/config.properties"/>
+      <property name="fileEncoding" value="UTF-8" />
+   </bean>
+   <!-- datasource (oracle) -->
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=\\or\\Wallet_DB20220621092517"/>
-      <property name="username" value="FINALPROJECT"/>
-      <property name="password" value="Project123123"/>
+      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=${DB.TNS_ADMIN}"/>
+      <property name="username" value="${DB.USERNAME}"/>
+      <property name="password" value="${DB.PASSWORD}"/>
 
    </bean>
-   -->
-    <!-- 유승화 db연결 -->
 
+    <!-- 유승화 db연결 -->
+    <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
       <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=/Users/sniperditto/Documents/Project/Wallet_DB20220621092517"/>
       <property name="username" value="FINALPROJECT"/>
       <property name="password" value="Project123123"/>
    </bean>
+   -->
+
     <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
