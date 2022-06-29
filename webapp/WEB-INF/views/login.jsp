@@ -8,7 +8,7 @@
 </head>
 <body>
 	
-	<div class="container-section">
+	<div class="container-section login">
 		<div class="container login">
 			<div class="logo-wrapper">
 				<div class="logo"><a href="/">LOGO</a></div>
@@ -22,6 +22,14 @@
 			<div class="e j" style="clear:both;">
 				<div class='login'></div>
 				<div class='login --iwp'><div class="--fwi"><i class="fa-solid fa-key"></i></div><input type="password" class="mpass v" name="mpass" maxlength="12" placeholder="비밀번호"/></div>
+			</div>
+			<div class="e alert-wrapper" style="clear:both;">
+				<div class="alert fail">
+					<div><i class="fa-solid fa-circle-exclamation"></i></div> <div>회원정보가 일치하지 않습니다</div>
+				</div>
+				<div class="alert denied">
+					<div><i class="fa-solid fa-circle-exclamation"></i></div> <div>서버와의 통신에 문제가 있습니다</div>
+				</div>
 			</div>
 	
 			<div class="e k" style="clear:both;">
@@ -37,7 +45,7 @@
 
     <script>
   		$("input#btnLogin").click(function(){
-  			
+			$(".alert").removeClass("picked");
   			$.ajax({
   				url: "loginchk",
   				data: JSON.stringify({
@@ -55,7 +63,7 @@
   						location.href=str;				
   					}
   					else{
-  						alert("로그인에 실패하셨습니다.");
+						$(".alert.fail").addClass("picked");
   					}
   				},
   				error: function(error){
@@ -90,15 +98,19 @@
 		color: whitesmoke;
 		cursor: pointer;
 	}
-	.container-section {
+	.container-section.login {
 		background-color: #8947CC;
+		padding: 0 !important;
+		display: flex;
+		align-items: center;
 	}
 	.container.login {
 		align-items: center;
 		background-color: #f4f4f4;
     	width: 400px;
+		height: 100%;
     	padding: 20px;
-		box-shadow: 14px 12px 0px 2px rgb(0 0 255 / 20%);
+		box-shadow: 10px 15px 0px 2px rgb(0 0 255 / 20%);
 		border-radius: 5px;
 	}
 	.container.login > div {
@@ -110,6 +122,31 @@
 		font-weight: 600;
 		margin-bottom: 10px;
 		justify-content: center;
+	}
+	.alert-wrapper {
+		display: flex;
+		flex-direction: column;
+	}
+	.alert.picked {
+		display: flex;
+	}
+	.alert {
+		display: none;
+    	padding: 5px 0 5px 0;
+		font-size: 14px;
+    	font-weight: 500;
+	}
+	.alert.fail {
+		color : red;
+	}
+	.alert.denied {
+		color: #ff7700;
+	}
+	.alert > div {
+
+	}
+	.alert > div:nth-child(1) {
+		padding: 0 10px 0 10px;
 	}
 	.e {
 		display: flex;
