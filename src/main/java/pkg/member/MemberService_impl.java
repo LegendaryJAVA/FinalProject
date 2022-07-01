@@ -38,5 +38,10 @@ public class MemberService_impl implements MemberService {
 		
 		return memberdao.updatemem(map);
 	}
+	@Override
+	public Map<String, Object> showmemberList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberdao.showmemberList(map);
+	}
     
 }

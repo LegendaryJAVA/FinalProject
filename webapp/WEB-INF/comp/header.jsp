@@ -15,7 +15,6 @@
         </div>
         
         <div class="user-profile-wrapper">
-<<<<<<< HEAD
         <%
         if(session.getAttribute("memberid")==null) {
         %>
@@ -29,18 +28,11 @@
 	        <div class="after-login user-profile">
 	        	<div><%= session.getAttribute("memberProfile")%></div>
 	        	<div class="menu-wrapper">
-	        		<div class="menu my-profile"><a href="myform?memberid=<%=session.getAttribute("memberid")%>">내 정보</a></div>
+	        		<div class="menu my-profile"><a href="profile?memberid=<%=session.getAttribute("memberid")%>">내 정보</a></div>
 	        		<div class="menu logout"><a href="logout">로그아웃</a></div>
 	        	</div>
 	        </div>
-=======
-          <%if(session.getAttribute("memberid")==null) {%> 
-        	<div> <a href="login">login</a></div>
-        	<%} else{%>	
-        	<div> <a href="logout">logout</a></div>
-	        <div class="user-profile"><div><a href="profile?memberid=<%=session.getAttribute("memberid")%>">😯</a></div></div>
-    		
->>>>>>> origin/sangjin
+
         <%} %>
         	
         </div>

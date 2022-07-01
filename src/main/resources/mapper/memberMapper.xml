@@ -78,6 +78,19 @@
 		} 
 	</select>
 	
+	
+	<select statementType="CALLABLE" parameterType="string" id="memberlist" resultMap="memberMap">
+		{
+			call PKG_MEMBER.PROC_SHOW_MEMBERLIST(
+				#{pagenum, jdbcType = VARCHAR, mode = IN}
+				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
+				,#{maxpage, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{errormsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			)
+		} 
+	</select>
+	
 	<resultMap type="pkg.member.MemberVO" id="memberMap">
  		<result column="USER_ID" property="memberid"/>
  		<result column="MEMBERBIRTH" property="memberbirth"/>

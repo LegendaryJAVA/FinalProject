@@ -59,4 +59,15 @@ public class MemberDAO_Impl implements MemberDAO{
 		return (String)map.get("result");
 	}
 
+	@Override
+	public Map<String, Object>  showmemberList(Map<String, Object> map) {
+		System.out.println("showmemberlist");
+		sqlSessionTemplate.selectList("memberlist",map);
+		System.out.println(map.get("result"));
+		System.out.println(map.get("maxpage"));
+		System.out.println(map.get("errormsg"));
+		
+		return map;
+	}
+
 }
