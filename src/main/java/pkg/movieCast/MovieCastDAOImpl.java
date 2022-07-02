@@ -40,7 +40,7 @@ public class MovieCastDAOImpl implements MovieCastDAO{
 			mybatisMap.put("directorEnNm", superRealData.get("directorEnNm"));
 			mybatisMap.put("directorId", superRealData.get("directorId"));
 
-			sqlSession.selectList("movie.DirectorAPI", mybatisMap);
+			sqlSession.selectList("moviecast.DirectorAPI", mybatisMap);
 					
 			
 			Map<String,String> mybatisErrResult = new HashMap<>();
@@ -84,7 +84,7 @@ public class MovieCastDAOImpl implements MovieCastDAO{
 						mybatisMap.put("actorNm", superRealData.get("actorNm"));
 						mybatisMap.put("actorEnNm", superRealData.get("actorEnNm"));
 						mybatisMap.put("actorId", superRealData.get("actorId"));
-						sqlSession.selectList("movie.ActorAPI", mybatisMap);
+						sqlSession.selectList("moviecast.ActorAPI", mybatisMap);
 		
 						
 						Map<String, String> mybatisResultRestore = new HashMap<>();
