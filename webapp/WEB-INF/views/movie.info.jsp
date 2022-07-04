@@ -21,10 +21,8 @@
         </div>
         <div class="container articles">
             <div class="title">사용자 후기</div>
-            ajax로 구현할 부분
-            <div>
-                <div>댓글</div>
-                <div>${replyList}</div>
+            <div class="article-list">
+
             </div>
         </div>
 
@@ -33,6 +31,10 @@
     </div>
     <%@ include file="../comp/footer.jsp" %>
 </body>
+
+<script>
+
+</script>
 
 <style>
     .movie-info.container > .title {

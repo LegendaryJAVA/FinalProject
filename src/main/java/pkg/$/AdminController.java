@@ -20,12 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import pkg.movie.MovieDAO;
+import pkg.staff.StaffService;
+import pkg.staff.StaffVO;
 
 @Controller
 public class AdminController {
 
 	@Autowired
 	MovieDAO movieDAO;
+	@Autowired
+	StaffService staffService;
 
 	@GetMapping(value={"admin.{menu}"}) 
 	public String landing (@PathVariable("menu") String menu, Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -39,47 +43,7 @@ public class AdminController {
 
 		return new Gson().toJson("");
 	}
-	@ResponseBody
-	@PostMapping("admin.movie.reflect2")
-	public String reflectKMDb (@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(params);
-		ArrayList<Map<String,Object>> movies = (ArrayList<Map<String, Object>>)params.get("Result");
-		ArrayList<Map<String,Object>> actor = null;
-		ArrayList<Map<String,Object>> director = null;
-		
-		for(Map<String, Object> movie : movies) {
-			String docid = (String)movie.get("DOCID");
-			
-			Map<String, Object> actors = (Map<String, Object>) movie.get("actors"); // actors{ actor : [ {}, {}, {} ] }
-			actor = (ArrayList<Map<String, Object>>) actors.get("actor"); // [ {}, {}, {} ]
-			
-			for(Map<String, Object> obj : actor) {
-				obj.put("role", "a");
-				obj.put("docid", docid);	//obj{ actorId, actorNm, actorEnNm, docid }
-			}
-			
-			// actorService.insertActors(actor); how to return?
-			
-			Map<String, Object> directors = (Map<String, Object>) movie.get("directors"); // directors{ director : [ {}, {}, {} ] }
-			director = (ArrayList<Map<String, Object>>) directors.get("director"); // [ {}, {}, {} ]
-			
-			for(Map<String, Object> obj : director) { 
-				obj.put("role", "d");
-				obj.put("docid", docid);	//obj{ directorId, directorNm, directorEnNm, docid }
-			}
-			
-			// directorService.insertDirectors(director); how to return?
-			
-		}
-		
-		// Map<String, Object> oracleReturns = movieService.insertMovie(movies);\
-		// Map< ... ? > = movieCastService.insertCast();
-		// Map< ... ? > = staffService.inertStaff();
-		// return new Gson().toJson(oracleReturns); oracleReturns{ docid1 : {errMsg, sqlMsg, sqlErr}, docid2 : {}, ... };	
-		// return new Gson().toJson(oracleReturns); oracleReturns[ {docid, errMsg, sqlMsg, sqlErr}, {}, ...  ];
-			
-		return new Gson().toJson("");
-	}
+
 	@ResponseBody
 	@PostMapping("admin.movie.update")
 	public String updateMovieDatabase (@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
@@ -175,10 +139,10 @@ public class AdminController {
 		staffs.put("staffs", staffArray);
 
 		System.out.println(movies); 
-		System.out.println(staffs);
+		System.out.println(staffs); 
 		
 		//Map<String, Object> oracleReturn = movieService.reflect(movies);
-		//staffService.update(staffs);
+		staffService.update(staffs);
 		//castService.update(staffs);
 		
 		return new Gson().toJson("");
