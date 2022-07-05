@@ -1,27 +1,32 @@
 package pkg.staff;
 
 
-import java.util.Map;
+import java.util.*;
+import pkg.$.OracleResult;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StaffService {
 
+    @Autowired
     StaffDAO dao;
 
-    public Map<String, Object> delete () {
-        return dao.delete();
-    }
-    public Map<String, Object> update (Map<String, Object> staffs) {
-        return dao.update(staffs);
-    }
-    public Map<String, Object> select () {
+    public List<StaffVO> select () {
         return dao.select();
     }
-    public Map<String, Object> reflect (Map<String, Object> staffs) {
+    public List<OracleResult> delete (List<Map<String,Object>> staffs) {
+        return dao.delete(staffs);
+    }
+    public List<OracleResult> update (List<Map<String,Object>> staffs) {
         return dao.update(staffs);
     }
-
+    public List<OracleResult> insert (List<Map<String,Object>> staffs) {
+        return dao.insert(staffs);
+    }
+    public List<OracleResult> reflect (List<Map<String,Object>> staffs) {
+        return insert(staffs);
+    }
     
 }

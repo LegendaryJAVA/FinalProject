@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pkg.$.OracleResult;
+
 
 @Repository
 public class MovieDAOImpl implements MovieDAO{
@@ -126,6 +128,16 @@ public class MovieDAOImpl implements MovieDAO{
 		map.put("keyword", keyword);
 		sqlSession.selectList("movie.QUICKSEARCH", map);
 		return map;
+	}
+	// 오성훈, 2022-07-05
+	@Override
+	public List<OracleResult> insert(List<Map<String, Object>> list) {
+		List<OracleResult> results = new ArrayList<OracleResult>();
+		for (Map<String, Object> map : list) {
+			sqlSession.selectList("movie.MovieAPI", map);
+			results.add(new OracleResult("docid").fromMap(map));
+		}
+		return results;
 	}
 	
 	

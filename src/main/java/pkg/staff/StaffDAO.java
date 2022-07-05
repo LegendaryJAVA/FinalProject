@@ -1,11 +1,14 @@
 package pkg.staff;
 
 
-import java.util.Map;
+import java.util.*;
+
+import pkg.$.OracleResult;
 
 public interface StaffDAO {
     
-    public Map<String, Object> select();
-    public Map<String, Object> update(Map<String, Object> staffs);
-    public Map<String, Object> delete(); 
+    public List<StaffVO> select();
+    public List<OracleResult> update(List<Map<String,Object>> staffs);
+    public List<OracleResult> insert(List<Map<String,Object>> staffs); 
+    public List<OracleResult> delete(List<Map<String,Object>> staffs); 
 }

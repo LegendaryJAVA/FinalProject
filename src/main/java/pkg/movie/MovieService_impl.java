@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pkg.$.OracleResult;
+
 @Service
 public class MovieService_impl implements MovieService {
 	
@@ -33,6 +35,10 @@ public class MovieService_impl implements MovieService {
 	public Map<String, Object> quickSearch(String keyword) {
 		//별점, 출연 배우들 등 추가하기
 		return movieDAO.quickSearch(keyword);
+	}
+	@Override
+	public List<OracleResult> reflect (List<Map<String, Object>> params) {
+		return movieDAO.insert(params);
 	}
     
 }

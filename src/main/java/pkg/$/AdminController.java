@@ -1,5 +1,6 @@
 package pkg.$;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import pkg.movie.MovieDAO;
+import pkg.movie.MovieService;
+import pkg.movieCast.MovieCastService;
 import pkg.staff.StaffService;
 import pkg.staff.StaffVO;
 
@@ -27,9 +30,11 @@ import pkg.staff.StaffVO;
 public class AdminController {
 
 	@Autowired
-	MovieDAO movieDAO;
-	@Autowired
 	StaffService staffService;
+	@Autowired
+	MovieCastService movieCastService;
+	@Autowired
+	MovieService movieService;
 
 	@GetMapping(value={"admin.{menu}"}) 
 	public String landing (@PathVariable("menu") String menu, Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -88,15 +93,20 @@ public class AdminController {
 	@PostMapping("admin.movie.reflect")
 	public String testMember (@RequestBody Map<String, Object> params) {
 
-		System.out.println("----------------");
+		System.out.println("/admin.movie.relfect ---");
 		List<Map<String, Object>> movieArray = (List<Map<String, Object>>) params.get("Result");
+		List<OracleResult> oracleReturn = new ArrayList<OracleResult>();
 		System.out.println(movieArray);
-		List<Map<String, Object>> staffArray = new ArrayList<Map<String, Object>>();
-
+		
 		for (Map<String, Object> movie : movieArray) {
-
+			System.out.println(movie.get("title"));
 			String docId = (String)movie.get("DOCID");
-			
+			Map<String, Object> plots = (Map<String, Object>) movie.get("plots");
+			List<Map<String, Object>> plot = (List<Map<String, Object>>)plots.get("plot");
+			if (plot.get(0) != null) {
+				movie.put("plot", plot.get(0).get("plotText"));
+			}
+
 			// staff array to map
 			Map<String, String> convertedStaffMap = new HashMap<String, String>();
 
@@ -113,39 +123,42 @@ public class AdminController {
 
 			for(Map<String, Object> a : actor) {
 				a.put("DOCID", docId);
+				a.put("staffId", a.get("actorId"));
+				a.put("staffNm", a.get("actorNm"));
+				a.put("staffEnNm", a.get("actorEnNm"));
 				a.put("role", "actor");		
+				a.put("refDate", "2022/02/02");	
 				a.put("roleDetail", convertedStaffMap.get(a.get("actorNm")));
+				//a.put("roleDetail", convertedStaffMap.get(a.get("actorNm")));
 			}
 			
-
 			// make director Array
 			Map<String, Object> dMap = (Map<String, Object>) movie.get("directors");
 			List<Map<String, Object>> director = (List<Map<String, Object>>) dMap.get("director"); // director[]
 			for(Map<String, Object> d : director) {
 				d.put("DOCID", docId);
-				d.put("role", "director");		
+				d.put("staffId", d.get("directorId"));
+				d.put("staffNm", d.get("directorNm"));
+				d.put("staffEnNm", d.get("directorEnNm"));
+				d.put("role", "director");
+				d.put("refDate", "2022/02/02");		
 				d.put("roleDetail", convertedStaffMap.get(d.get("directorNm")));
 			}
 
 			// merge actor, director Array
+			List<Map<String, Object>> staffArray = new ArrayList<Map<String, Object>>();
 			staffArray.addAll(actor);
 			staffArray.addAll(director);
-		}
- 
-		Map<String, Object> movies = new HashMap<String, Object>();
-		movies.put("movies", movieArray);
-		
-		Map<String, Object> staffs = new HashMap<String, Object>();
-		staffs.put("staffs", staffArray);
 
-		System.out.println(movies); 
-		System.out.println(staffs); 
-		
-		//Map<String, Object> oracleReturn = movieService.reflect(movies);
-		staffService.update(staffs);
-		//castService.update(staffs);
-		
-		return new Gson().toJson("");
+			oracleReturn.add(movieService.reflect(movieArray).get(0));
+			staffService.reflect(staffArray);
+			for(Map<String, Object> s : staffArray) {
+				s.put("castId", s.get("staffIdx"));
+			}
+			movieCastService.reflect(staffArray);
+		}
+
+		return new Gson().toJson(oracleReturn);
 	}
 	
 }

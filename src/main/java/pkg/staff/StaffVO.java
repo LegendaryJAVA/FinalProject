@@ -1,13 +1,13 @@
 package pkg.staff;
 
 public class StaffVO {
-    private String staffIdx, staffId, staffNm, staffEnNm, regDate;
+    private String staffIdx, staffId, staffNm, staffEnNm, refDate;
 
-    public String getRegDate() {
-        return regDate;
+    public String getRefDate() {
+        return refDate;
     }
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
+    public void setRefDate(String refDate) {
+        this.refDate = refDate;
     }
     public String getStaffEnNm() {
         return staffEnNm;
