@@ -69,7 +69,43 @@ public class MemberController_JSON {
 		
 	}
 
+
 	// 회원정보수정(회원용)
+
+	@PostMapping("myform") // profile // profile?memberId=this9999
+	public String myform(@RequestBody Map<String,Object> map) {
+		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
+		System.out.println("----myform-----");
+		System.out.println(map);
+		JsonObject obj = new JsonObject();
+		for(MemberVO vo : memlist) {
+		
+			obj.addProperty("memberid", vo.getMemberid());
+			obj.addProperty("memberbirth", vo.getMemberbirth());
+			obj.addProperty("memberauth", vo.getMemberauth());
+			obj.addProperty("membergender", vo.getMembergender());
+			obj.addProperty("memberhob1", vo.getMemberhob1());
+			obj.addProperty("memberhob2", vo.getMemberhob2());
+			obj.addProperty("memberhob3", vo.getMemberhob3());
+			obj.addProperty("membernickname", vo.getMembernickname());
+			obj.addProperty("memberprofile", vo.getMemberprofile());
+			obj.addProperty("membersigndate", vo.getMembersigndate());
+			
+			System.out.println(vo.getMemberid());
+			System.out.println(vo.getMemberbirth());
+			System.out.println(vo.getMemberauth());
+			System.out.println(vo.getMembergender());
+			System.out.println(vo.getMemberhob1());
+			System.out.println(vo.getMemberhob2());
+			System.out.println(vo.getMemberhob3());
+			System.out.println(vo.getMembernickname());
+			System.out.println(vo.getMemberprofile());
+			System.out.println(vo.getMembersigndate());			
+		}
+		System.out.println("-------");
+		return obj.toString();
+	}
+
 	@PostMapping("updatemember")
 	public String updateprofile(@RequestBody Map<String,Object> map) {
 		System.out.println("----update controller");

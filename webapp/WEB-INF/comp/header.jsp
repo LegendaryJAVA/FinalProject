@@ -62,7 +62,7 @@
                     let HTML = res.result.map( e => `<div class="ar" data-docid=\${e.DOCID}>\${e.title}</div>`).join("");
                     document.querySelector(".auto-completaion").innerHTML = HTML;
                     acArray = [ document.querySelector(".search-input"), ...document.querySelectorAll(".ar") ];
-                    acIndex = 0;
+  			        acIndex = 0;
                     acLength = acArray.length;
                 },
                 error : function (err) {
