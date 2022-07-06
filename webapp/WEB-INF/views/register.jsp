@@ -155,7 +155,7 @@
 		})
 		const nickname = document.querySelector("input#nicka") 
 		nickname.addEventListener("blur", function(event){
-		
+			
 			$.ajax({
 				url: "chk",
 				data: JSON.stringify({data : { membernickname : this.value }}),
@@ -186,7 +186,7 @@
 			})
 		})
 		const gaipButtion = document.querySelector("input#btnGaip");
-		gaipButtion.addEventListener("click", function(){
+		gaipButtion.addEventListener("click", function() { // 가입버튼 시작
 			
 			
 			var year = Number($("input#year").val());
@@ -205,7 +205,7 @@
 			
 			// $("select#month").val()
 			
-			var alldata = {	
+			var alldata = {	 // 가입 데이터 
 					
 				memberid : $("#ida").val(),
 				memberpass : $("#passa").val(),
@@ -220,7 +220,7 @@
 				
 				
 			}
-			
+			// 가입조건 불응시 되돌림 
 			if(alldata.memberid == ""){
 				alert("아이디를 입력하세요.");
 				return;
@@ -238,7 +238,7 @@
 				alert("비밀번호를 입력하세요.");
 				return;
 			}
-			if($("input#b").val() != alldata.memberpass){
+			if($("input#passb").val() != $("input#passb").val()){
 				alert("비밀번호가 틀렸습니다.");
 				return;
 			}
@@ -283,10 +283,8 @@
 			
 		
 			
-			
-			console.log(alldata);
 			$.ajax({
-				url: "test2",
+				url: "register",
 				data: JSON.stringify({data : alldata}),
 				type: "post",
 				dataType: "json",
@@ -294,6 +292,7 @@
 				success : function(result){
 					
 					alert(result.result + "가입완료되었습니다.");
+
 					history.back();
 					
 				},
@@ -303,8 +302,7 @@
 				
 			})
 			
-			
-		})
+		}) // 가입버튼 끝
 			
 		var checkFinish = function(a){
 			let wantChar = "0123456789";
