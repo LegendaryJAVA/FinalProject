@@ -10,6 +10,10 @@ body {
     margin : 0px;
     background-color: #F4F4F4;
 }
+a:link, a:visited {
+    color : inherit;
+    text-decoration: none;
+}
 
 .header, .container, .footer {
     margin: 0 auto; 
@@ -47,5 +51,16 @@ body {
 	font-weight: 600;
     font-size: 20px;
 }
-
+.hightlight {
+    position: relative;
+}
+.hightlight:before {
+    background-color: #8947cc82;
+    content: " ";
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    height: 35% !important;
+    top: 53%;
+}
 	

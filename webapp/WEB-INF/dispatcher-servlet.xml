@@ -1,45 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
-    <context:annotation-config />
-    <context:component-scan base-package="pkg.*" />
-    <mvc:annotation-driven />
-    <!-- spring : interceptor -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/resource/**" />
-            <mvc:exclude-mapping path="/login" />
-            <mvc:exclude-mapping path="/logout" />
-            <bean id="nsq" class="pkg.$.Interceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
-    <!-- spring : mapping static resources -->
-    <mvc:resources location="/resource/" mapping="/resource/**" />
-    <!-- spring : view resolve -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
-    <!-- spring : external properties -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="/WEB-INF/config.properties"/>
-        <property name="fileEncoding" value="UTF-8" />
-    </bean>
-    <!-- datasource(oracle) -->
+   <context:annotation-config />
+   <context:component-scan base-package="pkg.*" />
+   <mvc:annotation-driven />
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/**" />
+         <mvc:exclude-mapping path="/resource/**" />
+         <mvc:exclude-mapping path="/login" />
+         <mvc:exclude-mapping path="/logout" />
+         <bean id="nsq" class="pkg.$.Interceptor" />
+      </mvc:interceptor> 
+   </mvc:interceptors>
+   <!-- spring : static resource mapping -->
+   <mvc:resources location="/resource/" mapping="/resource/**" />
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/views/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+   <!-- spring : external properties -->
+   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="location" value="/WEB-INF/config.properties"/>
+      <property name="fileEncoding" value="UTF-8" />
+   </bean>
+   <!-- datasource (oracle) -->
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=${DB.TNS_ADMIN}"/>
+      <property name="username" value="${DB.USERNAME}"/>
+      <property name="password" value="${DB.PASSWORD}"/>
+
+   </bean>
+
+    <!-- 유승화 db연결 -->
+    <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=${DB.TNS_ADMIN}"/>
-        <property name="username" value="${DB.USERNAME}"/>
-        <property name="password" value="${DB.PASSWORD}"/>
-    </bean>
-    <!-- mybatis : mapper -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
-        <!--  <property value="classpath:mybatis-config.xml" name="configLocation" /> -->
-    </bean>
-    <!-- mybatis : sqlsession -->
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-    </bean>
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=/Users/sniperditto/Documents/Project/Wallet_DB20220621092517"/>
+      <property name="username" value="FINALPROJECT"/>
+      <property name="password" value="Project123123"/>
+   </bean>
+   -->
+
+    <!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@DB20220621092517_high?TNS_ADMIN=\\or\\Wallet_DB20220621092517"/>
+      <property name="username" value="FINALPROJECT"/>
+      <property name="password" value="Project123123"/>
+     </bean>
+     -->
+    
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <!--  <property value="classpath:mybatis-config.xml" name="configLocation" /> -->
+      <property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
+   </bean>  
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>     
+   </bean>
 </beans>

@@ -15,11 +15,14 @@ local.properties
 .loadpath
 .recommenders
 
-
+### Project needed ignore ###
 .settings
 .classpath
 .idea
 project.iml
+target
+target/
+webapp/WEB-INF/config.properties
 
 # External tool builders
 .externalToolBuilders/
@@ -43,8 +46,6 @@ project.iml
 .buildpath
 
 # sbteclipse plugin
-target
-target/
 .target
 
 # Tern plugin

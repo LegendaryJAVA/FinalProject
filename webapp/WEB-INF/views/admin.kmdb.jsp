@@ -1,36 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <%@ include file="../comp/script.jsp" %>
-<title>ajaxTester</title>
-</head>
+<title>관리자 페이지</title>
+</head> 
 <body>
-	<div class="container-wrapper">
-		<div class="container">
-			<div class="--tl1">데이터 크롤링 도구</div>
-		    <div> <img src="resource/image/testImage.png"></div> 
-		    <div class="wrapper">
-		        <div class="option"> <div>releaseDte</div> <div class="--iwp"><input class="releaseDte" value="20220601" /></div> </div>
-		        <div class="option"> <div>releaseDts</div> <div class="--iwp"><input class="releaseDts" value="20220501" /></div> </div>
-                <div class="option"> <div>title</div> <div class="--iwp"><input class="title" placeholder="영화제목" /></div> </div>
-		        <div class="option"> <div>listCount</div> <div class="--iwp"><input class="listCount" value="2" /></div> </div>
-		        <div class="option ralign"> <div class="create-api-url --btn1">요청 API 주소 생성</div></div>
-		        <div class=""> <div class="--iwp" style="width : 100%"><input class="api-plain" type="text" /></div></div>
-		        <div class="ralign"> <div class="request-api --btn1">KMDb API 요청</div> </div>
-		        <div class=""> <div class="--tl1">검색결과</div> </div>
-		        <div class=""> <div class="response-info"></div> </div>
-		        <div class=""> <div class="response-parse"></div></div>
-		        <div class=""> <div class="--tl1">검색결과(RAW)</div> </div>
-		        <div class=""> <textarea class="response-source"></textarea></div>
-                <div class=""> <div class="update-database --btn1">데이터베이스 갱신</div> </div>
-		    </div>							
-		</div>
-	</div>
+    <%@ include file="../comp/admin.header.jsp" %>
+
+    <div class="container-section">
+            <div class="container">
+                <div class="--tl1">데이터 크롤링 도구</div>
+                <div> <img src="resource/image/testImage.png"></div> 
+                <div class="wrapper">
+                    <div class="option"> <div>releaseDte</div> <div class="--iwp"><input class="releaseDte" value="20220601" /></div> </div>
+                    <div class="option"> <div>releaseDts</div> <div class="--iwp"><input class="releaseDts" value="20220501" /></div> </div>
+                    <div class="option"> <div>title</div> <div class="--iwp"><input class="title" placeholder="영화제목" /></div> </div>
+                    <div class="option"> <div>listCount</div> <div class="--iwp"><input class="listCount" value="2" /></div> </div>
+                    <div class="option ralign"> <div class="create-api-url --btn1">요청 API 주소 생성</div></div>
+                    <div class=""> <div class="--iwp" style="width : 100%"><input class="api-plain" type="text" /></div></div>
+                    <div class="ralign"> <div class="request-api --btn1">KMDb API 요청</div> </div>
+                    <div class=""> <div class="--tl1">검색결과</div> </div>
+                    <div class=""> <div class="response-info"></div> </div>
+                    <div class=""> <div class="response-parse"></div></div>
+                    <div class=""> <div class="--tl1">검색결과(RAW)</div> </div>
+                    <div class=""> <textarea class="response-source"></textarea></div>
+                    <div class=""> <div class="update-database --btn1">데이터베이스 갱신</div> </div>
+                </div>							
+            </div>
+    </div>
     
+    <%@ include file="../comp/footer.jsp" %>
 </body>
+
 
 <style>
 	input {

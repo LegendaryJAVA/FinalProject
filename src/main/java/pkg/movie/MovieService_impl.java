@@ -24,7 +24,6 @@ public class MovieService_impl implements MovieService {
 		//별점, 출연 배우들 등 추가하기
 		return movieDAO.getMovieInfo(docId);
 	}
-	
 	@Override
 	public List<Object> saveMovieList(List<MovieVO> saveList) {
 		
@@ -35,6 +34,10 @@ public class MovieService_impl implements MovieService {
 	public List<Object> delMovieList(List<MovieVO> delList) {
 		return movieDAO.delMovieList(delList);
 	}
-	
-	
+	@Override
+	public Map<String, Object> quickSearch(String keyword) {
+		//별점, 출연 배우들 등 추가하기
+		return movieDAO.quickSearch(keyword);
+	}
+    
 }

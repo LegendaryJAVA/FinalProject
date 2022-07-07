@@ -1,15 +1,20 @@
 package pkg.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @RestController
@@ -18,6 +23,7 @@ public class MemberController_JSON {
 	@Autowired
 	MemberService memberService;
 
+	// 로그인
 	@PostMapping("loginchk")
 	public String loginchk(@RequestBody Map<String, Object> map, HttpSession session) {
 		System.out.println(memberService.loginchk(map));
@@ -25,22 +31,27 @@ public class MemberController_JSON {
 			session.setAttribute("memberid", memberService.loginchk(map));
 			JsonObject obj = new JsonObject();	
 			obj.addProperty("result", "SUC");
+			List<MemberVO> list = memberService.selmem(map);
 			
+			// TODO : 임시로 세션에 값 달아주었음, 나머지도 추가해야함
+			session.setAttribute("memberProfile", list.get(0).getMemberprofile());
 			return obj.toString();
 		}
 		
 		return "{\"result\": \"FAIL\" }";
 		
 	}
+	// 아이디 중복 체크용
+	// TODO : 메서드 명, 요청 인자 명 너무 헷갈림, 중복체크면 overlap-check 등
 	@PostMapping("chk")
 	public String chk(@RequestBody Map<String,Object> map) {
 		
 		JsonObject obj = new JsonObject();
 		obj.addProperty("result", memberService.chk(map));
 		
-		
 		return  obj.toString();
 	}
+	//
 	@PostMapping("test2")
 	public String gaip(@RequestBody Map<String,Object> map) {
 		Map<String, Object> jmap = (Map<String, Object>) map.get("data");
@@ -61,10 +72,11 @@ public class MemberController_JSON {
 		return "{\"result\": \"FAIL\" }";
 		
 	}
-	@PostMapping("myform")
+	@PostMapping("myform") // profile // profile?memberId=this9999
 	public String myform(@RequestBody Map<String,Object> map) {
 		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
-		System.out.println("---------");
+		System.out.println("----myform-----");
+		System.out.println(map);
 		JsonObject obj = new JsonObject();
 		for(MemberVO vo : memlist) {
 		
@@ -92,6 +104,73 @@ public class MemberController_JSON {
 		}
 		System.out.println("-------");
 		return obj.toString();
+	}
+	@PostMapping("updatemember")
+	public String updateprofile(@RequestBody Map<String,Object> map) {
+		System.out.println("----update controller");
+		System.out.println(map.get("updatedata"));
+		memberService.selmem(map);
+		
+		if(memberService.updatemem((Map<String, Object>) map.get("updatedata")).equals("SUC")) {
+			System.out.println("성공");
+			return "{\"result\": \"SUC\" }";
+		}
+		
+		System.out.println("실패");
+		return "{\"result\": \"FAIL\" }";
+	}
+	
+	
+	
+	@PostMapping("profile")
+	public String profile(@RequestBody Map<String,Object> map, HttpSession session) {
+		System.out.println(map.get("memberid"));
+		
+		boolean isOwn = false;
+		
+		if (session==null) {
+			isOwn = false;
+		}		
+		else if(session.getAttribute("memberid").equals(map.get("memberid"))) {
+			isOwn = true;
+		}
+		else {
+			isOwn = false;
+		}
+		
+		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
+		JsonObject obj = new JsonObject();
+		for(MemberVO vo : memlist) {
+			
+			obj.addProperty("memberid", vo.getMemberid());
+			obj.addProperty("memberbirth", vo.getMemberbirth());
+			obj.addProperty("memberauth", vo.getMemberauth());
+			obj.addProperty("membergender", vo.getMembergender());
+			obj.addProperty("memberhob1", vo.getMemberhob1());
+			obj.addProperty("memberhob2", vo.getMemberhob2());
+			obj.addProperty("memberhob3", vo.getMemberhob3());
+			obj.addProperty("membernickname", vo.getMembernickname());
+			obj.addProperty("memberprofile", vo.getMemberprofile());
+			obj.addProperty("membersigndate", vo.getMembersigndate());
+			obj.addProperty("isOwn", isOwn);
+			System.out.println(vo.getMemberid());
+			System.out.println(vo.getMemberbirth());
+			System.out.println(vo.getMemberauth());
+			System.out.println(vo.getMembergender());
+			System.out.println(vo.getMemberhob1());
+			System.out.println(vo.getMemberhob2());
+			System.out.println(vo.getMemberhob3());
+			System.out.println(vo.getMembernickname());
+			System.out.println(vo.getMemberprofile());
+			System.out.println(vo.getMembersigndate());			
+		
+		}
+		
+				
+	
+		return obj.toString();
+		
+		
 	}
 	
 }

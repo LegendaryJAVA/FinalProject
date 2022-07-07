@@ -10,7 +10,7 @@
 <%@ include file="../comp/header.jsp" %>
     <div class="container-section">
         <div class="container">
-            <div class="title">${ keyword }에 대한 검색 결과</div>
+            <div class="title"><span class="hightlight">${ keyword }</span>에 대한 검색 결과</div>
 
             <div> ${ searchResult } </div>
 
@@ -19,10 +19,34 @@
 <%@ include file="../comp/footer.jsp" %>
 </body>
 
+<script>
+    $(document).on("click", ".dagger", function () {
+        let docid = this.dataset.docid;
+        location.href=`movie.info?docid=\${docid}`;
+    });
+
+</script>
+
 <style>
-    .title {
+    .container > .title {
         font-weight: 600;
         font-size: 20px;
+        margin-bottom: 30px;
+    }
+    .dagger {
+        display: flex;
+        margin-bottom: 25px;
+    }
+    .poster {
+        display: flex;
+    }
+    .poster > img {
+        width: 180px;
+        border-radius: 5px;
+    }
+    .desc {
+        display: flex;
+        flex-direction: column;
     }
 </style>
 </html>

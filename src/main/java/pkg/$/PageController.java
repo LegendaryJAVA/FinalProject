@@ -11,24 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
 
 	@RequestMapping("/") 
-	public String mainPage2 (Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String welcome (Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		return "index";
 	}
-    @RequestMapping("test") 
-	public String testPage (Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		return "test";
-	}
-	@RequestMapping("apicrawl") 
-	public String apicrawlpage (Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		return "apicrawl";
-	}
-	@RequestMapping("update")
-	public String updateSQL () {
-
-		return "";
-	}
-
 }

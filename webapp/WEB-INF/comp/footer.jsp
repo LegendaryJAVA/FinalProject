@@ -3,8 +3,7 @@
         <div class="site-map">
             <div><a href="https://github.com/LegendaryJAVA/FinalProject">github</a></div>
             <div><a href="https://sniper-ditto.notion.site/f5d08aef0d9248af96426f476584f1de?v=6773021025084cf6985269c3fe3f7ce7">notion</a></div>
-            <div><a href="test">ajaxTester</a></div>
-            <div><a href="apicrawl">apiCrawl</a></div>
+            <div><a href="admin.kmdb">admin</a></div>
         </div>
 
     </div>
