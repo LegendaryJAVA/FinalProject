@@ -25,7 +25,6 @@ public class MemberService_impl implements MemberService {
 	}
 	@Override
 	public String insmem(Map<String, Object> map) { // 회원가입 
-		
 		return memberdao.insmem(map);
 	}
 	@Override

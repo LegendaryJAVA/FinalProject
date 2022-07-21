@@ -37,15 +37,14 @@
 			</div>
 			<div class="e l">
 				<div onclick="gaipFunc()">회원가입</div>
-				<div onclick="Yaho()">무조건로그인</div>
-				<div onclick="Yaho()">뚜비뚜밥바바랍</div>
+				<div onclick="Yaho()">뒤로가기</div>
 			</div>
 		</div>
 	</div>
 
     <script>
   		$("input#btnLogin").click(function(){
-			$(".alert").removeClass("picked");
+  			$(".alert").removeClass("picked");
   			$.ajax({
   				url: "loginchk",
   				data: JSON.stringify({
@@ -64,7 +63,7 @@
   					}
   					else{
 						$(".alert.fail").addClass("picked");
-  					}
+					}
   				},
   				error: function(error){
   					console.log(error);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -51,13 +52,8 @@ public class MemberController_JSON {
 	@PostMapping("register")
 	public String gaip(@RequestBody Map<String,Object> map) {
 		Map<String, Object> jmap = (Map<String, Object>) map.get("data");
-		System.out.println(map.get("data"));
-		System.out.println(jmap);
-		System.out.println("-------------");
 		String memberid = (String)jmap.get("memberid");
-		System.out.println(memberid);
-		System.out.println(memberService.insmem(jmap));
-		System.out.println("----------------");
+	
 		if (memberid.equals(memberService.insmem(jmap))) {
 			
 			return "{\"result\": \"SUC\" }";
@@ -123,12 +119,11 @@ public class MemberController_JSON {
 	//관리자 페이지 멤버리스트 
 	@PostMapping("memberform")
 	public String memberform(@RequestBody Map<String, Object> map) {
-			System.out.println(map.get("pagenum"));
+			System.out.println("pageNum : " +map.get("pagenum"));
 			Map<String, Object> memberform = memberService.showmemberList(map);
 			List<MemberVO> allmemlist = (List<MemberVO>) memberform.get("result");
 			JsonObject resultobj = new JsonObject();
-			JsonArray arr = new JsonArray();
-			
+			JsonArray arr = new JsonArray();			
 			for(MemberVO vo : allmemlist) {
 				JsonObject obj = new JsonObject();
 				obj.addProperty("memberidx", vo.getMemberidx());
@@ -163,6 +158,7 @@ public class MemberController_JSON {
 			System.out.println(map.get("maxpage"));
 			
 			return resultobj.toString();
+			//return new Gson().toJson(allmemlist);
 	}
 	
 	//멤버 정보보기(다른 고객, 고객 본인)

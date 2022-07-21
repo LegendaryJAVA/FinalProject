@@ -33,23 +33,18 @@ public class MemberDAO_Impl implements MemberDAO{
 	}
 	@Override
 	public String insmem(Map<String, Object> map) { // 회원가입
-		
+		System.out.println(map);
 		sqlSessionTemplate.selectList("insmem",map);
-		System.out.println(map.get("result"));
-		System.out.println(map.get("error"));
-		System.out.println(map.get("error2"));
-		if(map.get("result") ==null) {
-			System.out.println("에러낫다 ㅠㅠ");
-		}
+		System.out.println(map.get("error"));	
+		System.out.println(map.get("error2"));	
 		
 		
 		return (String)map.get("result");
 	}
 	@Override
 	public List<MemberVO> selmem(Map<String, Object> map) { // 회원 정보(일반페이지)
-		
 		sqlSessionTemplate.selectList("selmem",map);
-		
+
 		
 		return (List<MemberVO>)map.get("result");
 	}
