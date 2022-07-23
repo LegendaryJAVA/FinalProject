@@ -19,6 +19,7 @@ public class MovieDAOImpl implements MovieDAO{
 		this.sqlSession = sqlSession;
 	}
 	
+	@Override
 	public List<MovieVO> searchMovieList(String keyword){
 		Map<String, Object> map = new HashMap<>();
 		map.put("keyword",keyword);
@@ -29,6 +30,7 @@ public class MovieDAOImpl implements MovieDAO{
 		return list;
 	}
 	
+	@Override
 	public List<MovieVO> getMovieInfo(String docId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("DOCID",docId);
@@ -90,6 +92,17 @@ public class MovieDAOImpl implements MovieDAO{
 		}
 		
 		return resultList;
+	}
+	
+	@Override
+	public List<MovieVO> loadMovieList(String docId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("docId",docId);
+		
+		sqlSession.selectList("loadMovieList",map);
+		List<MovieVO> list = (List<MovieVO>) map.get("result");
+		
+		return list;
 	}
 	
 	@Override

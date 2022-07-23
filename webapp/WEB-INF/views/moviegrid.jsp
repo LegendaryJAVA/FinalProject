@@ -18,13 +18,13 @@
 </head>
 <body>
     <div>
-        <table id="dg" title="My Users" style="width:1200px;height:900px"
+        <table id="dg" title="Movie List" style="width:1200px;height:900px"
                toolbar="#toolbar" pagination="true" idField="id"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
             <tr>
                 <th field="DOCID" width="50" editor="{type:'validatebox',options:{required:true}}">DOCID</th>
-                <th field="title" width="50" editor="{type:'validatebox',options:{required:true}}">title</th>
+                <th field="title" width="50" editor="{type:'validatebox'}">title</th>
                 <th field="titleEng" width="50" editor="{type:'validatebox'}">titleEng</th>
                 <th field="titleEtc" width="50" editor="{type:'validatebox'}">titleEtc</th>
                 <th field="prodYear" width="50" editor="{type:'validatebox'}">prodYear</th>
@@ -40,22 +40,28 @@
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">Save</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">Cancel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">행 추가</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">행 삭제</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">행 저장</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">행 되돌리기</a>
         </div>
-
     </div>
 
 
     <script type="text/javascript">
         $(function(){
             $('#dg').edatagrid({
+                /*
+                url : A URL to retrieve data from server.
+                saveUrl : A URL to save data to server and return the added row.
+                updateUrl : A URL to update data to server and return the updated row.
+                destroyUrl : A URL to post 'id' parameter to server to destroy that row.
+                 */
+                contentType: 'application/json',
                 url: 'moviegridData',
-                saveUrl: '',
-                updateUrl: '',
-                destroyUrl: ''
+                saveUrl: 'moviegridSave',
+                updateUrl: 'moviegridSave',
+                destroyUrl: 'moviegridDelete'
             });
         });
     </script>

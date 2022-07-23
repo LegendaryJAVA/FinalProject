@@ -40,6 +40,13 @@
 			)}
 	</select>
 
+	<!--  영화 그리드 목록 docid로 불러오기	-->
+	<select id="loadMovieList" resultMap="searchMovieMap" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
+		{call PKG_MOVIE.PROC_SEL_MOVIEGRID(
+			#{DOCID, jdbcType=VARCHAR, mode=IN}
+			,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+			)}
+	</select>
 
 	<!-- 영화 그리드 저장 -->
 	<select id="saveMovieList" parameterType="pkg.movie.MovieVO" statementType="CALLABLE">
