@@ -1,6 +1,6 @@
 package pkg.member;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @RestController
@@ -42,7 +43,6 @@ public class MemberController_JSON {
 		
 	}
 	// 아이디 중복 체크용
-	// TODO : 메서드 명, 요청 인자 명 너무 헷갈림, 중복체크면 overlap-check 등
 	@PostMapping("chk")
 	public String chk(@RequestBody Map<String,Object> map) {
 		
@@ -51,17 +51,12 @@ public class MemberController_JSON {
 		
 		return  obj.toString();
 	}
-	//
-	@PostMapping("test2")
+	//회원가입
+	@PostMapping("register")
 	public String gaip(@RequestBody Map<String,Object> map) {
 		Map<String, Object> jmap = (Map<String, Object>) map.get("data");
-		System.out.println(map.get("data"));
-		System.out.println(jmap);
-		System.out.println("-------------");
 		String memberid = (String)jmap.get("memberid");
-		System.out.println(memberid);
-		System.out.println(memberService.insmem(jmap));
-		System.out.println("----------------");
+	
 		if (memberid.equals(memberService.insmem(jmap))) {
 			
 			return "{\"result\": \"SUC\" }";
@@ -72,6 +67,21 @@ public class MemberController_JSON {
 		return "{\"result\": \"FAIL\" }";
 		
 	}
+	//회원탈퇴
+	@PostMapping("membersecsession")
+	public String membersec(@RequestBody Map<String,Object> map ,HttpServletRequest request) {
+		
+		if(memberService.delmem(map).equals("SUC")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			return "{\"result\": \"SUC\" }";
+		} 
+	
+		return "{\"result\": \"FAIL\" }";
+	}
+
+	// 회원정보수정(회원용)
+
 	@PostMapping("myform") // profile // profile?memberId=this9999
 	public String myform(@RequestBody Map<String,Object> map) {
 		List<MemberVO> memlist = (List<MemberVO>)memberService.selmem(map);
@@ -82,7 +92,7 @@ public class MemberController_JSON {
 		
 			obj.addProperty("memberid", vo.getMemberid());
 			obj.addProperty("memberbirth", vo.getMemberbirth());
-			obj.addProperty("memberauth", vo.getMemberauth());
+			obj.addProperty("memberauth", vo.getAuthidx());
 			obj.addProperty("membergender", vo.getMembergender());
 			obj.addProperty("memberhob1", vo.getMemberhob1());
 			obj.addProperty("memberhob2", vo.getMemberhob2());
@@ -93,7 +103,7 @@ public class MemberController_JSON {
 			
 			System.out.println(vo.getMemberid());
 			System.out.println(vo.getMemberbirth());
-			System.out.println(vo.getMemberauth());
+			System.out.println(vo.getAuthidx());
 			System.out.println(vo.getMembergender());
 			System.out.println(vo.getMemberhob1());
 			System.out.println(vo.getMemberhob2());
@@ -105,6 +115,7 @@ public class MemberController_JSON {
 		System.out.println("-------");
 		return obj.toString();
 	}
+	
 	@PostMapping("updatemember")
 	public String updateprofile(@RequestBody Map<String,Object> map) {
 		System.out.println("----update controller");
@@ -119,18 +130,74 @@ public class MemberController_JSON {
 		System.out.println("실패");
 		return "{\"result\": \"FAIL\" }";
 	}
+	//관리자 페이지 멤버리스트 
+	@PostMapping("memberform")
+	public String memberform(@RequestBody Map<String, Object> map) {
+			System.out.println("pageNum : " +map.get("pagenum"));
+			Map<String, Object> memberform = memberService.showmemberList(map);
+			List<MemberVO> allmemlist = (List<MemberVO>) memberform.get("result");
+			List<AuthVO> allAuthlist = (List<AuthVO>) memberform.get("resultauthList"); 
+			JsonObject resultobj = new JsonObject();
+			JsonArray memberarr = new JsonArray();	
+			JsonArray autharr = new JsonArray();
+			for(MemberVO vo : allmemlist) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("memberidx", vo.getMemberidx());
+				obj.addProperty("memberid", vo.getMemberid());
+				obj.addProperty("memberbirth", vo.getMemberbirth());
+				obj.addProperty("memberauth", vo.getAuthidx());
+				obj.addProperty("membergender", vo.getMembergender());
+				obj.addProperty("memberhob1", vo.getMemberhob1());
+				obj.addProperty("memberhob2", vo.getMemberhob2());
+				obj.addProperty("memberhob3", vo.getMemberhob3());
+				obj.addProperty("membernickname", vo.getMembernickname());
+				obj.addProperty("memberprofile", vo.getMemberprofile());
+				obj.addProperty("membersigndate", vo.getMembersigndate());
+				memberarr.add(obj);
+				System.out.println("----");
+				System.out.println(vo.getMemberidx());
+				System.out.println(vo.getMemberid());
+				System.out.println(vo.getMemberbirth());
+				System.out.println(vo.getAuthidx());
+				System.out.println(vo.getMembergender());
+				System.out.println(vo.getMemberhob1());
+				System.out.println(vo.getMemberhob2());
+				System.out.println(vo.getMemberhob3());
+				System.out.println(vo.getMembernickname());
+				System.out.println(vo.getMemberprofile());
+				System.out.println(vo.getMembersigndate());	
+				System.out.println("----");
+			}
+			for(AuthVO vo : allAuthlist) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("authidx",vo.getAuthidx());
+				
+				obj.addProperty("authname", vo.getAuthname());
+				
+				autharr.add(obj);
+			}
+			
+			System.out.println("------jsoncontroller");
+			resultobj.add("memberresult", memberarr);
+			resultobj.addProperty("maxpage", (String) map.get("maxpage"));
+			resultobj.add("authresult", autharr);
+			System.out.println(autharr);
+			System.out.println(map.get("maxpage"));
+			 
+		return resultobj.toString();
+		
+	}
 	
-	
-	
-	@PostMapping("profile")
+	//멤버 정보보기(다른 고객, 고객 본인)
+	@PostMapping("profile") 
 	public String profile(@RequestBody Map<String,Object> map, HttpSession session) {
 		System.out.println(map.get("memberid"));
 		
 		boolean isOwn = false;
-		
-		if (session==null) {
+			
+		if(session.getAttribute("memberid")==null) {
 			isOwn = false;
-		}		
+		}
 		else if(session.getAttribute("memberid").equals(map.get("memberid"))) {
 			isOwn = true;
 		}
@@ -144,7 +211,7 @@ public class MemberController_JSON {
 			
 			obj.addProperty("memberid", vo.getMemberid());
 			obj.addProperty("memberbirth", vo.getMemberbirth());
-			obj.addProperty("memberauth", vo.getMemberauth());
+			obj.addProperty("memberauth", vo.getAuthidx());
 			obj.addProperty("membergender", vo.getMembergender());
 			obj.addProperty("memberhob1", vo.getMemberhob1());
 			obj.addProperty("memberhob2", vo.getMemberhob2());
@@ -155,7 +222,7 @@ public class MemberController_JSON {
 			obj.addProperty("isOwn", isOwn);
 			System.out.println(vo.getMemberid());
 			System.out.println(vo.getMemberbirth());
-			System.out.println(vo.getMemberauth());
+			System.out.println(vo.getAuthidx());
 			System.out.println(vo.getMembergender());
 			System.out.println(vo.getMemberhob1());
 			System.out.println(vo.getMemberhob2());
@@ -172,5 +239,36 @@ public class MemberController_JSON {
 		
 		
 	}
+	//회원정보 수정 (관리자페이지)
+	@PostMapping("memberlistupdate")
+	public String memberlistUpdate(@RequestBody Map<String,Object> map) {
+		System.out.println(map);
+		memberService.updatememberList(map);
+		
+		return "";
+	}
+	@PostMapping("auth") // 권한리스트(관리자페이지)
+	public String authlistSel(@RequestBody Map<String, Object> map) {
+		
+	//	System.out.println(memberService.authList(map).get("result"));
+		Map<String, Object> authmap = memberService.authList(map);
+		List<AuthVO> allauthlist = (List<AuthVO>)authmap.get("resultauthList");
+		JsonArray jarr = new JsonArray();
+		for(AuthVO vo : allauthlist) {
+			JsonObject jobj = new JsonObject();
+			
+			jobj.addProperty("authidx", vo.getAuthidx());
+			jobj.addProperty("authname", vo.getAuthname());
+			jobj.addProperty("authdesc", vo.getAuthdesc());
+			
+			System.out.println(vo.getAuthidx());
+			System.out.println(vo.getAuthname());
+			System.out.println(vo.getAuthdesc());
+			jarr.add(jobj);
+		}
+		return jarr.toString();
+	}
+	
+	
 	
 }
