@@ -65,8 +65,9 @@
     		location.href="register";
     	}
   		var Yaho = function(){
+
   			location.href=document.referrer;
-  			
+
   		}
   	</script>
     

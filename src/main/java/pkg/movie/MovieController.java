@@ -1,6 +1,7 @@
 package pkg.movie;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +72,7 @@ public class MovieController {
 
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchResult", HTML$movies_large(list));
-	
+		
 		return "movie.search";
     }
 	// 검색 결과를 전달하는 메서드
@@ -114,15 +115,48 @@ public class MovieController {
 	@RequestMapping("moviegridData")
 	public String movieGridData(Model model, HttpServletRequest request, HttpServletResponse response){
 		
-		List<MovieVO> list = movieService.searchMovieList("");
+		List<MovieVO> list = movieService.loadMovieList("");
 		
 		return new Gson().toJson(list);
 	}
 	
+
 	@RequestMapping("moviegridSave")
 	public String moviegridSave(Model model, HttpServletRequest request, HttpServletResponse response){
+		List<MovieVO> saveList = new ArrayList<>();
+		
+		//saveRow
+		MovieVO movie = new MovieVO();
+		movie.setDOCID(request.getParameter("DOCID"));
+		movie.setTitle(request.getParameter("title"));
+		movie.setTitleEng(request.getParameter("titleEng"));
+		movie.setTitleEtc(request.getParameter("titleEtc"));
+		movie.setProdYear(request.getParameter("prodYear"));
+		movie.setNation(request.getParameter("nation"));
+		movie.setRuntime(request.getParameter("runtime"));
+		movie.setGenre(request.getParameter("genre"));
+		movie.setPlots(request.getParameter("plots"));
+		movie.setPosters(request.getParameter("posters"));
+		movie.setReleaseDate(request.getParameter("releaseDate"));
+		movie.setKeywords(request.getParameter("keywords"));
+		movie.setCompany(request.getParameter("company"));
+		saveList.add(movie);
+		
+		List<Object> list = movieService.saveMovieList(saveList);
+		
+		return "moviegrid";
+	}
+	
+	@RequestMapping("moviegridDelete")
+	public String moviegridDelete(Model model, HttpServletRequest request, HttpServletResponse response){
 		
 		
+		List<MovieVO> delList = new ArrayList<>();
+		MovieVO movie = new MovieVO();
+		movie.setDOCID(request.getParameter("id"));
+		delList.add(movie);
+		
+		List<Object> list = movieService.delMovieList(delList);
 		
 		return "moviegrid";
 	}
