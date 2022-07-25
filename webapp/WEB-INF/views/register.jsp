@@ -187,13 +187,16 @@
 			}
 			var date = new Date(year+'-'+(Number(month)+1));
 			date.setDate(date.getDate()-1);
+			
+			let lastDate = date.getDate(); // 31
+			let dateArray = Array.from({length:lastDate}, (v, i) => i+1); // [ 1, 2, 3, ... 31 ]
 			var strHTML = "<select id=date>";
-			for(var i=1; i<=date.getDate(); i++)
+			for(var i=1; i<=lastDate ; i++)
 				{
 				strHTML += "<option value=" + i + ">" + i +"일";
 			 	strHTML += "</option>";
 				}
-			
+
 			strHTML += "</select>";
 			$("#dateform").html(strHTML);
 			

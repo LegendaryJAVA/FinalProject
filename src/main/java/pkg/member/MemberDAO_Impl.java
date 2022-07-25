@@ -46,7 +46,7 @@ public class MemberDAO_Impl implements MemberDAO{
 		sqlSessionTemplate.selectList("selmem",map);
 
 		
-		return (List<MemberVO>)map.get("result");
+		return (List<MemberVO>)map.get("result"); //
 	}
 	@Override
 	public String delmem(Map<String, Object> map) { // 회원 탈퇴(일반페이지)
