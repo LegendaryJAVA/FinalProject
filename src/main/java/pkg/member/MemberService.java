@@ -9,8 +9,10 @@ public interface MemberService {
 	public String insmem(Map<String, Object> map); // 회원가입
 	public List<MemberVO> selmem(Map<String, Object> map); // 멤버정보(일반페이지)
 	public String updatemem(Map<String, Object> map); // 멤버정보수정(일반회원)
+	public String delmem(Map<String, Object> map);
 	public Map<String, Object>  showmemberList(Map<String, Object> map); // 멤버정보(관리자페이지)
 	public Map<String, Object> updatememberList(Map<String, Object> map);// 멤버정보수정(관리자페이지)
+	public Map<String, Object> authList(Map<String, Object> map); //권한정보(관리자페이지)
 	
 	
 }

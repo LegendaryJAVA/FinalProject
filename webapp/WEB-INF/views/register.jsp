@@ -431,7 +431,7 @@
 					if(result.result=="SUC"){
 		//				alert("가입완료되었습니다.");
 						$("input#btnGaip").removeAttr("disabled");
-						history.back();
+		//				history.back();
 					}
 					else{
 						alert("실패하셨습니다.");
@@ -487,7 +487,7 @@
 	// 자동회원가입 test용
 	let autofill = true;
 	$(document).ready(function () {
-		autofill = false;
+	  autofill = false;
       if ( autofill == false ) return;
       setInterval(function () {
          

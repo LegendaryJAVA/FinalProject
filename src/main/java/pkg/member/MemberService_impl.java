@@ -47,5 +47,17 @@ public class MemberService_impl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberdao.updatememberList(map);
 	}
+	@Override
+	public Map<String, Object> authList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberdao.authList(map);
+	}
+	@Override
+	public String delmem(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberdao.delmem(map);
+	}
+	
+	
     
 }

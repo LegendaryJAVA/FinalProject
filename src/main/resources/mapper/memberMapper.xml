@@ -47,6 +47,22 @@
 	}
  	
  	</select>
+ 	
+ 
+ 	<!-- 멤버 회원탈퇴 -->
+	<select statementType="CALLABLE" parameterType="pkg.member.MemberVO" id="delmem">
+	{
+		call PKG_MEMBER.PROC_MEMBER_DELETE (
+			#{memberid, jdbcType = VARCHAR, mode = IN}
+			,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		)
+		
+	}
+ 	
+ 	</select>
+ 	
  	<!-- 멤버수정(회원페이지) -->
 	<select statementType="CALLABLE" parameterType="pkg.member.MemberVO" id="updatemem">
 	{
@@ -72,14 +88,7 @@
 	{
 		call PKG_MEMBER.PROC_MEMBER_ADMIN_UPDATE (
 			#{memberid, jdbcType = VARCHAR, mode = IN}
-			,#{memberprofile, jdbcType = VARCHAR, mode = IN}
-			,#{membernickname, jdbcType = VARCHAR, mode = IN}
 			,#{memberauth, jdbcType = VARCHAR, mode = IN}			
-			,#{memberbirth, jdbcType = VARCHAR, mode = IN}
-			,#{membergender, jdbcType = VARCHAR, mode = IN}
-			,#{memberhob1, jdbcType = VARCHAR, mode = IN}
-			,#{memberhob2, jdbcType = VARCHAR, mode = IN}
-			,#{memberhob3, jdbcType = VARCHAR, mode = IN}
 			,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
 			,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 			,#{error2, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -101,11 +110,11 @@
 	</select>
 	
 	<!--회원정보 (관리자페이지)  -->
-	<select statementType="CALLABLE" parameterType="string" id="memberlist" resultMap="memberMap">
+	<select statementType="CALLABLE" parameterType="string" id="memberlist" resultMap="authmemberMap">
 		{
 			call PKG_MEMBER.PROC_MEMBER_ADMIN_SEL(
 				#{pagenum, jdbcType = VARCHAR, mode = IN}
-				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
+				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=authmemberMap}
 				,#{maxpage, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
 				,#{errormsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
@@ -119,12 +128,44 @@
  		<result column="MEMBERBIRTH" property="memberbirth"/>
  		<result column="MEMBERPROFILE" property="memberprofile"/>
  		<result column="MEMBERNICKNAME" property="membernickname"/>
+ 		<result column="AUTHNAME" property="authidx"/>
  		<result column="MEMBERGENDER" property="membergender"/>
  		<result column="MEMBERSIGNDATE" property="membersigndate"/>
- 		<result column="MEMBERAUTH" property="memberauth"/>
  		<result column="MEMBERFAVORITE1" property="memberhob1"/>
  		<result column="MEMBERFAVORITE2" property="memberhob2"/>
  		<result column="MEMBERFAVORITE3" property="memberhob3"/>
- 	</resultMap>	
+ 	</resultMap>
+ 	<resultMap type="pkg.member.MemberVO" id="authmemberMap">
+ 		<result column="MEMBERIDX" property="memberidx"/> 		
+ 		<result column="USER_ID" property="memberid"/>
+ 		<result column="MEMBERBIRTH" property="memberbirth"/>
+ 		<result column="MEMBERPROFILE" property="memberprofile"/>
+ 		<result column="MEMBERNICKNAME" property="membernickname"/>
+ 		<result column="AUTHIDX" property="authidx"/>
+ 		<result column="MEMBERGENDER" property="membergender"/>
+ 		<result column="MEMBERSIGNDATE" property="membersigndate"/>
+ 		<result column="MEMBERFAVORITE1" property="memberhob1"/>
+ 		<result column="MEMBERFAVORITE2" property="memberhob2"/>
+ 		<result column="MEMBERFAVORITE3" property="memberhob3"/>
+ 	</resultMap>		
+ 	<resultMap type="pkg.member.AuthVO" id="authMap">
+ 		<result column="AUTHIDX" property="authidx"/>
+ 		<result column="AUTHNAME" property="authname"/>
+ 		<result column="AUTHDESC" property="authdesc"/>
+ 	</resultMap>
+ 	
+	<select statementType="CALLABLE" parameterType="string" id="authlist" resultMap="authMap">
+		{
+			call PKG_AUTH.PROC_SEL_AUTH(
+	
+				#{resultauthList, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=authMap}
+				,#{error, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+				,#{errormsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+			)
+		} 
+	</select>
+ 	
+ 	
+ 	
  	
 </mapper>
