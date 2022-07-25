@@ -18,9 +18,16 @@
 </head>
 <body>
     <div>
-        <table id="dg" title="Movie List" style="width:1200px;height:900px"
-               toolbar="#toolbar" pagination="true" idField="id"
-               rownumbers="true" fitColumns="true" singleSelect="true">
+        <table id="dg" title="Movie List" style="width:1200px;height:700px"
+               data-options="
+                url:'moviegridData',
+                rownumbers:true,
+                fitColumns:true,
+                checkOnSelect:true,
+                pagination:true,
+                singleSelect:true,
+                idField:'DOCID',
+                toolbar:'#toolbar'">
             <thead>
             <tr>
                 <th field="DOCID" width="50" editor="{type:'validatebox',options:{required:true}}">DOCID</th>
@@ -57,11 +64,17 @@
                 updateUrl : A URL to update data to server and return the updated row.
                 destroyUrl : A URL to post 'id' parameter to server to destroy that row.
                  */
-                contentType: 'application/json',
+                // autoSave: true,
                 url: 'moviegridData',
                 saveUrl: 'moviegridSave',
                 updateUrl: 'moviegridSave',
-                destroyUrl: 'moviegridDelete'
+                destroyUrl: 'moviegridDelete',
+                onSave:function(index,row){
+                    $('#dg').edatagrid('reload');
+                },
+                onDestroy:function(index,row){
+                    $('#dg').edatagrid('reload');
+                }
             });
         });
     </script>

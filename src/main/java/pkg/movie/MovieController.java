@@ -72,7 +72,7 @@ public class MovieController {
 
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchResult", HTML$movies_large(list));
-	
+		
 		return "movie.search";
     }
 	// 검색 결과를 전달하는 메서드
@@ -149,7 +149,14 @@ public class MovieController {
 	
 	@RequestMapping("moviegridDelete")
 	public String moviegridDelete(Model model, HttpServletRequest request, HttpServletResponse response){
-		System.out.println("del");
+		
+		
+		List<MovieVO> delList = new ArrayList<>();
+		MovieVO movie = new MovieVO();
+		movie.setDOCID(request.getParameter("id"));
+		delList.add(movie);
+		
+		List<Object> list = movieService.delMovieList(delList);
 		
 		return "moviegrid";
 	}
