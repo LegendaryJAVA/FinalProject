@@ -1,6 +1,7 @@
 package pkg.member;
 
 public class MemberVO {
+	private String memberidx;
 	private String memberid;
 	private String memberpass;
 	private String memberbirth;
@@ -8,18 +9,17 @@ public class MemberVO {
 	private String membernickname;
 	private String membergender;
 	private String membersigndate;
-	private String memberauth;
+	private String authidx;
 	private String memberhob1;
 	private String memberhob2;
 	private String memberhob3;
 	
-	public String getMemberauth() {
-		return memberauth;
+	public String getMemberidx() {
+		return memberidx;
 	}
-	public void setMemberauth(String memberauth) {
-		this.memberauth = memberauth;
+	public void setMemberidx(String memberidx) {
+		this.memberidx = memberidx;
 	}
-
 	public String getMemberid() {
 		return memberid;
 	}
@@ -62,6 +62,12 @@ public class MemberVO {
 	public void setMembersigndate(String membersigndate) {
 		this.membersigndate = membersigndate;
 	}
+	public String getAuthidx() {
+		return authidx;
+	}
+	public void setAuthidx(String authidx) {
+		this.authidx = authidx;
+	}
 	public String getMemberhob1() {
 		return memberhob1;
 	}
@@ -80,6 +86,8 @@ public class MemberVO {
 	public void setMemberhob3(String memberhob3) {
 		this.memberhob3 = memberhob3;
 	}
+
+	
 
 	
 	
