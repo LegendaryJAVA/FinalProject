@@ -22,11 +22,11 @@
 		
 		<div class="">
 			<div class="">변경 비밀번호 : </div>
-			<div class=""><input type="password" id="passa" onblur="chkFunc()" maxlength="12" /></div>
+			<div class=""><input type="password" id="passa" onblur="chkFunc()" maxlength="12" readonly/></div>
 		</div>
 		<div class="">
 			<div class="">변경 비밀번호 확인: </div>
-			<div class=""><input type="password" id="passb" onblur="chkFunc()" maxlength="12" /></div>
+			<div class=""><input type="password" id="passb" onblur="chkFunc()" maxlength="12" readonly/></div>
 		</div>
 		<div id="msgchkcpass">
 	
@@ -138,9 +138,9 @@
 		</div>
 		
 		<div class="">
-			<div class=""><input type="button" value="수정하기" id="btnUpdate" /></div>
+			<div class=""><input type="button" value="수정하기" id="btnUpdate" disabled/></div>
 			<div class=""><input type="button" value="뒤로가기" id="btnBack" /></div>
-			<div class=""><input type="button" value="회원탈퇴" id="btnSecession"/></div>
+			<div class=""><input type="button" value="회원탈퇴" id="btnSecession" disabled/></div>
 		</div>
 	
 	
@@ -185,10 +185,11 @@
     						$("#profilelist").html("목록");
     						$("select#gender").removeAttr("disabled");
     						$("select#date").removeAttr("disabled");
+    						$("#btnUpdate").removeAttr("disabled");
+    						$("#btnSecession").removeAttr("disabled");
     						
     						
     					}else{
-    						$("input#btnUpdate").attr("disabled", true);
     						
     					}
     					
@@ -452,8 +453,15 @@
 					type: "post",
 					dataType : "json",
 					contentType:"application/json",
-					success : function(success){
-						console.log("가");
+					success : function(result){
+						console.log(result.result);
+						if(result.result == 'SUC'){
+							alert("회원탈퇴가 성공하였습니다.");
+							location.href="/";
+						}
+						else if(result.result == 'FAIL'){
+							alert("실패하셨습니다.");
+						}
 					},
 					error : function(error){
 						console.log(error);

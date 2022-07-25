@@ -49,14 +49,14 @@ public class MemberDAO_Impl implements MemberDAO{
 		return (List<MemberVO>)map.get("result");
 	}
 	@Override
-	public String delmem(Map<String, Object> map) { // 회원 탈퇴(일반페이지
+	public String delmem(Map<String, Object> map) { // 회원 탈퇴(일반페이지)
 		sqlSessionTemplate.selectList("delmem",map);
 		System.out.println(map.get("result"));
 		System.out.println(map.get("error"));
 		System.out.println(map.get("error2"));
 		
 		System.out.println("------------");
-		return null;
+		return (String)map.get("result");
 	}
 
 	

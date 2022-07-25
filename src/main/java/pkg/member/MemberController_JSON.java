@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +69,15 @@ public class MemberController_JSON {
 	}
 	//회원탈퇴
 	@PostMapping("membersecsession")
-	public String membersec(@RequestBody Map<String,Object> map) {
-		memberService.delmem(map);
-		System.out.println("memberscessioncontrooler");
-		return "";
+	public String membersec(@RequestBody Map<String,Object> map ,HttpServletRequest request) {
+		
+		if(memberService.delmem(map).equals("SUC")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			return "{\"result\": \"SUC\" }";
+		} 
+	
+		return "{\"result\": \"FAIL\" }";
 	}
 
 	// 회원정보수정(회원용)
