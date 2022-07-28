@@ -3,15 +3,15 @@ package pkg.movie;
 import java.util.List;
 import java.util.Map;
 
+import pkg.$.OracleResult;
+
 public interface MovieDAO {
 	
-	
-	public List<MovieVO> searchMovieList(String keyword);
-	public List<MovieVO> getMovieInfo(String docId);
+	List<MovieVO> searchMovieList(String keyword);
+	List<MovieVO> getMovieInfo(String docId);
+	List<MovieVO> saveMovieList(List<MovieVO> saveList);
 	Map<String, Object> getMovieAPI(Map<String, Object> params);
 	Map<String, Object> quickSearch(String keyword);
-	List<Object> saveMovieList(List<MovieVO> saveList);
-	List<Object> delMovieList(List<MovieVO> delList);
-	
-	List<MovieVO> loadMovieList(String docId);
+	List<OracleResult> insert (List<Map<String, Object>> params);
+	List<MovieVO> random (int size); 
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MOVIECAST" >
+
+    <resultMap id="moviecastMap" type="pkg.movieCast.MovieCastVO">
+        <result property="castIdx" column="castIdx"></result>
+        <result property="staffIdx" column="staffIdx"></result>
+        <result property="docId" column="docId"></result>
+        <result property="role" column="role"></result>
+        <result property="roleDetail" column="roleDetail"></result>
+        <result property="refDate" column="refDate"></result>
+    </resultMap>
+
+    <select id="SELECT" resultMap="moviecastMap" parameterType="pkg.movieCast.MovieCastVO" statementType="CALLABLE">
+        {
+            call PKG_MOVIECAST.SELECT_MOVIECAST(
+                 #{castIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{staffIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{DOCID, jdbcType=VARCHAR, mode=IN}
+                ,#{role, jdbcType=VARCHAR, mode=IN}
+                ,#{roleDetail, jdbcType=VARCHAR, mode=IN}
+                ,#{refDate, jdbcType=VARCHAR, mode=IN}
+                ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=moviecastMap}
+        )}
+    </select>
+
+    <select id="INSERT" parameterType="pkg.movieCast.MovieCastVO" statementType="CALLABLE">
+        {
+            call PKG_MOVIECAST.INSERT_MOVIECAST(
+                 #{staffIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{DOCID, jdbcType=VARCHAR, mode=IN}
+                ,#{role, jdbcType=VARCHAR, mode=IN}
+                ,#{roleDetail, jdbcType=VARCHAR, mode=IN}
+                ,#{refDate, jdbcType=VARCHAR, mode=IN}
+                ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+        )}    
+    </select>
+
+    <select id="UPDATE" parameterType="pkg.movieCast.MovieCastVO" statementType="CALLABLE">
+        {
+            call PKG_MOVIECAST.MERGEE_MOVIECAST(
+                #{castIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{staffIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{DOCID, jdbcType=VARCHAR, mode=IN}
+                ,#{role, jdbcType=VARCHAR, mode=IN}
+                ,#{roleDetail, jdbcType=VARCHAR, mode=IN}
+                ,#{refDate, jdbcType=VARCHAR, mode=IN}
+                ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+        )}    
+    </select>
+
+</mapper>

@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pkg.$.OracleResult;
+
 
 @Repository
 public class MovieDAOImpl implements MovieDAO{
@@ -19,7 +21,6 @@ public class MovieDAOImpl implements MovieDAO{
 		this.sqlSession = sqlSession;
 	}
 	
-	@Override
 	public List<MovieVO> searchMovieList(String keyword){
 		Map<String, Object> map = new HashMap<>();
 		map.put("keyword",keyword);
@@ -30,7 +31,6 @@ public class MovieDAOImpl implements MovieDAO{
 		return list;
 	}
 	
-	@Override
 	public List<MovieVO> getMovieInfo(String docId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("DOCID",docId);
@@ -42,67 +42,14 @@ public class MovieDAOImpl implements MovieDAO{
 	}
 	
 	@Override
-	public List<Object> saveMovieList(List<MovieVO> saveList) {
-		List<Object> resultList = new ArrayList<>();
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+		Map<String, Object> map = new HashMap<>();
 		
 		for(MovieVO vo : saveList){
-			Map<String, Object> map = new HashMap<>();
-			map.put("DOCID", vo.getDOCID());
-			map.put("title", vo.getTitle());
-			map.put("titleEng", vo.getTitleEng());
-			map.put("titleEtc", vo.getTitleEtc());
-			map.put("prodYear", vo.getProdYear());
-			map.put("nation", vo.getNation());
-			map.put("runtime", vo.getRuntime());
-			map.put("genre", vo.getGenre());
-			map.put("plots", vo.getPlots());
-			map.put("posters", vo.getPosters());
-			map.put("releaseDate", vo.getReleaseDate());
-			map.put("keywords", vo.getKeywords());
-			map.put("company", vo.getCompany());
-			
-			sqlSession.selectList("saveMovieList", map);
-			
-			Map<String, Object> resultMap = new HashMap<>();
-			resultMap.put("DOCID", vo.getDOCID());
-			resultMap.put("ErrMsg", map.get("ErrMsg"));
-			resultMap.put("sqlCode", map.get("sqlCode"));
-			resultMap.put("sqlErrm", map.get("sqlErrm"));
-			resultList.add(resultMap);
+		
 		}
 		
-		return resultList;
-	}
-	
-	@Override
-	public List<Object> delMovieList(List<MovieVO> delList) {
-		List<Object> resultList = new ArrayList<>();
-		
-		for(MovieVO vo : delList){
-			Map<String, Object> map = new HashMap<>();
-			map.put("DOCID", vo.getDOCID());
-			
-			sqlSession.selectList("delMovieList", map);
-			Map<String, Object> resultMap = new HashMap<>();
-			resultMap.put("DOCID", vo.getDOCID());
-			resultMap.put("ErrMsg", map.get("ErrMsg"));
-			resultMap.put("sqlCode", map.get("sqlCode"));
-			resultMap.put("sqlErrm", map.get("sqlErrm"));
-			resultList.add(resultMap);
-		}
-		
-		return resultList;
-	}
-	
-	@Override
-	public List<MovieVO> loadMovieList(String docId) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("docId",docId);
-		
-		sqlSession.selectList("loadMovieList",map);
-		List<MovieVO> list = (List<MovieVO>) map.get("result");
-		
-		return list;
+		return null;
 	}
 	
 	@Override
@@ -181,6 +128,31 @@ public class MovieDAOImpl implements MovieDAO{
 		map.put("keyword", keyword);
 		sqlSession.selectList("movie.QUICKSEARCH", map);
 		return map;
+	}
+	// 오성훈, 2022-07-05
+	@Override
+	public List<OracleResult> insert(List<Map<String, Object>> list) {
+		List<OracleResult> results = new ArrayList<OracleResult>();
+		for (Map<String, Object> map : list) {
+			System.out.println("--dao");
+			System.out.println(map);
+			System.out.println("--dao");
+			sqlSession.selectList("movie.MovieAPI", map);
+			OracleResult or = new OracleResult("DOCID").fromMap(map);
+			results.add(or);
+		}
+		
+		return results;
+	}
+ 
+	@Override
+	public List<MovieVO> random(int size) {
+		List<Map<String, Object>> movies = new ArrayList<Map<String, Object>>(size);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("quantity", size);
+		sqlSession.selectList("movie.RANDOM", map);
+		System.out.println(map);
+		return (List<MovieVO>)map.get("result");
 	}
 	
 	

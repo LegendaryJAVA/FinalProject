@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="STAFF" >
+
+    <resultMap id="staffMap" type="pkg.staff.StaffVO">
+        <result property="staffIdx" column="staffIdx"></result>
+        <result property="staffId" column="staffId"></result>
+        <result property="staffNm" column="staffNm"></result>
+        <result property="staffEnNm" column="staffEnNm"></result>
+        <result property="refDate" column="refDate"></result>
+    </resultMap>
+
+    <select id="SELECT" resultMap="staffMap" parameterType="pkg.staff.StaffVO" statementType="CALLABLE">
+        {
+            call PKG_STAFF.SELECT_STAFF(
+             #{staffIdx, jdbcType=VARCHAR, mode=IN}
+            ,#{staffId, jdbcType=VARCHAR, mode=IN}
+            ,#{staffNm, jdbcType=VARCHAR, mode=IN}
+            ,#{staffEnNm, jdbcType=VARCHAR, mode=IN}
+            ,#{refDate, jdbcType=VARCHAR, mode=IN}
+            ,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=staffMap}
+        )}
+    </select>
+
+    <select id="INSERT" parameterType="pkg.staff.StaffVO" statementType="CALLABLE">
+        {
+            call PKG_STAFF.INSERT_STAFF(
+                #{staffId, jdbcType=VARCHAR, mode=IN}
+                ,#{staffNm, jdbcType=VARCHAR, mode=IN}
+                ,#{staffEnNm, jdbcType=VARCHAR, mode=IN}
+                ,#{refDate, jdbcType=VARCHAR, mode=IN}
+                ,#{staffIdx, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+        )}    
+    </select>
+
+    <select id="UPDATE" parameterType="pkg.staff.StaffVO" statementType="CALLABLE">
+        {
+            call PKG_STAFF.MERGEE_STAFF(
+                 #{staffIdx, jdbcType=VARCHAR, mode=IN}
+                ,#{staffId, jdbcType=VARCHAR, mode=IN}
+                ,#{staffNm, jdbcType=VARCHAR, mode=IN}
+                ,#{staffEnNm, jdbcType=VARCHAR, mode=IN}
+                ,#{refDate, jdbcType=VARCHAR, mode=IN}
+                ,#{result, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errCode, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+                ,#{errMsg, mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+        )}    
+    </select>
+
+</mapper>

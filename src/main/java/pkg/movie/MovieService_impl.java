@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pkg.$.OracleResult;
+
 @Service
 public class MovieService_impl implements MovieService {
 	
@@ -24,23 +26,24 @@ public class MovieService_impl implements MovieService {
 		//별점, 출연 배우들 등 추가하기
 		return movieDAO.getMovieInfo(docId);
 	}
-	
 	@Override
-	public List<MovieVO> loadMovieList(String docId) {
-		return movieDAO.loadMovieList(docId);
+	public List<MovieVO> saveMovieList(List<MovieVO> saveList) {
+		
+		return null;
 	}
-	
-	@Override
-	public List<Object> saveMovieList(List<MovieVO> saveList) { return movieDAO.saveMovieList(saveList); }
-	@Override
-	public List<Object> delMovieList(List<MovieVO> delList) {
-		return movieDAO.delMovieList(delList);
-	}
-	
 	@Override
 	public Map<String, Object> quickSearch(String keyword) {
 		//별점, 출연 배우들 등 추가하기
 		return movieDAO.quickSearch(keyword);
 	}
-    
+	@Override
+	public List<OracleResult> reflect (List<Map<String, Object>> params) {
+		return movieDAO.insert(params);
+	}
+	@Override
+	public List<MovieVO> random (int size) {
+
+		return movieDAO.random(size);
+	}
+
 }

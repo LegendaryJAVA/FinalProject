@@ -1,7 +1,6 @@
 package pkg.movie;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -28,38 +27,12 @@ public class MovieController {
     //MovieCastService movieCastService; 
 	@Autowired
 	MovieDAO movieDAO;
-	
-	// 검색결과 HTML SET, movie.search에 수직 목록 보여줄 때 사용됨
-	public String HTML$movies_large (List<MovieVO> list) {
-		String HTML = "";
 
-		for(MovieVO vo : list) {
-			HTML += "<div class='dagger dagger-horizontal' data-docid=" + vo.getDOCID()  + ">";
-			HTML += 	"<div class='poster'> <img src='" + vo.getPosters() + "'> </div>";
-			HTML += 	"<div class='desc'>";
-			HTML += 		"<div class='title'>" + vo.getTitle() + "</div>";
-			HTML += 		"<div class='edge'>";
-			HTML += 			"<div class='i'>" + vo.getReleaseDate() + "</div>";
-			HTML += 			"<div class='j'>" + vo.getGenre() + "</div>";
-			HTML += 			"<div class='k'>" + vo.getRuntime() + "</div>";
-			//HTML += 			"<div class='l'>" + 출연진 정보 + "</div>";
-			//HTML += 			"<div class='m'>" + 감독 정보 등 + "</div>";
-			HTML +=			"</div>";
-			HTML += 	"</div>";
-			HTML += "</div>";
-		}
-
-		return HTML;
-	}
-	// 영화 목록 HTML SET, 메인 페이지에서 수평 목록 보여줄 떄 사용됨
-	public String HTML$movies_small (List<MovieVO> list) {
-		String HTML = "";
-
-		for(MovieVO vo : list) {
-			// create html doms
-		}
-
-		return HTML;
+	// 무작위 영화를 size 개수만큼 출력
+	@ResponseBody
+	@PostMapping("movie.random")
+	public String pick_random_movies(int size) { 
+		return MovieUtil.HTML_carousel(movieService.random(size));
 	}
 
 	// 검색 결과를 보여주는 페이지
@@ -71,8 +44,8 @@ public class MovieController {
 		// TODO : 결과값이 N개가 존재할 때, P 개 단위로 페이지를 나눠 그 중, 1 페이지를 가져오는 형태
 
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("searchResult", HTML$movies_large(list));
-		
+		model.addAttribute("searchResult", MovieUtil.HTML_movieInfo(list));
+	
 		return "movie.search";
     }
 	// 검색 결과를 전달하는 메서드
@@ -82,7 +55,7 @@ public class MovieController {
 		// TODO : 검색 결과 창에서 처음 1 페이지만 보여주고, 아래 [더보기] 버튼을 누르면 이 메서드를 통해 추가적인 데이터를 불러오도록 함
 		// TODO : ajax를 통해서 HTML 문자열을 던져주고 그걸 받아서 바로 페이지에 삽입
 
-		return HTML$movies_large(list);
+		return MovieUtil.HTML_movieInfo(list);
     }
 	
 	//  영화 정보를 보여주는 페이지
@@ -115,48 +88,15 @@ public class MovieController {
 	@RequestMapping("moviegridData")
 	public String movieGridData(Model model, HttpServletRequest request, HttpServletResponse response){
 		
-		List<MovieVO> list = movieService.loadMovieList("");
+		List<MovieVO> list = movieService.searchMovieList("");
 		
 		return new Gson().toJson(list);
 	}
 	
-
 	@RequestMapping("moviegridSave")
 	public String moviegridSave(Model model, HttpServletRequest request, HttpServletResponse response){
-		List<MovieVO> saveList = new ArrayList<>();
-		
-		//saveRow
-		MovieVO movie = new MovieVO();
-		movie.setDOCID(request.getParameter("DOCID"));
-		movie.setTitle(request.getParameter("title"));
-		movie.setTitleEng(request.getParameter("titleEng"));
-		movie.setTitleEtc(request.getParameter("titleEtc"));
-		movie.setProdYear(request.getParameter("prodYear"));
-		movie.setNation(request.getParameter("nation"));
-		movie.setRuntime(request.getParameter("runtime"));
-		movie.setGenre(request.getParameter("genre"));
-		movie.setPlots(request.getParameter("plots"));
-		movie.setPosters(request.getParameter("posters"));
-		movie.setReleaseDate(request.getParameter("releaseDate"));
-		movie.setKeywords(request.getParameter("keywords"));
-		movie.setCompany(request.getParameter("company"));
-		saveList.add(movie);
-		
-		List<Object> list = movieService.saveMovieList(saveList);
-		
-		return "moviegrid";
-	}
-	
-	@RequestMapping("moviegridDelete")
-	public String moviegridDelete(Model model, HttpServletRequest request, HttpServletResponse response){
 		
 		
-		List<MovieVO> delList = new ArrayList<>();
-		MovieVO movie = new MovieVO();
-		movie.setDOCID(request.getParameter("id"));
-		delList.add(movie);
-		
-		List<Object> list = movieService.delMovieList(delList);
 		
 		return "moviegrid";
 	}

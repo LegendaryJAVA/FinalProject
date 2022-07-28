@@ -93,7 +93,7 @@
 		 		,#{titleEng, jdbcType = VARCHAR, mode = IN}
 		 		,#{titleEtc, jdbcType = VARCHAR, mode = IN}
 		 		,#{nation, jdbcType = VARCHAR, mode = IN}
-		 		 ,#{company, jdbcType = VARCHAR, mode = IN}
+		 		,#{company, jdbcType = VARCHAR, mode = IN}
 		 		,#{prodYear, jdbcType = VARCHAR, mode = IN}
 		 	    ,#{plots, jdbcType = VARCHAR, mode = IN}
 		 		,#{runtime, jdbcType = VARCHAR, mode = IN}
@@ -128,16 +128,6 @@
 		 }
 		</select>
 		
-		
-		
-		
-		
-		
-
-
-
-
-
 		<!-- Director API 데이터 삽입 시 쓰이는 로직 -->
 		<select id="DirectorAPI"  parameterType= "String" statementType="CALLABLE">
 		 {
@@ -166,6 +156,15 @@
 		 }
 		</select>
 
+		<!-- 무작위 영화를 SELECT 하는 로직 -->
+		<select id="RANDOM"  parameterType= "Integer" statementType="CALLABLE">
+		 {
+		 	call PKG_MOVIE.PROC_SEL_RANDOM(
+		 		 #{quantity, jdbcType = INTEGER, mode = IN}
+				,#{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=searchMovieMap}
+		 	)
+		 }
+		</select>
 
 
 </mapper>
