@@ -23,26 +23,30 @@
                 url:'moviegridData',
                 rownumbers:true,
                 fitColumns:true,
-                checkOnSelect:true,
                 pagination:true,
-                singleSelect:true,
+                singleSelect:false,
                 idField:'DOCID',
-                toolbar:'#toolbar'">
+                toolbar:'#toolbar',
+                selectOnCheck:false,
+                checkOnSelect:false,
+
+                ">
             <thead>
             <tr>
-                <th field="DOCID" width="50" editor="{type:'validatebox',options:{required:true}}">DOCID</th>
-                <th field="title" width="50" editor="{type:'validatebox'}">title</th>
+                <th field="ck" checkbox="true"> </th>
+                <th field="DOCID" width="50" editor="{type:'validatebox',options:{required:true}}" sortable = "true">DOCID</th>
+                <th field="title" width="50" editor="{type:'validatebox'}" sortable = "true">title</th>
                 <th field="titleEng" width="50" editor="{type:'validatebox'}">titleEng</th>
                 <th field="titleEtc" width="50" editor="{type:'validatebox'}">titleEtc</th>
-                <th field="prodYear" width="50" editor="{type:'validatebox'}">prodYear</th>
+                <th field="prodYear" width="50" editor="{type:'validatebox'}" sortable = "true">prodYear</th>
                 <th field="nation" width="50" editor="{type:'validatebox'}">nation</th>
-                <th field="runtime" width="50" editor="{type:'validatebox'}">runtime</th>
+                <th field="runtime" width="50" editor="{type:'validatebox'}" sortable = "true">runtime</th>
                 <th field="genre" width="50" editor="{type:'validatebox'}">genre</th>
                 <th field="plots" width="50" editor="{type:'validatebox'}">plots</th>
                 <th field="posters" width="50" editor="{type:'validatebox'}">posters</th>
-                <th field="releaseDate" width="50" editor="{type:'validatebox'}">releaseDate</th>
+                <th field="releaseDate" width="50" editor="{type:'validatebox'}" sortable = "true">releaseDate</th>
                 <th field="keywords" width="50" editor="{type:'validatebox'}">keywords</th>
-                <th field="company" width="50" editor="{type:'validatebox'}">releaseDate</th>
+                <th field="company" width="50" editor="{type:'validatebox'}">company</th>
             </tr>
             </thead>
         </table>
@@ -59,12 +63,15 @@
         $(function(){
             $('#dg').edatagrid({
                 /*
+                정렬 관련 처리하기
+                페이지 처리하기
+
                 url : A URL to retrieve data from server.
                 saveUrl : A URL to save data to server and return the added row.
                 updateUrl : A URL to update data to server and return the updated row.
                 destroyUrl : A URL to post 'id' parameter to server to destroy that row.
                  */
-                // autoSave: true,
+                autoSave: true,
                 url: 'moviegridData',
                 saveUrl: 'moviegridSave',
                 updateUrl: 'moviegridSave',

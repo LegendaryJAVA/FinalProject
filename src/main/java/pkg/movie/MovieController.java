@@ -150,14 +150,14 @@ public class MovieController {
 	@RequestMapping("moviegridDelete")
 	public String moviegridDelete(Model model, HttpServletRequest request, HttpServletResponse response){
 		
-		
+
 		List<MovieVO> delList = new ArrayList<>();
 		MovieVO movie = new MovieVO();
 		movie.setDOCID(request.getParameter("id"));
 		delList.add(movie);
-		
+
 		List<Object> list = movieService.delMovieList(delList);
-		
+
 		return "moviegrid";
 	}
     
