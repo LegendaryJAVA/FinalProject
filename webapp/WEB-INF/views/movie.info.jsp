@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <%@ include file="../comp/script.jsp" %>
 <title>${movieName}의 영화정보</title>
+
 </head> 
 <body>
     <%@ include file="../comp/header.jsp" %>
@@ -21,7 +22,22 @@
         </div>
         <div class="container articles">
             <div class="title">사용자 후기</div>
-                <div>${articleList}</div>
+                <div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">content</th>
+                            <th scope="col">writer</th>
+                            <th scope="col">star</th>
+                            <th scope="col">date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        ${articleList}
+                        </tbody>
+                    </table>
+                </div>
             <div>
                 <div>댓글</div>
                 <div>${replyList}</div>

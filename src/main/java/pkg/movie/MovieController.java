@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import pkg.article.ArticleService;
+import pkg.article.ArticleVO;
 
 //import pkg.movieCast.MovieCastService;
 
@@ -24,6 +26,9 @@ public class MovieController {
 
 	@Autowired
     MovieService movieService;
+	
+	@Autowired
+	ArticleService articleService;
 	//@Autowired
     //MovieCastService movieCastService; 
 	@Autowired
@@ -91,8 +96,8 @@ public class MovieController {
 
         if(docid == null || docid.length() == 0) return "errorPage";
 
-		List<MovieVO> list = movieService.getMovieInfo(docid);
-		MovieVO resultVO = list.get(0);
+		List<MovieVO> movieList = movieService.getMovieInfo(docid);
+		MovieVO resultVO = movieList.get(0);
 		//model.addAttribute("resultVO",resultVO);
 		model.addAttribute("posters",resultVO.getPosters());
 		model.addAttribute("movieName",resultVO.getTitle());
@@ -100,7 +105,13 @@ public class MovieController {
 		model.addAttribute("movieGenre",resultVO.getGenre());
 		model.addAttribute("moviePlot",resultVO.getPlots());
 	
-		//+해당영화게시물
+		//+해당영화게시물(테스트)
+		Map<String, Object> articleMap = (Map<String, Object>) articleService.getArticleList(docid).get(0);
+		List<ArticleVO> articleList = (List<ArticleVO>) articleMap.get("result");
+		
+		//String articleStr = new Gson().toJson(articleList);
+		model.addAttribute("articleList", articleList(articleList));
+		
 		//+그 게시물의 댓글
 	
 		return "movie.info";
@@ -188,5 +199,22 @@ public class MovieController {
  
     	return new Gson().toJson(movies);
     }
+	
+	public String articleList(List<ArticleVO> list){
+		String HTML = "";
+		
+		for(ArticleVO vo : list){
+			HTML += "<tr>";
+			HTML += 	"<th scope=\"row\">"+vo.getArticleID().substring(2)+"</th>";
+			HTML += 	"<td>"+ vo.getArticleContent() +"</td>";
+			HTML += 	"<td>"+ vo.getArticleAuthor() +"</td>";
+			HTML += 	"<td>"+ vo.getArticleStar() +"</td>";
+			HTML += 	"<td>"+ vo.getArticleRegdate() +"</td>";
+			HTML += "</tr>";
+		}
+		
+		return HTML;
+	}
+	
 
 }
